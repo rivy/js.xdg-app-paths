@@ -6,33 +6,36 @@ const homedir = os.homedir();
 const tmpdir = os.tmpdir();
 const {env} = process;
 
+//# ref: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html> @@ <https://archive.is/aAhtw>
+//# ref: <https://wiki.debian.org/XDGBaseDirectorySpecification#state> @@ <http://archive.is/pahId>
+
 const macos = name => {
 	const library = path.join(homedir, 'Library');
 
 	return {
-		cache: path.join(library, 'Caches', name),
-		config: path.join(library, 'Preferences', name),
-		data: path.join(library, 'Application Support', name),
-		log: path.join(library, 'Logs', name),
+		cache: env.XDG_CACHE_HOME ? path.join(env.XDG_CACHE_HOME, name) : path.join(library, 'Caches', name),
+		config: env.XDG_CONFIG_HOME ? path.join(env.XDG_CONFIG_HOME, name) : path.join(library, 'Preferences', name),
+		data: env.XDG_DATA_HOME ? path.join(env.XDG_DATA_HOME, name) : path.join(library, 'Application Support', name),
+		log: env.XDG_STATE_HOME ? path.join(env.XDG_STATE_HOME, name) : path.join(library, 'Logs', name),
 		temp: path.join(tmpdir, name)
 	};
 };
 
 const windows = name => {
-	const appData = env.APPDATA || path.join(homedir, 'AppData', 'Roaming');
-	const localAppData = env.LOCALAPPDATA || path.join(homedir, 'AppData', 'Local');
+	// #ref: <https://www.thewindowsclub.com/local-localnow-roaming-folders-windows-10> @@ <http://archive.is/tDEPl>
+	const appData = env.APPDATA || path.join(homedir, 'AppData', 'Roaming');			// "AppData/Roaming" data *may* follow user between machines
+	const localAppData = env.LOCALAPPDATA || path.join(homedir, 'AppData', 'Local');	// "AppData/Local" is local-machine-only user data
 
 	return {
-		// Data/config/cache/log are invented by me as Windows isn't opinionated about this
-		cache: path.join(localAppData, name, 'Cache'),
-		config: path.join(appData, name, 'Config'),
-		data: path.join(appData, name, 'Data'),
-		log: path.join(localAppData, name, 'Log'),
+		// Locations for data/config/cache/log are invented (Windows doesn't have a popular convention)
+		cache: env.XDG_CACHE_HOME ? path.join(env.XDG_CACHE_HOME, name) : path.join(localAppData, name, 'Cache'),
+		config: env.XDG_CONFIG_HOME ? path.join(env.XDG_CONFIG_HOME, name) : path.join(appData, name, 'Config'),
+		data: env.XDG_DATA_HOME ? path.join(env.XDG_DATA_HOME, name) : path.join(appData, name, 'Data'),
+		log: env.XDG_STATE_HOME ? path.join(env.XDG_STATE_HOME, name) : path.join(localAppData, name, 'Log'),
 		temp: path.join(tmpdir, name)
 	};
 };
 
-// https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 const linux = name => {
 	const username = path.basename(homedir);
 
@@ -40,7 +43,6 @@ const linux = name => {
 		cache: path.join(env.XDG_CACHE_HOME || path.join(homedir, '.cache'), name),
 		config: path.join(env.XDG_CONFIG_HOME || path.join(homedir, '.config'), name),
 		data: path.join(env.XDG_DATA_HOME || path.join(homedir, '.local', 'share'), name),
-		// https://wiki.debian.org/XDGBaseDirectorySpecification#state
 		log: path.join(env.XDG_STATE_HOME || path.join(homedir, '.local', 'state'), name),
 		temp: path.join(tmpdir, username, name)
 	};
