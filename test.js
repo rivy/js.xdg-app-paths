@@ -6,8 +6,9 @@ test('default', t => {
 	const paths = osPaths(name);
 
 	for (const [key, value] of Object.entries(paths)) {
-		console.log(`  ${key}: ${value}`);
-		t.true(value.endsWith(`${name}-nodejs`));
+		const vals = [].concat(value); // Convert value (single value or array) to a flat array
+		t.log(key, ':', value);
+		t.true(vals.reduce((a, v) => a && v.endsWith(`${name}-nodejs`), true));
 	}
 });
 
