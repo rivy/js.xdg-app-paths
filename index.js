@@ -26,7 +26,7 @@ const windows = name => {
 		// Data/config/cache/log are invented by me as Windows isn't opinionated about this
 		cache: path.join(localAppData, name, 'Cache'),
 		config: path.join(appData, name, 'Config'),
-		data: path.join(localAppData, name, 'Data'),
+		data: path.join(appData, name, 'Data'),
 		log: path.join(localAppData, name, 'Log'),
 		temp: path.join(tmpdir, name)
 	};
