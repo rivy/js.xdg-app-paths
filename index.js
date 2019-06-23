@@ -46,7 +46,7 @@ const linux = name => {
 	};
 };
 
-const envPaths = (name, options) => {
+const osPaths = (name, options) => {
 	if (typeof name !== 'string') {
 		throw new TypeError(`Expected string, got ${typeof name}`);
 	}
@@ -69,6 +69,6 @@ const envPaths = (name, options) => {
 	return linux(name);
 };
 
-module.exports = envPaths;
-// TODO: Remove this for the next major release
-module.exports.default = envPaths;
+module.exports = osPaths;
+// #TODO: Remove this for the next major release
+module.exports.default = osPaths;

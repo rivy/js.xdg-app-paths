@@ -1,9 +1,9 @@
 import test from 'ava';
-import envPaths from '.';
+import osPaths from '.';
 
 test('default', t => {
 	const name = 'unicorn';
-	const paths = envPaths(name);
+	const paths = osPaths(name);
 
 	for (const [key, value] of Object.entries(paths)) {
 		console.log(`  ${key}: ${value}`);
@@ -14,14 +14,14 @@ test('default', t => {
 test('custom suffix', t => {
 	const name = 'unicorn';
 	const opts = {suffix: 'horn'};
-	const paths = envPaths(name, opts);
+	const paths = osPaths(name, opts);
 	t.true(paths.data.endsWith(`${name}-${opts.suffix}`));
 });
 
 test('no suffix', t => {
 	const name = 'unicorn';
 	const opts = {suffix: false};
-	const paths = envPaths(name, opts);
+	const paths = osPaths(name, opts);
 	t.true(paths.data.endsWith(name));
 });
 
@@ -40,7 +40,7 @@ if (process.platform === 'linux') {
 		}
 
 		const name = 'unicorn';
-		const paths = envPaths(name);
+		const paths = osPaths(name);
 
 		for (const env of Object.keys(envVars)) {
 			const expectedPath = process.env[envVars[env]];

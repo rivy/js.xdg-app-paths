@@ -1,13 +1,12 @@
 {
-	"name": "env-paths",
+	"name": "os-paths",
 	"version": "3.0.0",
-	"description": "Get paths for storing things like data, config, cache, etc",
+	"description": "Generate portable (and XDG-compatible) paths for storing cache, config, data, etc",
 	"license": "MIT",
-	"repository": "sindresorhus/env-paths",
+	"repository": "rivy/js.os-paths",
 	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
+		"name": "Roy Ivy III",
+		"email": "rivy.dev@gmail.com"
 	},
 	"engines": {
 		"node": ">=6"
@@ -35,7 +34,8 @@
 		"logs",
 		"temp",
 		"linux",
-		"unix"
+		"unix",
+		"windows"
 	],
 	"devDependencies": {
 		"ava": "^1.4.1",

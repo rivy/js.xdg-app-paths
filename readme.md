@@ -1,4 +1,4 @@
-# env-paths [![Build Status](https://travis-ci.org/sindresorhus/env-paths.svg?branch=master)](https://travis-ci.org/sindresorhus/env-paths)
+# os-paths [![Build Status](https://travis-ci.org/rivy/js.os-paths.svg?branch=master)](https://travis-ci.org/rivy/js.os-paths)
 
 > Get paths for storing things like data, config, cache, etc
 
@@ -8,28 +8,28 @@ Uses the correct OS-specific paths. Most developers get this wrong.
 ## Install
 
 ```
-$ npm install env-paths
+$ npm install os-paths
 ```
 
 
 ## Usage
 
 ```js
-const envPaths = require('env-paths');
+const osPaths = require('os-paths');
 
-const paths = envPaths('MyApp');
+const paths = osPaths('MyApp');
 
 paths.data;
-//=> '/home/sindresorhus/.local/share/MyApp-nodejs'
+//=> '/home/rivy/.local/share/MyApp-nodejs'
 
 paths.config
-//=> '/home/sindresorhus/.config/MyApp-nodejs'
+//=> '/home/rivy/.config/MyApp-nodejs'
 ```
 
 
 ## API
 
-### paths = envPaths(name, [options])
+### paths = osPaths(name, [options])
 
 Note: It only generates the path strings. It doesn't create the directories for you. You could use [`make-dir`](https://github.com/sindresorhus/make-dir) to create the directories.
 
@@ -75,4 +75,4 @@ Directory for temporary files.
 
 ## License
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+MIT © Roy Ivy III, [Sindre Sorhus](https://sindresorhus.com)

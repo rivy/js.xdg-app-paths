@@ -1,11 +1,11 @@
 import {expectType} from 'tsd';
-import envPaths = require('.');
+import osPaths = require('.');
 import {Paths} from '.';
 
-expectType<Paths>(envPaths('MyApp'));
-expectType<Paths>(envPaths('MyApp', {suffix: 'test'}));
+expectType<Paths>(osPaths('MyApp'));
+expectType<Paths>(osPaths('MyApp', {suffix: 'test'}));
 
-const paths = envPaths('MyApp');
+const paths = osPaths('MyApp');
 
 expectType<string>(paths.cache);
 expectType<string>(paths.config);

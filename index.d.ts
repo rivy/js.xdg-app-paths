@@ -1,4 +1,4 @@
-declare namespace envPaths {
+declare namespace osPaths {
 	export interface Options {
 		/**
 		__Don't use this option unless you really have to!__
@@ -38,7 +38,7 @@ declare namespace envPaths {
 	}
 }
 
-declare const envPaths: {
+declare const osPaths: {
 	/**
 	Get paths for storing things like data, config, cache, etc.
 
@@ -49,23 +49,23 @@ declare const envPaths: {
 
 	@example
 	```
-	import envPaths = require('env-paths');
+	import osPaths = require('os-paths');
 
-	const paths = envPaths('MyApp');
+	const paths = osPaths('MyApp');
 
 	paths.data;
-	//=> '/home/sindresorhus/.local/share/MyApp-nodejs'
+	//=> '/home/rivy/.local/share/MyApp-nodejs'
 
 	paths.config
-	//=> '/home/sindresorhus/.config/MyApp-nodejs'
+	//=> '/home/rivy/.config/MyApp-nodejs'
 	```
 	*/
-	(name: string, options?: envPaths.Options): envPaths.Paths;
+	(name: string, options?: osPaths.Options): osPaths.Paths;
 
 	// TODO: Remove this for the next major release, refactor the whole definition to:
-	// declare function envPaths(name: string, options?: envPaths.Options): envPaths.Paths;
-	// export = envPaths;
-	default: typeof envPaths;
+	// declare function osPaths(name: string, options?: osPaths.Options): osPaths.Paths;
+	// export = osPaths;
+	default: typeof osPaths;
 };
 
-export = envPaths;
+export = osPaths;
