@@ -1,3 +1,5 @@
+<!-- spell-checker:ignore rivy Sindre Sorhus -->
+
 # os-paths [![Build Status](https://travis-ci.org/rivy/js.os-paths.svg?branch=master)](https://travis-ci.org/rivy/js.os-paths)
 
 > Get paths for storing things like data, config, cache, etc

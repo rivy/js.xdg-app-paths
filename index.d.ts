@@ -1,3 +1,4 @@
+// # spell-checker:ignore rivy
 declare namespace osPaths {
 	export interface Options {
 		/**
