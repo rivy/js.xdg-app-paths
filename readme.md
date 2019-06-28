@@ -1,3 +1,8 @@
+<!DOCTYPE markdown><!-- markdownlint-disable no-inline-html -->
+<meta charset="utf-8" content="text/markdown" lang="en">
+<!-- -## editors ## (emacs/sublime) -*- coding: utf8-nix; tab-width: 4; mode: markdown; indent-tabs-mode: nil; basic-offset: 2; st-word_wrap: 'true' -*- ## (jEdit) :tabSize=4:indentSize=4:mode=markdown: ## (notepad++) vim:tabstop=4:syntax=markdown:expandtab:smarttab:softtabstop=2 ## modeline (see <https://archive.is/djTUD>@@<http://webcitation.org/66W3EhCAP> ) -->
+<!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
+
 <!-- spell-checker:ignore rivy Sindre Sorhus -->
 
 # os-paths [![Build Status](https://travis-ci.org/rivy/js.os-paths.svg?branch=master)](https://travis-ci.org/rivy/js.os-paths)
@@ -6,13 +11,11 @@
 
 Uses the correct OS-specific paths. Most developers get this wrong.
 
-
 ## Install
 
+```shell
+npm install os-paths
 ```
-$ npm install os-paths
-```
-
 
 ## Usage
 
@@ -27,7 +30,6 @@ paths.data;
 paths.config
 //=> '/home/rivy/.config/MyApp-nodejs'
 ```
-
 
 ## API
 
@@ -73,7 +75,6 @@ Directory for log files.
 ### paths.temp
 
 Directory for temporary files.
-
 
 ## License
 
