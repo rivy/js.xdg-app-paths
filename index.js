@@ -8,8 +8,8 @@ const homedir = os.homedir();
 const tmpdir = os.tmpdir();
 const {env} = process;
 
-//# ref: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html> @@ <https://archive.is/aAhtw>
-//# ref: <https://wiki.debian.org/XDGBaseDirectorySpecification#state> @@ <http://archive.is/pahId>
+// # ref: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html> @@ <https://archive.is/aAhtw>
+// # ref: <https://wiki.debian.org/XDGBaseDirectorySpecification#state> @@ <http://archive.is/pahId>
 
 const macos = name => {
 	const library = path.join(homedir, 'Library');
