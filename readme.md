@@ -7,9 +7,7 @@
 
 # os-paths [![Build Status](https://travis-ci.org/rivy/js.os-paths.svg?branch=master)](https://travis-ci.org/rivy/js.os-paths)
 
-> Get paths for storing things like data, config, cache, etc
-
-Uses the correct OS-specific paths. Most developers get this wrong.
+> Get OS-specific (and [XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) paths for storing things like data, config, cache, etc
 
 ## Install
 
@@ -25,10 +23,10 @@ const osPaths = require('os-paths');
 const paths = osPaths('MyApp');
 
 paths.data;
-//=> '/home/rivy/.local/share/MyApp-nodejs'
+//(*nix)=> '/home/rivy/.local/share/MyApp-nodejs'
 
 paths.config
-//=> '/home/rivy/.config/MyApp-nodejs'
+//(*nix)=> '/home/rivy/.config/MyApp-nodejs'
 ```
 
 ## API

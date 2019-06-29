@@ -41,7 +41,7 @@ declare namespace osPaths {
 
 declare const osPaths: {
 	/**
-	Get paths for storing things like data, config, cache, etc.
+	Get OS-specific (and [XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) paths for storing things like data, config, cache, etc
 
 	Note: It only generates the path strings. It doesn't create the directories for you. You could use [`make-dir`](https://github.com/sindresorhus/make-dir) to create the directories.
 
@@ -55,10 +55,10 @@ declare const osPaths: {
 	const paths = osPaths('MyApp');
 
 	paths.data;
-	//=> '/home/rivy/.local/share/MyApp-nodejs'
+	//(*nix)=> '/home/rivy/.local/share/MyApp-nodejs'
 
 	paths.config
-	//=> '/home/rivy/.config/MyApp-nodejs'
+	//(*nix)=> '/home/rivy/.config/MyApp-nodejs'
 	```
 	*/
 	(name: string, options?: osPaths.Options): osPaths.Paths;
