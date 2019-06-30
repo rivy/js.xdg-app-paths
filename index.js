@@ -95,5 +95,3 @@ const osPaths = (name, options) => {
 };
 
 module.exports = osPaths;
-// #TODO: Remove this for the next major release
-module.exports.default = osPaths;
