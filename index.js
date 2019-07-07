@@ -1,5 +1,5 @@
 // # spell-checker:ignore macos APPDATA LOCALAPPDATA
-
+/* eslint-env es6, node */
 'use strict';
 
 const path = require('path');

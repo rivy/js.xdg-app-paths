@@ -1,3 +1,6 @@
+/* eslint-env es6, node */
+'use strict';
+
 import test from 'ava';
 import osPaths from '.';
 
