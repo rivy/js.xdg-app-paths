@@ -1,5 +1,5 @@
 // # spell-checker:ignore rivy
-declare namespace osPaths {
+declare namespace xdgAppPaths {
 	export interface Options {
 		/**
 		__Don't use this option unless you really have to!__
@@ -39,7 +39,7 @@ declare namespace osPaths {
 	}
 }
 
-declare const osPaths: {
+declare const xdgAppPaths: {
 	/**
 	Get OS-specific (and [XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) paths for storing things like data, config, cache, etc
 
@@ -50,9 +50,9 @@ declare const osPaths: {
 
 	@example
 	```
-	import osPaths = require('os-paths');
+	import xdgAppPaths = require('xdg-app-paths');
 
-	const paths = osPaths('MyApp');
+	const paths = xdgAppPaths('MyApp');
 
 	paths.data;
 	//(*nix)=> '/home/rivy/.local/share/MyApp-nodejs'
@@ -61,12 +61,12 @@ declare const osPaths: {
 	//(*nix)=> '/home/rivy/.config/MyApp-nodejs'
 	```
 	*/
-	(name: string, options?: osPaths.Options): osPaths.Paths;
+	(name: string, options?: xdgAppPaths.Options): xdgAppPaths.Paths;
 
 	// TODO: Remove this for the next major release, refactor the whole definition to:
-	// declare function osPaths(name: string, options?: osPaths.Options): osPaths.Paths;
-	// export = osPaths;
-	default: typeof osPaths;
+	// declare function xdgAppPaths(name: string, options?: xdgAppPaths.Options): xdgAppPaths.Paths;
+	// export = xdgAppPaths;
+	default: typeof xdgAppPaths;
 };
 
-export = osPaths;
+export = xdgAppPaths;

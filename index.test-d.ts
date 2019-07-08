@@ -1,11 +1,11 @@
 import {expectType} from 'tsd';
-import osPaths = require('.');
+import xdgAppPaths = require('.');
 import {Paths} from '.';
 
-expectType<Paths>(osPaths('MyApp'));
-expectType<Paths>(osPaths('MyApp', {suffix: 'test'}));
+expectType<Paths>(xdgAppPaths('MyApp'));
+expectType<Paths>(xdgAppPaths('MyApp', {suffix: 'test'}));
 
-const paths = osPaths('MyApp');
+const paths = xdgAppPaths('MyApp');
 
 expectType<string>(paths.cache);
 expectType<string>(paths.config);
