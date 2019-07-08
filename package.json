@@ -12,6 +12,7 @@
 		"node": ">=6"
 	},
 	"scripts": {
+		"cover": "npx nyc ava",
 		"test": "xo && ava && tsd"
 	},
 	"files": [
@@ -42,6 +43,7 @@
 		"ava": "^1.4.1",
 		"eslint": "^6.1.0",
 		"lodash": "^4.17.11",
+		"nyc": "^14.1.1",
 		"tsd": "^0.7.1",
 		"util": "^0.12.1",
 		"xo": "^0.24.0"
