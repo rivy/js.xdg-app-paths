@@ -1,41 +1,35 @@
 // # spell-checker:ignore rivy
 declare namespace xdgAppPaths {
-	export interface Options {
-		/**
-		__Don't use this option unless you really have to!__
-
-		Suffix appended to the project name to avoid name conflicts with native apps. Pass an empty string to disable it.
-
-		@default 'nodejs'
-		*/
-		readonly suffix?: string;
-	}
-
 	export interface Paths {
-		/**
-		Directory for data files.
-		*/
-		readonly data: string;
-
-		/**
-		Directory for data files.
-		*/
-		readonly config: string;
-
 		/**
 		Directory for non-essential data files.
 		*/
-		readonly cache: string;
+		cache(): string;
 
 		/**
-		Directory for log files.
+		Directory for data files.
 		*/
-		readonly log: string;
+		config(): string;
+
+		/**
+		Directory for data files.
+		*/
+		data(): string;
+
+		runtime(): string | undefined;
+
+		/**
+		Directory for state files.
+		*/
+		state(): string;
 
 		/**
 		Directory for temporary files.
 		*/
-		readonly temp: string;
+		temp(): string;
+
+		configDirs(): string[];
+		dataDirs(): string[];
 	}
 }
 
@@ -61,7 +55,7 @@ declare const xdgAppPaths: {
 	//(*nix)=> '/home/rivy/.config/MyApp-nodejs'
 	```
 	*/
-	(name: string, options?: xdgAppPaths.Options): xdgAppPaths.Paths;
+	(name: string): xdgAppPaths.Paths;
 
 	// TODO: Remove this for the next major release, refactor the whole definition to:
 	// declare function xdgAppPaths(name: string, options?: xdgAppPaths.Options): xdgAppPaths.Paths;

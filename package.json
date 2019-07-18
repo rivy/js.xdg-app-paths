@@ -45,6 +45,6 @@
 		"xo": "^0.24.0"
 	},
 	"dependencies": {
-		"xdg-portable": "^6.0.1"
+		"xdg-portable": "^7.0.0"
 	}
 }
