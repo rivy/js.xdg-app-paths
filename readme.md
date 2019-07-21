@@ -3,77 +3,238 @@
 <!-- -## editors ## (emacs/sublime) -*- coding: utf8-nix; tab-width: 4; mode: markdown; indent-tabs-mode: nil; basic-offset: 2; st-word_wrap: 'true' -*- ## (jEdit) :tabSize=4:indentSize=4:mode=markdown: ## (notepad++) vim:tabstop=4:syntax=markdown:expandtab:smarttab:softtabstop=2 ## modeline (see <https://archive.is/djTUD>@@<http://webcitation.org/66W3EhCAP> ) -->
 <!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
 
-<!-- spell-checker:ignore rivy Sindre Sorhus -->
+<!-- markdownlint-disable heading-increment ul-style -->
+<!-- spell-checker:ignore rivy Sindre Sorhus sindresorhus -->
+<!-- spell-checker:ignore APPDATA LOCALAPPDATA -->
 
-# os-paths [![Build Status](https://travis-ci.org/rivy/js.os-paths.svg?branch=master)](https://travis-ci.org/rivy/js.os-paths)
+# [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
 
-> Get OS-specific (and [XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) paths for storing things like data, config, cache, etc
+> Get ([XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) application-specific (and cross-platform) paths for storing things like cache, config, data, state, etc
+
+[![License][license-image]][license-url]
+[![Build status][travis-image]][travis-url]
+[![Build status][appveyor-image]][appveyor-url]
+<br/>
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][downloads-url]
+
+<!--
+## References
+
+// XDG references
+// # ref: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html> @@ <https://archive.is/aAhtw>
+// # ref: <https://specifications.freedesktop.org/basedir-spec/latest/ar01s03.html> @@ <https://archive.is/7N0TN>
+// # ref: <https://wiki.archlinux.org/index.php/XDG_Base_Directory> @@ <https://archive.is/VdO9n>
+// # ref: <https://wiki.debian.org/XDGBaseDirectorySpecification#state> @@ <http://archive.is/pahId>
+// # ref: <https://ploum.net/207-modify-your-application-to-use-xdg-folders> @@ <https://archive.is/f43Gk>
+-->
 
 ## Install
 
 ```shell
-npm install os-paths
+npm install xdg-app-paths
 ```
 
 ## Usage
 
 ```js
-const osPaths = require('os-paths');
+// MyApp.js
+const paths = require('xdg-app-paths');
 
-const paths = osPaths('MyApp');
+paths.cache();
+//(nix)=> '/home/rivy/.cache/MyApp.js'
+//(win)=> 'C:\\Users\\rivy\\AppData\\Local\\MyApp\\Cache'
 
-paths.data;
-//(*nix)=> '/home/rivy/.local/share/MyApp-nodejs'
+paths.config();
+//(nix)=> '/home/rivy/.config/MyApp.js'
+//(win)=> 'C:\\Users\\rivy\\AppData\\Roaming\\MyApp\\Config'
 
-paths.config
-//(*nix)=> '/home/rivy/.config/MyApp-nodejs'
+paths.data();
+//(nix)=> '/home/rivy/.local/share/MyApp.js'
+//(win)=> 'C:\\Users\\rivy\\AppData\\Roaming\\MyApp\\Data'
 ```
 
 ## API
 
-### paths = osPaths(name, [options])
+### Initialization
 
-Note: It only generates the path strings. It doesn't create the directories for you. You could use [`make-dir`](https://github.com/sindresorhus/make-dir) to create the directories.
+#### `require('xdg-app-paths'): ( options? )`
 
-#### name
+```js
+const xdgAppPaths = require('xdg-app-paths')
+// or ...
+const xdgAppPaths = require('xdg-app-paths')()
+// or ...
+const xdgAppPaths = require('xdg-app-paths')( options )
+```
 
-Type: `string`
+The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. It acts a flexible constructor when called directly (eg, `const y = xdgAppPaths()`) returning a newly constructed, unrelated, XDGAppPaths object.
 
-Name of your project. Used to generate the paths.
+> #### `options`
+>
+> ##### `options: string` => `{ name: string }`
+>
+> As a shortcut, when supplied as a string, options is interpreted as the options name property (ie, `options = { name: options }`).
+>
+> ##### `options: object`
+>
+> * default = `{ name: '', suffix: '', isolated: true }`
+>
+> ###### `options.name: string`
+>
+> * default = `''`
+>
+> Name of your application; used to generate the paths. If missing, `null`, or empty (`''`), it is generated automatically from the available process information.
+>
+> ###### `options.suffix: string`
+>
+> * default = `''`
+>
+> Suffix which is appended to the application name when generating the application paths.
+>
+> ###### `options.isolated: boolean`
+>
+> * default = `true`
+>
+> Default isolation flag.
 
-#### options
+### Methods
 
-Type: `Object`
+All returned path strings are simple, platform-compatible, strings and are *not* guaranteed to exist. The application is responsible for construction of the directories. If needed, [`make-dir`](https://www.npmjs.com/package/make-dir) or [`mkdirp`](https://www.npmjs.com/package/mkdirp) can be used to create the directories.
 
-##### suffix
+#### `xdgAppPaths.cache( dir_options? ): string`
 
-Type: `string`<br>
-Default: `'nodejs'`
+Returns the directory for non-essential data files
 
-**Don't use this option unless you really have to!**<br>
-Suffix appended to the project name to avoid name conflicts with native
-apps. Pass an empty string to disable it.
+#### `xdgAppPaths.config( dir_options? ): string`
 
-### paths.data
+Returns the directory for config files
 
-Directory for data files.
+#### `xdgAppPaths.data( dir_options? ): string`
 
-### paths.config
+Returns the directory for data files
 
-Directory for config files.
+#### `xdgAppPaths.runtime( dir_options? ): string?`
 
-### paths.cache
+Returns the directory for runtime files; may return `undefined`
 
-Directory for non-essential data files.
+#### `xdgAppPaths.state( dir_options? ): string`
 
-### paths.log
+Returns the directory for state files.
 
-Directory for log files.
+#### `xdgAppPaths.configDirs( dir_options? ): string[]`
 
-### paths.temp
+Returns a priority-sorted list of possible directories for configuration file storage (includes `paths.config()` as the first entry)
 
-Directory for temporary files.
+#### `xdgAppPaths.dataDirs( dir_options? ): string[]`
+
+Returns a priority-sorted list of possible directories for data file storage (includes `paths.data()` as the first entry)
+
+> #### `dir_options`
+>
+> ##### `dir_options: boolean` => `{ isolated: string }`
+>
+> As a shortcut, when supplied as a boolean, dir_options is interpreted as the dir_options isolated property (ie, `dir_options = { isolated: dir_options }`).
+>
+> ##### `dir_options: object`
+>
+> * default = `{ isolated: true }`
+>
+> ###### `dir_options.isolated: boolean`
+>
+> * default = `true`
+>
+> Isolation flag; used to override the default isolation mode, when needed.
+
+#### `xdgAppPaths.temp(): string`
+
+Returns the directory for temporary files
+
+#### `xdgAppPaths.$name(): string`
+
+Application name used for path construction (from supplied or auto-generated information)
+
+#### `xdgAppPaths.$isolated(): boolean`
+
+Default isolation mode used by the particular XDGAppPaths instance
+
+## Example
+
+```js
+// MyApp.js
+const locatePath = require('locate-path')
+const mkdirp = require('mkdirp')
+const path = require('path')
+
+const appPaths = require('xdg-app-paths')
+// Extend appPaths with a "log" location
+appPaths.log = (options) => {
+    return path.join(appPaths.state(options), 'log')
+}
+
+// log file
+const logPath = path.join(appPaths.log(), 'debug.txt')
+mkdirp.sync(path.dirname(logPath), 0o700)
+
+// config file
+// * search for config file within user preferred directories; otherwise, use preferred directory
+const possibleConfigPaths = appPaths.configDirs()
+    .concat(appPaths.configDirs({isolated: !appPaths.$isolated()}))
+    .map(v => path.join(v, appPaths.$name() + '.json'))
+const configPath = locatePath.sync(possibleConfigPaths) || possibleConfigPaths[0]
+// debug(logPath, 'configPath="%s"', configPath)
+mkdirp.sync(path.dirname(configPath), 0o700)
+
+// cache file
+const cacheDir = path.join(paths.cache())
+// debug(logPath, 'cacheDir="%s"', cacheDir)
+mkdirp.sync(cacheDir, 0o700)
+const cachePath = {}
+cachePath.orders = path.join(cacheDir, 'orders.json')
+cachePath.customers = path.join(cacheDir, 'customers.json')
+
+//...
+```
+
+## Discussion
+
+The [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) defines categories of user information (ie, "cache", "config", "data", ...), defines their standard storage locations, and defines the standard process for user configuration of those locations (using `XDG_CACHE_HOME`, etc).
+
+Applications supporting the XDG convention are expected to store user-specific files within these locations, either within the common/shared directory (eg, `` `${xdg.cache()}/filename` ``) or within a more isolated application-defined subdirectory (eg, `` `${xdg.config()/dir/filename` ``; `dir` usually being the application name).
+
+### Windows ("win32") specific notes
+
+Windows has an alternate convention, offering just two standard locations for applications to persist data, either `%APPDATA%` (for files which may "roam" with the user between hosts) and `%LOCALAPPDATA%` (for local-machine-only files). All application files are expected to be stored within an application-unique subdirectory in one of those two locations, usually under a directory matching the application name. There is no further popular convention used to segregate the file types (ie, into "cache", "config", ...) in any way similar to the XDG specification.
+
+So, to support basic XDG-like behavior (that is, segregating the information types into type-specific directories), this module supports a new convention for Windows hosts (taken from [`xdg-portable`](https://github.com/rivy/js.xdg-portable)), placing the specific types of files into subdirectories under either `%APPDATA%` or `%LOCALAPPDATA%`, as appropriate for the file type. The default directories used for the windows platform are listed by [`xdg-portable`](https://github.com/rivy/js.xdg-portable#api).
+
+By default, this module returns paths which are isolated, application-specific sub-directories under the respective common/shared base directories. These sub-directories are purely dedicated to use by the application. If, however, the application requires access to the common/shared areas, the `isolated: false` option may be used during initialization (or as an optional override for specific function calls) to generate and return the common/shared paths. Note, that when using the command/shared directories, care must be taken not use file names which collide with those used by other applications.
+
+### Origins
+
+This module was forked from [sindresorhus/env-paths](https://github.com/sindresorhus/env-paths) in order to add cross-platform portability and support simpler cross-platform applications.
+
+## Related
+
+- [`xdg-portable`](https://github.com/rivy/js.xdg-portable) ... XDG Base Directory paths (cross-platform)
+- [`env-paths`](https://www.npmjs.com/package/env-paths) ... inspiration for this module
 
 ## License
 
-MIT © Roy Ivy III, [Sindre Sorhus](https://sindresorhus.com)
+MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresorhus.com)
+
+<!-- badge references -->
+
+[npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat
+[npm-url]: https://npmjs.org/package/xdg-app-paths
+[travis-image]: https://travis-ci.org/rivy/js.xdg-app-paths.svg?branch=master
+<!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat&logo=Travis-CI&logoColor=silver -->
+<!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat -->
+[travis-url]: https://travis-ci.org/rivy/js.xdg-app-paths
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/7akve7f2n2ei5cpx/branch/master?svg=true
+<!-- [appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths.svg?style=flat&logo=AppVeyor&logoColor=silver -->
+[appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
+[license-image]: http://img.shields.io/npm/l/xdg-app-paths.svg?style=flat
+[license-url]: license
+[downloads-image]: http://img.shields.io/npm/dm/xdg-app-paths.svg?style=flat
+[downloads-url]: https://npmjs.org/package/xdg-app-paths
