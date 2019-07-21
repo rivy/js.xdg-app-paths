@@ -1,6 +1,6 @@
 {
 	"name": "os-paths",
-	"version": "3.0.2",
+	"version": "4.0.0",
 	"description": "Generate portable (and XDG-compatible) paths for storing cache, config, data, etc",
 	"license": "MIT",
 	"repository": "rivy/js.os-paths",
