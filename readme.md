@@ -31,7 +31,7 @@
 // # ref: <https://ploum.net/207-modify-your-application-to-use-xdg-folders> @@ <https://archive.is/f43Gk>
 -->
 
-## Install
+## Installation
 
 ```shell
 npm install xdg-app-paths
@@ -63,20 +63,20 @@ paths.data();
 #### `require('xdg-app-paths'): ( options? )`
 
 ```js
-const xdgAppPaths = require('xdg-app-paths')
+const xdgAppPaths = require('xdg-app-paths');
 // or ...
-const xdgAppPaths = require('xdg-app-paths')()
+const xdgAppPaths = require('xdg-app-paths')();
 // or ...
-const xdgAppPaths = require('xdg-app-paths')( options )
+const xdgAppPaths = require('xdg-app-paths')( options );
 ```
 
-The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. It acts a flexible constructor when called directly (eg, `const y = xdgAppPaths()`) returning a newly constructed, unrelated, XDGAppPaths object.
+The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. It acts a flexible constructor when called directly (eg, `const p = xdgAppPaths()`) returning a newly constructed, unrelated, XDGAppPaths object.
 
 > #### `options`
 >
 > ##### `options: string` => `{ name: string }`
 >
-> As a shortcut, when supplied as a string, options is interpreted as the options name property (ie, `options = { name: options }`).
+> As a shortcut, when supplied as a `string`, options is interpreted as the options name property (ie, `options = { name: options }`).
 >
 > ##### `options: object`
 >
@@ -134,9 +134,9 @@ Returns a priority-sorted list of possible directories for data file storage (in
 
 > #### `dir_options`
 >
-> ##### `dir_options: boolean` => `{ isolated: string }`
+> ##### `dir_options: boolean` => `{ isolated: boolean }`
 >
-> As a shortcut, when supplied as a boolean, dir_options is interpreted as the dir_options isolated property (ie, `dir_options = { isolated: dir_options }`).
+> As a shortcut, when supplied as a `boolean`, dir_options is interpreted as the dir_options isolated property (ie, `dir_options = { isolated: dir_options }`).
 >
 > ##### `dir_options: object`
 >
@@ -164,37 +164,36 @@ Default isolation mode used by the particular XDGAppPaths instance
 
 ```js
 // MyApp.js
-const locatePath = require('locate-path')
-const mkdirp = require('mkdirp')
-const path = require('path')
+const locatePath = require('locate-path');
+const mkdirp = require('mkdirp');
+const path = require('path');
 
-const appPaths = require('xdg-app-paths')
+const appPaths = require('xdg-app-paths');
 // Extend appPaths with a "log" location
 appPaths.log = (options) => {
-    return path.join(appPaths.state(options), 'log')
-}
+    return path.join(appPaths.state(options), 'log');
+};
 
 // log file
-const logPath = path.join(appPaths.log(), 'debug.txt')
-mkdirp.sync(path.dirname(logPath), 0o700)
+const logPath = path.join(appPaths.log(), 'debug.txt');
+mkdirp.sync(path.dirname(logPath), 0o700);
 
 // config file
 // * search for config file within user preferred directories; otherwise, use preferred directory
 const possibleConfigPaths = appPaths.configDirs()
     .concat(appPaths.configDirs({isolated: !appPaths.$isolated()}))
-    .map(v => path.join(v, appPaths.$name() + '.json'))
-const configPath = locatePath.sync(possibleConfigPaths) || possibleConfigPaths[0]
-// debug(logPath, 'configPath="%s"', configPath)
-mkdirp.sync(path.dirname(configPath), 0o700)
+    .map(v => path.join(v, appPaths.$name() + '.json'));
+const configPath = locatePath.sync(possibleConfigPaths) || possibleConfigPaths[0];
+// debug(logPath, 'configPath="%s"', configPath);
+mkdirp.sync(path.dirname(configPath), 0o700);
 
 // cache file
-const cacheDir = path.join(paths.cache())
-// debug(logPath, 'cacheDir="%s"', cacheDir)
-mkdirp.sync(cacheDir, 0o700)
-const cachePath = {}
-cachePath.orders = path.join(cacheDir, 'orders.json')
-cachePath.customers = path.join(cacheDir, 'customers.json')
-
+const cacheDir = path.join(paths.cache());
+// debug(logPath, 'cacheDir="%s"', cacheDir);
+mkdirp.sync(cacheDir, 0o700);
+const cachePath = {};
+cachePath.orders = path.join(cacheDir, 'orders.json');
+cachePath.customers = path.join(cacheDir, 'customers.json');
 //...
 ```
 
@@ -208,7 +207,7 @@ Applications supporting the XDG convention are expected to store user-specific f
 
 Windows has an alternate convention, offering just two standard locations for applications to persist data, either `%APPDATA%` (for files which may "roam" with the user between hosts) and `%LOCALAPPDATA%` (for local-machine-only files). All application files are expected to be stored within an application-unique subdirectory in one of those two locations, usually under a directory matching the application name. There is no further popular convention used to segregate the file types (ie, into "cache", "config", ...) in any way similar to the XDG specification.
 
-So, to support basic XDG-like behavior (that is, segregating the information types into type-specific directories), this module supports a new convention for Windows hosts (taken from [`xdg-portable`](https://github.com/rivy/js.xdg-portable)), placing the specific types of files into subdirectories under either `%APPDATA%` or `%LOCALAPPDATA%`, as appropriate for the file type. The default directories used for the windows platform are listed by [`xdg-portable`](https://github.com/rivy/js.xdg-portable#api).
+So, to support basic XDG-like behavior (that is, segregating the information types into type-specific directories), this module supports a new convention for Windows hosts (taken from [`xdg-portable`](https://www.npmjs.com/package/xdg-portable)), placing the specific types of files into subdirectories under either `%APPDATA%` or `%LOCALAPPDATA%`, as appropriate for the file type. The default directories used for the windows platform are listed by [`xdg-portable`](https://www.npmjs.com/package/xdg-portable#api).
 
 By default, this module returns paths which are isolated, application-specific sub-directories under the respective common/shared base directories. These sub-directories are purely dedicated to use by the application. If, however, the application requires access to the common/shared areas, the `isolated: false` option may be used during initialization (or as an optional override for specific function calls) to generate and return the common/shared paths. Note, that when using the command/shared directories, care must be taken not use file names which collide with those used by other applications.
 
@@ -218,7 +217,7 @@ This module was forked from [sindresorhus/env-paths](https://github.com/sindreso
 
 ## Related
 
-- [`xdg-portable`](https://github.com/rivy/js.xdg-portable) ... XDG Base Directory paths (cross-platform)
+- [`xdg-portable`](https://www.npmjs.com/package/xdg-portable) ... XDG Base Directory paths (cross-platform)
 - [`env-paths`](https://www.npmjs.com/package/env-paths) ... inspiration for this module
 
 ## License
@@ -229,19 +228,24 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 
 [npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat
 [npm-url]: https://npmjs.org/package/xdg-app-paths
-[travis-image]: https://travis-ci.org/rivy/js.xdg-app-paths.svg?branch=master
-<!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat&logo=Travis-CI&logoColor=silver -->
-<!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat -->
-[travis-url]: https://travis-ci.org/rivy/js.xdg-app-paths
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/7akve7f2n2ei5cpx/branch/master?svg=true
-<!-- [appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths.svg?style=flat&logo=AppVeyor&logoColor=silver -->
+
+<!-- [appveyor-image]: https://ci.appveyor.com/api/projects/status/.../branch/master?svg=true -->
+[appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths.svg?style=flat&logo=AppVeyor&logoColor=silver
 [appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
-[license-image]: http://img.shields.io/npm/l/xdg-app-paths.svg?style=flat
+<!-- [travis-image]: https://travis-ci.org/rivy/js.xdg-app-paths.svg?branch=master -->
+<!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat&logo=Travis-CI&logoColor=silver -->
+[travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat
+[travis-url]: https://travis-ci.org/rivy/js.xdg-app-paths
 
 <!-- [coverage-image]: https://img.shields.io/coveralls/github/rivy/xdg-app-paths/master.svg -->
 <!-- [coverage-url]: https://coveralls.io/github/rivy/xdg-app-paths -->
 [coverage-image]: https://img.shields.io/codecov/c/github/rivy/js.xdg-app-paths/master.svg
 [coverage-url]: https://codecov.io/gh/rivy/js.xdg-app-paths
-[license-url]: license
 [downloads-image]: http://img.shields.io/npm/dm/xdg-app-paths.svg?style=flat
 [downloads-url]: https://npmjs.org/package/xdg-app-paths
+[license-image]: https://img.shields.io/npm/l/xdg-app-paths.svg?style=flat
+[license-url]: license
+<!-- [style-image]: https://img.shields.io/badge/code_style-standard-darkcyan.svg -->
+<!-- [style-url]: https://standardjs.com -->
+[style-image]: https://img.shields.io/badge/code_style-XO-darkcyan.svg
+[style-url]: https://github.com/xojs/xo
