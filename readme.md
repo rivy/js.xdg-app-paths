@@ -14,6 +14,8 @@
 [![License][license-image]][license-url]
 [![Build status][travis-image]][travis-url]
 [![Build status][appveyor-image]][appveyor-url]
+[![Coverage status][coverage-image]][coverage-url]
+[![Javascript Style Guide][style-image]][style-url]
 <br/>
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
@@ -235,6 +237,11 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 <!-- [appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths.svg?style=flat&logo=AppVeyor&logoColor=silver -->
 [appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
 [license-image]: http://img.shields.io/npm/l/xdg-app-paths.svg?style=flat
+
+<!-- [coverage-image]: https://img.shields.io/coveralls/github/rivy/xdg-app-paths/master.svg -->
+<!-- [coverage-url]: https://coveralls.io/github/rivy/xdg-app-paths -->
+[coverage-image]: https://img.shields.io/codecov/c/github/rivy/js.xdg-app-paths/master.svg
+[coverage-url]: https://codecov.io/gh/rivy/js.xdg-app-paths
 [license-url]: license
 [downloads-image]: http://img.shields.io/npm/dm/xdg-app-paths.svg?style=flat
 [downloads-url]: https://npmjs.org/package/xdg-app-paths

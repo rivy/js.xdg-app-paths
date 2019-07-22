@@ -12,8 +12,8 @@
 		"node": ">=6"
 	},
 	"scripts": {
-		"cover": "npx nyc ava",
-		"test": "xo && ava && tsd"
+		"coverage": "nyc report --reporter=text-lcov | codecov --disable=gcov --pipe",
+		"test": "xo && nyc --silent ava && tsd"
 	},
 	"files": [
 		"index.js",
@@ -41,6 +41,8 @@
 	],
 	"devDependencies": {
 		"ava": "^1.4.1",
+		"codecov": "^3.5.0",
+		"coveralls": "^3.0.5",
 		"eslint": "^6.1.0",
 		"lodash": "^4.17.11",
 		"nyc": "^14.1.1",
