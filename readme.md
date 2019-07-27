@@ -60,12 +60,10 @@ paths.data();
 
 ### Initialization
 
-#### `require('xdg-app-paths'): ( options? )`
+#### `require('xdg-app-paths')( options? ): XDGAppPaths()`
 
 ```js
 const xdgAppPaths = require('xdg-app-paths');
-// or ...
-const xdgAppPaths = require('xdg-app-paths')();
 // or ...
 const xdgAppPaths = require('xdg-app-paths')( options );
 ```
