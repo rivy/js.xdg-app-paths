@@ -1,6 +1,6 @@
 {
 	"name": "xdg-app-paths",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"description": "Generate portable (and XDG-compatible) paths for storing cache, config, data, etc",
 	"license": "MIT",
 	"repository": "rivy/js.xdg-app-paths",
