@@ -23,40 +23,49 @@ function _normalizeOptions(options, isolated) {
 }
 
 const base = (name, isolated) => {
-	return {
-		cache: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return path.join(xdg.cache(), options.isolated ? name : '');
-		},
-		config: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return path.join(xdg.config(), options.isolated ? name : '');
-		},
-		data: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return path.join(xdg.data(), options.isolated ? name : '');
-		},
-		runtime: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return xdg.runtime() ? path.join(xdg.runtime(), options.isolated ? name : '') : undefined;
-		},
-		state: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return path.join(xdg.state(), options.isolated ? name : '');
-		},
-		temp: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return path.join(os.tmpdir(), options.isolated ? name : '');
-		},
-		configDirs: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return (xdg.configDirs()).map(s => path.join(s, options.isolated ? name : ''));
-		},
-		dataDirs: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return (xdg.dataDirs()).map(s => path.join(s, options.isolated ? name : ''));
-		}
+	const object = {};
+
+	object.cache = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return path.join(xdg.cache(), options.isolated ? name : '');
 	};
+
+	object.config = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return path.join(xdg.config(), options.isolated ? name : '');
+	};
+
+	object.data = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return path.join(xdg.data(), options.isolated ? name : '');
+	};
+
+	object.runtime = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return xdg.runtime() ? path.join(xdg.runtime(), options.isolated ? name : '') : undefined;
+	};
+
+	object.state = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return path.join(xdg.state(), options.isolated ? name : '');
+	};
+
+	object.temp = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return path.join(os.tmpdir(), options.isolated ? name : '');
+	};
+
+	object.configDirs = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return (xdg.configDirs()).map(s => path.join(s, options.isolated ? name : ''));
+	};
+
+	object.dataDirs = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return (xdg.dataDirs()).map(s => path.join(s, options.isolated ? name : ''));
+	};
+
+	return object;
 };
 
 const windows = (name, isolated) => {
@@ -68,87 +77,81 @@ const windows = (name, isolated) => {
 	const appData = env.APPDATA || path.join(homedir || tmpdir, 'AppData', 'Roaming'); // APPDATA == "AppData/Roaming" contains data which may follow user between machines
 	const localAppData = env.LOCALAPPDATA || path.join(homedir || tmpdir, 'AppData', 'Local'); // LOCALAPPDATA == "AppData/Local" contains local-machine-only user data
 
-	function _config(options = {isolated: null}) {
+	const object = {};
+
+	// Locations for data/config/cache/state are invented (Windows doesn't have a popular convention)
+
+	object.cache = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return (!options.isolated || env.XDG_CACHE_HOME) ?
+			path.join(xdg.cache(), options.isolated ? name : '') :
+			path.join(localAppData, options.isolated ? name : '', 'Cache');
+	};
+
+	object.config = (options = {isolated: null}) => {
 		options = _normalizeOptions(options, isolated);
 		const config = (!options.isolated || env.XDG_CONFIG_HOME) ?
 			path.join(xdg.config(), options.isolated ? name : '') :
 			path.join(appData, options.isolated ? name : '', 'Config');
 		return config;
-	}
+	};
 
-	function _data(options = {isolated: null}) {
+	object.data = (options = {isolated: null}) => {
 		options = _normalizeOptions(options, isolated);
 		const data = (!options.isolated || env.XDG_DATA_HOME) ?
 			path.join(xdg.data(), options.isolated ? name : '') :
 			path.join(appData, options.isolated ? name : '', 'Data');
 		return data;
-	}
+	};
 
-	function _configDirs(options = {isolated: null}) {
+	object.runtime = (options = {isolated: null}) => {
 		options = _normalizeOptions(options, isolated);
-		const dirs = [_config(options)];
+		return xdg.runtime() ? path.join(xdg.runtime(), options.isolated ? name : '') : undefined;
+	};
+
+	object.state = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return (!options.isolated || env.XDG_STATE_HOME) ?
+			path.join(xdg.state(), options.isolated ? name : '') :
+			path.join(localAppData, options.isolated ? name : '', 'State');
+	};
+
+	object.temp = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		return path.join(tmpdir, options.isolated ? name : '');
+	};
+
+	object.configDirs = (options = {isolated: null}) => {
+		options = _normalizeOptions(options, isolated);
+		const dirs = [object.config(options)];
 		if (env.XDG_CONFIG_DIRS) {
 			dirs.push(...env.XDG_CONFIG_DIRS.split(path.delimiter).map(s => path.join(s, options.isolated ? name : '')));
 		}
 
 		return dirs;
-	}
+	};
 
-	function _dataDirs(options = {isolated: null}) {
+	object.dataDirs = (options = {isolated: null}) => {
 		options = _normalizeOptions(options, isolated);
-		const dirs = [_data(options)];
+		const dirs = [object.data(options)];
 		if (env.XDG_DATA_DIRS) {
 			dirs.push(...env.XDG_DATA_DIRS.split(path.delimiter).map(s => path.join(s, options.isolated ? name : '')));
 		}
 
 		return dirs;
-	}
-
-	return {
-		// Locations for data/config/cache/state are invented (Windows doesn't have a popular convention)
-		cache: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return (!options.isolated || env.XDG_CACHE_HOME) ?
-				path.join(xdg.cache(), options.isolated ? name : '') :
-				path.join(localAppData, options.isolated ? name : '', 'Cache');
-		},
-		config: (options = {isolated: null}) => {
-			return _config(options);
-		},
-		data: (options = {isolated: null}) => {
-			return _data(options);
-		},
-		runtime: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return xdg.runtime() ? path.join(xdg.runtime(), options.isolated ? name : '') : undefined;
-		},
-		state: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return (!options.isolated || env.XDG_STATE_HOME) ?
-				path.join(xdg.state(), options.isolated ? name : '') :
-				path.join(localAppData, options.isolated ? name : '', 'State');
-		},
-		temp: (options = {isolated: null}) => {
-			options = _normalizeOptions(options, isolated);
-			return path.join(tmpdir, options.isolated ? name : '');
-		},
-		configDirs: (options = {isolated: null}) => {
-			return _configDirs(options);
-		},
-		dataDirs: (options = {isolated: null}) => {
-			return _dataDirs(options);
-		}
 	};
+
+	return object;
 };
 
-const _module = function (options = {name: null, suffix: null, isolated: true}) { // ([string | string, object | object])
+const _XDGAppPaths = function (options = {name: null, suffix: null, isolated: true}) { // ([string | string, object | object])
 	const XDGAppPaths = function (options = {name: null, suffix: null, isolated: true}) {
-		return new _module(options);
+		return new _XDGAppPaths(options);
 	};
 
 	// Enable robust/new-optional construction
-	if (!(this instanceof _module)) {
-		return new _module(options);
+	if (!(this instanceof _XDGAppPaths)) {
+		return new _XDGAppPaths(options);
 	}
 
 	this._fn = XDGAppPaths;
@@ -182,13 +185,8 @@ const _module = function (options = {name: null, suffix: null, isolated: true}) 
 		name += suffix;
 	}
 
-	this._fn.$name = () => {
-		return name;
-	};
-
-	this._fn.$isolated = () => {
-		return isolated;
-	};
+	this._fn.$name = () => name;
+	this._fn.$isolated = () => isolated;
 
 	// Connect to platform-specific API functions by extension
 	const extension = isWinOS ? windows(name, isolated) : base(name, isolated);
@@ -199,4 +197,4 @@ const _module = function (options = {name: null, suffix: null, isolated: true}) 
 	return this._fn;
 };
 
-module.exports = new _module();
+module.exports = new _XDGAppPaths();
