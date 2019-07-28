@@ -150,11 +150,6 @@ class _XDGAppPaths {
 			return new _XDGAppPaths(options);
 		};
 
-		// Enable robust/new-optional construction
-		if (!(this instanceof _XDGAppPaths)) {
-			return new _XDGAppPaths(options);
-		}
-
 		this._fn = XDGAppPaths;
 
 		options = options || {};
