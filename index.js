@@ -10,7 +10,7 @@ const isWinOS = /^win/i.test(process.platform);
 
 function _normalizeOptions(options, isolated) {
 	options = options || {};
-	if (typeof options === 'boolean') {
+	if (typeof options !== 'object') {
 		options = {isolated: options};
 	}
 
@@ -158,7 +158,7 @@ class _XDGAppPaths {
 		this._fn = XDGAppPaths;
 
 		options = options || {};
-		if (typeof options === 'string') {
+		if (typeof options !== 'object') {
 			options = {name: options};
 		}
 
