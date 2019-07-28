@@ -144,57 +144,59 @@ const windows = (name, isolated) => {
 	return object;
 };
 
-const _XDGAppPaths = function (options = {name: null, suffix: null, isolated: true}) { // ([string | string, object | object])
-	const XDGAppPaths = function (options = {name: null, suffix: null, isolated: true}) {
-		return new _XDGAppPaths(options);
-	};
+class _XDGAppPaths {
+	constructor(options = {name: null, suffix: null, isolated: true}) {
+		const XDGAppPaths = function (options = {name: null, suffix: null, isolated: true}) {
+			return new _XDGAppPaths(options);
+		};
 
-	// Enable robust/new-optional construction
-	if (!(this instanceof _XDGAppPaths)) {
-		return new _XDGAppPaths(options);
+		// Enable robust/new-optional construction
+		if (!(this instanceof _XDGAppPaths)) {
+			return new _XDGAppPaths(options);
+		}
+
+		this._fn = XDGAppPaths;
+
+		options = options || {};
+		if (typeof options === 'string') {
+			options = {name: options};
+		}
+
+		let name = options.name || '';
+		if (typeof name !== 'string') {
+			throw new TypeError(`Expected string for "name" argument, got ${typeof name}`);
+		}
+
+		const suffix = options.suffix || '';
+		if (typeof suffix !== 'string') {
+			throw new TypeError(`Expected string for "suffix" argument, got ${typeof suffix}`);
+		}
+
+		const isolated = ((options.isolated === undefined) || (options.isolated === null)) ? true : options.isolated;
+		if (typeof isolated !== 'boolean') {
+			throw new TypeError(`Expected boolean for "isolated" argument, got ${typeof isolated}`);
+		}
+
+		if (!name) {
+			// Find a suitable application name (ref: <https://stackoverflow.com/a/46110961/43774>)
+			name = path.parse(process.pkg ? process.execPath : (require.main ? require.main.filename : process.argv[0])).name;
+		}
+
+		if (suffix) {
+			name += suffix;
+		}
+
+		this._fn.$name = () => name;
+		this._fn.$isolated = () => isolated;
+
+		// Connect to platform-specific API functions by extension
+		const extension = isWinOS ? windows(name, isolated) : base(name, isolated);
+		Object.keys(extension).forEach(key => {
+			this._fn[key] = extension[key];
+		});
+
+		return this._fn;
 	}
-
-	this._fn = XDGAppPaths;
-
-	options = options || {};
-	if (typeof options === 'string') {
-		options = {name: options};
-	}
-
-	let name = options.name || '';
-	if (typeof name !== 'string') {
-		throw new TypeError(`Expected string for "name" argument, got ${typeof name}`);
-	}
-
-	const suffix = options.suffix || '';
-	if (typeof suffix !== 'string') {
-		throw new TypeError(`Expected string for "suffix" argument, got ${typeof suffix}`);
-	}
-
-	const isolated = ((options.isolated === undefined) || (options.isolated === null)) ? true : options.isolated;
-	if (typeof isolated !== 'boolean') {
-		throw new TypeError(`Expected boolean for "isolated" argument, got ${typeof isolated}`);
-	}
-
-	if (!name) {
-		// Find a suitable application name (ref: <https://stackoverflow.com/a/46110961/43774>)
-		name = path.parse(process.pkg ? process.execPath : (require.main ? require.main.filename : process.argv[0])).name;
-	}
-
-	if (suffix) {
-		name += suffix;
-	}
-
-	this._fn.$name = () => name;
-	this._fn.$isolated = () => isolated;
-
-	// Connect to platform-specific API functions by extension
-	const extension = isWinOS ? windows(name, isolated) : base(name, isolated);
-	Object.keys(extension).forEach(key => {
-		this._fn[key] = extension[key];
-	});
-
-	return this._fn;
-};
+}
 
 module.exports = new _XDGAppPaths();
