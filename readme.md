@@ -228,11 +228,11 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 [npm-url]: https://npmjs.org/package/xdg-app-paths
 
 <!-- [appveyor-image]: https://ci.appveyor.com/api/projects/status/.../branch/master?svg=true -->
-[appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths.svg?style=flat&logo=AppVeyor&logoColor=silver
+[appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths/master.svg?style=flat&logo=AppVeyor&logoColor=silver
 [appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
 <!-- [travis-image]: https://travis-ci.org/rivy/js.xdg-app-paths.svg?branch=master -->
-<!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat&logo=Travis-CI&logoColor=silver -->
-[travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths.svg?style=flat
+<!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=Travis-CI&logoColor=silver -->
+[travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat
 [travis-url]: https://travis-ci.org/rivy/js.xdg-app-paths
 
 <!-- [coverage-image]: https://img.shields.io/coveralls/github/rivy/xdg-app-paths/master.svg -->
