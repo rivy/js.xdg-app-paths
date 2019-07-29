@@ -186,7 +186,7 @@ const configPath = locatePath.sync(possibleConfigPaths) || possibleConfigPaths[0
 mkdirp.sync(path.dirname(configPath), 0o700);
 
 // cache file
-const cacheDir = path.join(paths.cache());
+const cacheDir = path.join(appPaths.cache());
 // debug(logPath, 'cacheDir="%s"', cacheDir);
 mkdirp.sync(cacheDir, 0o700);
 const cachePath = {};
