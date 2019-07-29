@@ -204,7 +204,7 @@ test('correct private ("non-isolated") paths with XDG_*_HOME set', t => {
 		process.env[env] = path.join('.', env);
 	}
 
-	const name = 'excaliber';
+	const name = 'excalibur';
 	const isolated = false;
 	const paths = _module({name, isolated});
 
