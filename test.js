@@ -25,7 +25,7 @@ function xdgPathRegex(name) {
 
 test('api', t => {
 	const paths = _module;
-	const api = ['cache', 'config', 'data', 'runtime', 'state', 'temp', 'configDirs', 'dataDirs', '$name', '$isolated'];
+	const api = ['cache', 'config', 'data', 'runtime', 'state', 'configDirs', 'dataDirs', '$name', '$isolated'];
 	t.is(typeof paths, 'function');
 	t.is(Object.entries(paths).length, api.length);
 	api.forEach(key => {

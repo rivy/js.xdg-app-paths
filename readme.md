@@ -146,10 +146,6 @@ Returns a priority-sorted list of possible directories for data file storage (in
 >
 > Isolation flag; used to override the default isolation mode, when needed.
 
-#### `xdgAppPaths.temp(): string`
-
-Returns the directory for temporary files
-
 #### `xdgAppPaths.$name(): string`
 
 Application name used for path construction (from supplied or auto-generated information)

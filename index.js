@@ -50,11 +50,6 @@ const base = (name, isolated) => {
 		return path.join(xdg.state(), options.isolated ? name : '');
 	};
 
-	object.temp = (options = {isolated: null}) => {
-		options = _normalizeOptions(options, isolated);
-		return path.join(os.tmpdir(), options.isolated ? name : '');
-	};
-
 	object.configDirs = (options = {isolated: null}) => {
 		options = _normalizeOptions(options, isolated);
 		return (xdg.configDirs()).map(s => path.join(s, options.isolated ? name : ''));
@@ -114,11 +109,6 @@ const windows = (name, isolated) => {
 		return (!options.isolated || env.XDG_STATE_HOME) ?
 			path.join(xdg.state(), options.isolated ? name : '') :
 			path.join(localAppData, options.isolated ? name : '', 'State');
-	};
-
-	object.temp = (options = {isolated: null}) => {
-		options = _normalizeOptions(options, isolated);
-		return path.join(tmpdir, options.isolated ? name : '');
 	};
 
 	object.configDirs = (options = {isolated: null}) => {
