@@ -4,8 +4,8 @@
 <!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
 
 <!-- markdownlint-disable heading-increment ul-style -->
-<!-- spell-checker:ignore rivy Sindre Sorhus sindresorhus -->
-<!-- spell-checker:ignore APPDATA LOCALAPPDATA -->
+<!-- spell-checker:ignore rivy Sindre sindresorhus Sorhus -->
+<!-- spell-checker:ignore APPDATA LOCALAPPDATA typeof -->
 
 # [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
 
@@ -68,7 +68,7 @@ const xdgAppPaths = require('xdg-app-paths');
 const xdgAppPaths = require('xdg-app-paths')( options );
 ```
 
-The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. It acts a flexible constructor when called directly (eg, `const p = xdgAppPaths()`) returning a newly constructed, unrelated, XDGAppPaths object.
+The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. When called directly (eg, `const p = xdgAppPaths(...)`), it acts as a constructor, returning a new, and unrelated, XDGAppPaths object.
 
 > #### `options`
 >
@@ -168,8 +168,13 @@ const path = require('path');
 
 const appPaths = require('xdg-app-paths');
 // Extend appPaths with a "log" location
-appPaths.log = (options) => {
-    return path.join(appPaths.state(options), 'log');
+appPaths.log = (options = {isolated: appPaths.$isolated()}) => {
+    if (typeof options === 'boolean') {
+        options = {isolated: options};
+    }
+
+    const isolated = ((options.isolated === undefined) || (options.isolated === null)) ? appPaths.$isolated() : options.isolated;
+    return path.join(appPaths.state(options), (isolated ? '' : appPaths.$name() + '-') + 'log');
 };
 
 // log file
