@@ -9,8 +9,13 @@ const _ = require('lodash') || undefined;
 const appPaths = require('..');
 
 // Extend appPaths with a "log" location
-appPaths.log = () => {
-	return path.join(appPaths.state(), 'log');
+appPaths.log = (options = {isolated: appPaths.$isolated()}) => {
+	if (typeof options === 'boolean') {
+		options = {isolated: options};
+	}
+
+	const isolated = ((options.isolated === undefined) || (options.isolated === null)) ? appPaths.$isolated() : options.isolated;
+	return path.join(appPaths.state(options), (isolated ? '' : appPaths.$name() + '-') + 'log');
 };
 
 console.log('appPaths:', util.inspect(appPaths));
@@ -19,6 +24,8 @@ if (_) {
 		console.log(key, '=', appPaths[key]());
 	});
 }
+// # console.log('appPaths.log(false):', appPaths.log(false));
+// # console.log('appPaths.log(true):', appPaths.log(true));
 
 delete process.env.XDG_CONFIG_HOME;
 let p = require('..')('dross');
