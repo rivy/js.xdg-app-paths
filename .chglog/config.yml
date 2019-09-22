@@ -1,0 +1,71 @@
+# spell-checker: ignore bugfix maint middot
+info:
+  title: xdg-app-paths
+  repository_url: https://github.com/rivy/js.xdg-app-paths
+style: github
+template: CHANGELOG.tpl.md
+options:
+  commits:
+    filters:
+      Type:
+        - change
+        - docs
+        - feat
+        - fix
+        - maint
+        - perf
+        - refactor
+        - test
+        - update
+        # - version
+    type_maps:
+      # basic types (enables type match case-insensitivity)
+      change: change
+      docs: docs
+      feat: feat
+      fix: fix
+      maint: maint
+      perf: perf
+      refactor: refactor
+      test: test
+      update: update
+      # aggregating types
+      add: change
+      added: change
+      bugfix: fix
+      build: maint
+      changed: change
+      chore: maint
+      fixed: fix
+      fixes: fix
+      updated: update
+      upkeep: maint
+  commit_groups:
+    group_by: Type
+    sort_by: Title
+    title_maps:
+      change: Changes
+      docs: Documentation
+      feat: Features
+      fix: Fixes
+      maint: Maintenance
+      perf: Enhancements
+      refactor: Refactoring
+      test: Test Improvements
+      update: Dependency Updates
+      # version: Version Changes
+  header:
+    pattern: "^(\\w+)(?:\\s*\\/(\\S+))\\s*[~:]?\\s(.*)$|^(\\w+)(?:\\s*\\(([^)]+)\\))?\\s*[~:]?\\s(.*)$"
+    pattern_maps:
+      - Type
+      - Scope
+      - Subject
+      - Type
+      - Scope
+      - Subject
+  tag:
+    # pattern: "^([RrVv](-[Vv]?)?)?\\d.*$"
+    pattern: "^(?i)([v])?\\d.*$"
+  notes:
+    keywords:
+      - BREAKING CHANGE
