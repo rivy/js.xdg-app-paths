@@ -1,9 +1,10 @@
-// # spell-checker:ignore macos APPDATA LOCALAPPDATA
+// # spell-checker:ignore macos APPDATA LOCALAPPDATA tempdir
 /* eslint-env es6, node */
 'use strict';
 
 const path = require('path');
-const os = require('os');
+
+const osPaths = require('os-paths');
 const xdg = require('xdg-portable');
 
 const isWinOS = /^win/i.test(process.platform);
@@ -65,12 +66,12 @@ const base = (name, isolated) => {
 
 const windows = (name, isolated) => {
 	const {env} = process;
-	const homedir = os.homedir();
-	const tmpdir = os.tmpdir();
+	const homedir = osPaths.home();
+	const tempdir = osPaths.temp();
 
 	// # ref: <https://www.thewindowsclub.com/local-localnow-roaming-folders-windows-10> @@ <http://archive.is/tDEPl>
-	const appData = env.APPDATA || path.join(homedir || tmpdir, 'AppData', 'Roaming'); // APPDATA == "AppData/Roaming" contains data which may follow user between machines
-	const localAppData = env.LOCALAPPDATA || path.join(homedir || tmpdir, 'AppData', 'Local'); // LOCALAPPDATA == "AppData/Local" contains local-machine-only user data
+	const appData = env.APPDATA || path.join(homedir || tempdir, 'AppData', 'Roaming'); // APPDATA == "AppData/Roaming" contains data which may follow user between machines
+	const localAppData = env.LOCALAPPDATA || path.join(homedir || tempdir, 'AppData', 'Local'); // LOCALAPPDATA == "AppData/Local" contains local-machine-only user data
 
 	const object = {};
 
