@@ -27,7 +27,7 @@ test('api', t => {
 	const paths = _module;
 	const api = ['cache', 'config', 'data', 'runtime', 'state', 'configDirs', 'dataDirs', '$name', '$isolated'];
 	t.is(typeof paths, 'function');
-	t.is(Object.entries(paths).length, api.length);
+	t.is(Object.keys(paths).length, api.length);
 	api.forEach(key => {
 		t.is(typeof paths[key], 'function');
 	});
@@ -36,7 +36,8 @@ test('api', t => {
 test('default', t => {
 	const paths = _module;
 	const regex = xdgPathRegex(paths.$name());
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
@@ -50,7 +51,8 @@ test('default', t => {
 test('alternate constructor (via function)', t => {
 	const paths = _module('a');
 	const regex = xdgPathRegex(paths.$name());
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
@@ -64,7 +66,8 @@ test('alternate constructor (via function)', t => {
 test('alternate constructor (via new())', t => {
 	const paths = new _module('aa');
 	const regex = xdgPathRegex(paths.$name());
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
@@ -78,7 +81,8 @@ test('alternate constructor (via new())', t => {
 test('alternate constructor (via new)', t => {
 	const paths = new _module; // eslint-disable-line new-parens
 	const regex = xdgPathRegex(paths.$name());
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
@@ -94,7 +98,8 @@ test('chosen application name', t => {
 	const paths = _module(name);
 	const regex = xdgPathRegex(name);
 	t.is(paths.$name(), name);
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
@@ -109,7 +114,8 @@ test('chosen suffix', t => {
 	const suffix = '-nodejs';
 	const paths = _module({suffix});
 	const regex = xdgPathRegex(paths.$name());
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
@@ -126,7 +132,8 @@ test('chosen application name + suffix', t => {
 	const paths = _module({name, suffix});
 	const regex = xdgPathRegex(paths.$name());
 	t.is(paths.$name(), name + suffix);
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
@@ -146,14 +153,16 @@ test('correct paths with XDG_*_HOME set', t => {
 	};
 	delete process.env.XDG_CONFIG_DIRS;
 	delete process.env.XDG_DATA_DIRS;
-	for (const env of Object.values(envVars)) {
+	for (const key of Object.keys(envVars)) {
+		const env = envVars[key];
 		process.env[env] = path.join('.', env);
 	}
 
 	const name = 'canticle';
 	const paths = _module(name);
 
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		t.log(key, ':', value());
 	}
 
@@ -172,7 +181,8 @@ test('correct "isolated" paths with XDG_*_HOME set', t => {
 	};
 	delete process.env.XDG_CONFIG_DIRS;
 	delete process.env.XDG_DATA_DIRS;
-	for (const env of Object.values(envVars)) {
+	for (const key of Object.keys(envVars)) {
+		const env = envVars[key];
 		process.env[env] = path.join('.', env);
 	}
 
@@ -180,7 +190,8 @@ test('correct "isolated" paths with XDG_*_HOME set', t => {
 	const isolated = true;
 	const paths = _module({name, isolated});
 
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		t.log(key, ':', value());
 	}
 
@@ -200,7 +211,8 @@ test('correct private ("non-isolated") paths with XDG_*_HOME set', t => {
 	};
 	delete process.env.XDG_CONFIG_DIRS;
 	delete process.env.XDG_DATA_DIRS;
-	for (const env of Object.values(envVars)) {
+	for (const key of Object.keys(envVars)) {
+		const env = envVars[key];
 		process.env[env] = path.join('.', env);
 	}
 
@@ -208,7 +220,8 @@ test('correct private ("non-isolated") paths with XDG_*_HOME set', t => {
 	const isolated = false;
 	const paths = _module({name, isolated});
 
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		t.log(key, ':', value());
 	}
 
@@ -229,14 +242,16 @@ test('correct paths with XDG_* set', t => {
 		configDirs: 'XDG_CONFIG_DIRS',
 		dataDirs: 'XDG_DATA_DIRS'
 	};
-	for (const env of Object.values(envVars)) {
+	for (const key of Object.keys(envVars)) {
+		const env = envVars[key];
 		process.env[env] = path.join('.', env);
 	}
 
 	const name = 'crux';
 	const paths = _module(name);
 
-	for (const [key, value] of Object.entries(paths)) {
+	for (const key of Object.keys(paths)) {
+		const value = paths[key];
 		t.log(key, ':', value());
 	}
 
