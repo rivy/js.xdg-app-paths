@@ -11,14 +11,15 @@
 
 > Get ([XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) application-specific (and cross-platform) paths for storing things like cache, config, data, state, etc
 
-[![License][license-image]][license-url]
 [![Build status][travis-image]][travis-url]
 [![Build status][appveyor-image]][appveyor-url]
 [![Coverage status][coverage-image]][coverage-url]
-[![Javascript Style Guide][style-image]][style-url]
-<br/>
+[![License][license-image]][license-url]
+&nbsp; <br/>
+[![Repository][repository-image]][repository-url]
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
+[![Javascript Style Guide][style-image]][style-url]
 
 <!--
 ## References
@@ -225,15 +226,16 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 
 <!-- badge references -->
 
+<!-- [npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat&label=npm&logo=NPM&logoColor=linen -->
 [npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat
 [npm-url]: https://npmjs.org/package/xdg-app-paths
 
 <!-- [appveyor-image]: https://ci.appveyor.com/api/projects/status/.../branch/master?svg=true -->
-[appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths/master.svg?style=flat&logo=AppVeyor&logoColor=silver
+[appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths/master.svg?style=flat&logo=AppVeyor&logoColor=deepskyblue
 [appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
 <!-- [travis-image]: https://travis-ci.org/rivy/js.xdg-app-paths.svg?branch=master -->
 <!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=Travis-CI&logoColor=silver -->
-[travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat
+[travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=travis
 [travis-url]: https://travis-ci.org/rivy/js.xdg-app-paths
 
 <!-- [coverage-image]: https://img.shields.io/coveralls/github/rivy/xdg-app-paths/master.svg -->
@@ -244,6 +246,10 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 [downloads-url]: https://npmjs.org/package/xdg-app-paths
 [license-image]: https://img.shields.io/npm/l/xdg-app-paths.svg?style=flat
 [license-url]: license
+<!-- [repository-image]:https://img.shields.io/badge/%E2%9D%A4-darkcyan?style=flat&logo=github -->
+<!-- note: %E2%81%A3 == utf-8 sequence of 'Unicode Character 'INVISIBLE SEPARATOR' (U+2063)' -->
+[repository-image]:https://img.shields.io/github/v/tag/rivy/js.xdg-app-paths?label=%E2%81%A3&logo=github&logoColor=white
+[repository-url]:https://github.com/rivy/js.xdg-app-paths
 <!-- [style-image]: https://img.shields.io/badge/code_style-standard-darkcyan.svg -->
 <!-- [style-url]: https://standardjs.com -->
 [style-image]: https://img.shields.io/badge/code_style-XO-darkcyan.svg
