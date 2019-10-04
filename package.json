@@ -13,7 +13,17 @@
 	},
 	"scripts": {
 		"coverage": "nyc report --reporter=text-lcov | codecov --disable=gcov --pipe",
-		"test": "xo && nyc --silent ava && tsd"
+		"lint": "run-p lint:*",
+		"lint:spell": "run-s -s _:min-node-8 _:spellcheck || run-s -s _:max-node-6 _:spellcheck-warn",
+		"lint:style": "xo",
+		"pretest": "npm run lint",
+		"test": "run-p test:*",
+		"test:code": "nyc --silent ava",
+		"test:types": "tsd",
+		"_:min-node-8": "is-node-modern 8",
+		"_:max-node-6": "is-node-not-modern 8",
+		"_:spellcheck": "cspell *.js *.ts readme.md --no-summary",
+		"_:spellcheck-warn": "echo-cli \"lint:spell WARN Spell-check skipped [for NodeJS < v8]\""
 	},
 	"files": [
 		"index.js",
@@ -47,14 +57,19 @@
 		"ava": "^1.4.1",
 		"codecov": "^3.5.0",
 		"coveralls": "^3.0.5",
-		"eslint": "^6.1.0",
-		"lodash": "^4.17.11",
+		"cspell": "^3.2.14",
+		"echo-cli": "^1.0.8",
+		"eslint": "^5.16.0",
+		"is-node-modern": "^1.0.0",
+		"lodash": "^4.17.15",
+		"npm-run-all": "^4.1.5",
 		"nyc": "^14.1.1",
 		"tsd": "^0.7.1",
 		"util": "^0.12.1",
 		"xo": "^0.24.0"
 	},
 	"dependencies": {
+		"os-paths": "^4.0.1",
 		"xdg-portable": "^7.2.0"
 	}
 }
