@@ -2,6 +2,27 @@
 
 ---
 
+## [v5.2.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.1.0...v5.2.0) <small>(2019-10-04)</small>
+
+#### Documentation
+
+* docs ~ update README badges &ac; [`6fdaa5b`](https://github.com/rivy/js.xdg-app-paths/commit/6fdaa5be213a1d32cb1f5e6162d57465de9dbecd)
+* docs ~ add CHANGELOG (via `git-chglog`) &ac; [`1a458ba`](https://github.com/rivy/js.xdg-app-paths/commit/1a458ba347fe232e963bfea884c55f2a1d7fcaa5)
+* docs ~ update module keywords &ac; [`0fd867e`](https://github.com/rivy/js.xdg-app-paths/commit/0fd867eb7caad0f0819c09b6c20377f7d25251ec)
+
+#### Maintenance
+
+* maint ~ add git-chglog configuration &ac; [`64c61e8`](https://github.com/rivy/js.xdg-app-paths/commit/64c61e8e56ba9476b66946f90041042d54e2c5a7)
+* maint/**CI**: fix CI testing using NodeJS v6 &ac; [`d1e5192`](https://github.com/rivy/js.xdg-app-paths/commit/d1e5192da1338ed090470061ba70b946eda17cb1)
+* maint/**build**: refactor lint/test run-scripts &ac; [`ed1f035`](https://github.com/rivy/js.xdg-app-paths/commit/ed1f035b59ab730e76491f77dface15f83e7f377)
+
+#### Refactoring
+
+* refactor tests for NodeJS v6 compatibility &ac; [`612c4c9`](https://github.com/rivy/js.xdg-app-paths/commit/612c4c93adee2059825b27596ba199bb9d11426c)
+* refactor ~ support module use back to NodeJS v6 &ac; [`6076f97`](https://github.com/rivy/js.xdg-app-paths/commit/6076f9766f8ce4fa468712e1d19726bf9420be0a)
+
+---
+
 ## [v5.1.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.0.0...v5.1.0) <small>(2019-08-18)</small>
 
 #### Fixes
