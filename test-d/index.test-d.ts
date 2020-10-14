@@ -1,5 +1,5 @@
 import {expectType} from 'tsd';
-import xdgAppPaths = require('.');
+import xdgAppPaths = require('../src/lib');
 
 const paths: typeof xdgAppPaths = xdgAppPaths('MyApp');
 

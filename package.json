@@ -26,9 +26,12 @@
 		"_:spellcheck-warn": "echo-cli \"lint:spell WARN Spell-check skipped [for NodeJS < v8]\""
 	},
 	"files": [
-		"index.js",
-		"index.d.ts"
+		"src/**/*",
+		"license",
+		"readme.md"
 	],
+	"main": "src/lib/index.js",
+	"types": "src/lib/index.d.ts",
 	"keywords": [
 		"appdir",
 		"cache",

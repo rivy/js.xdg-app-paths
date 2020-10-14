@@ -6,7 +6,9 @@ const path = require('path');
 const util = require('util');
 const _ = require('lodash') || undefined;
 
-const appPaths = require('..');
+const xdgAppPathsModulePath = '../src/lib';
+
+const appPaths = require(xdgAppPathsModulePath);
 
 // Extend appPaths with a "log" location
 appPaths.log = (options = {isolated: appPaths.$isolated()}) => {
@@ -28,7 +30,7 @@ if (_) {
 // # console.log('appPaths.log(true):', appPaths.log(true));
 
 delete process.env.XDG_CONFIG_HOME;
-let p = require('..')('dross');
+let p = require(xdgAppPathsModulePath)('dross');
 
 console.log('p:', util.inspect(p));
 if (_) {
@@ -37,7 +39,7 @@ if (_) {
 	});
 }
 
-p = require('..')({suffix: '-nodejs'});
+p = require(xdgAppPathsModulePath)({suffix: '-nodejs'});
 
 console.log('p:', util.inspect(p));
 if (_) {
@@ -46,7 +48,7 @@ if (_) {
 	});
 }
 
-p = require('..')({name: 'extraordinaire', suffix: '-nodejs'});
+p = require(xdgAppPathsModulePath)({name: 'extraordinaire', suffix: '-nodejs'});
 
 console.log('p:', util.inspect(p));
 if (_) {
@@ -55,7 +57,7 @@ if (_) {
 	});
 }
 
-p = require('..')({name: 'fluffy', isolated: false});
+p = require(xdgAppPathsModulePath)({name: 'fluffy', isolated: false});
 
 console.log('p:', util.inspect(p));
 if (_) {

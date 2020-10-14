@@ -5,7 +5,7 @@ import path from 'path';
 
 import test from 'ava';
 
-import _module from '.';
+import _module from '../src/lib';
 
 const isWinOS = (/^win/i.test(process.platform));
 
