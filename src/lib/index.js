@@ -26,37 +26,37 @@ function _normalizeOptions(options, isolated) {
 const base = (name, isolated) => {
 	const object = {};
 
-	object.cache = (options = {isolated: null}) => {
+	object.cache = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return path.join(xdg.cache(), options.isolated ? name : '');
 	};
 
-	object.config = (options = {isolated: null}) => {
+	object.config = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return path.join(xdg.config(), options.isolated ? name : '');
 	};
 
-	object.data = (options = {isolated: null}) => {
+	object.data = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return path.join(xdg.data(), options.isolated ? name : '');
 	};
 
-	object.runtime = (options = {isolated: null}) => {
+	object.runtime = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return xdg.runtime() ? path.join(xdg.runtime(), options.isolated ? name : '') : undefined;
 	};
 
-	object.state = (options = {isolated: null}) => {
+	object.state = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return path.join(xdg.state(), options.isolated ? name : '');
 	};
 
-	object.configDirs = (options = {isolated: null}) => {
+	object.configDirs = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return (xdg.configDirs()).map(s => path.join(s, options.isolated ? name : ''));
 	};
 
-	object.dataDirs = (options = {isolated: null}) => {
+	object.dataDirs = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return (xdg.dataDirs()).map(s => path.join(s, options.isolated ? name : ''));
 	};
@@ -77,14 +77,14 @@ const windows = (name, isolated) => {
 
 	// Locations for data/config/cache/state are invented (Windows doesn't have a popular convention)
 
-	object.cache = (options = {isolated: null}) => {
+	object.cache = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return (!options.isolated || env.XDG_CACHE_HOME) ?
 			path.join(xdg.cache(), options.isolated ? name : '') :
 			path.join(localAppData, options.isolated ? name : '', 'Cache');
 	};
 
-	object.config = (options = {isolated: null}) => {
+	object.config = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		const config = (!options.isolated || env.XDG_CONFIG_HOME) ?
 			path.join(xdg.config(), options.isolated ? name : '') :
@@ -92,7 +92,7 @@ const windows = (name, isolated) => {
 		return config;
 	};
 
-	object.data = (options = {isolated: null}) => {
+	object.data = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		const data = (!options.isolated || env.XDG_DATA_HOME) ?
 			path.join(xdg.data(), options.isolated ? name : '') :
@@ -100,19 +100,19 @@ const windows = (name, isolated) => {
 		return data;
 	};
 
-	object.runtime = (options = {isolated: null}) => {
+	object.runtime = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return xdg.runtime() ? path.join(xdg.runtime(), options.isolated ? name : '') : undefined;
 	};
 
-	object.state = (options = {isolated: null}) => {
+	object.state = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		return (!options.isolated || env.XDG_STATE_HOME) ?
 			path.join(xdg.state(), options.isolated ? name : '') :
 			path.join(localAppData, options.isolated ? name : '', 'State');
 	};
 
-	object.configDirs = (options = {isolated: null}) => {
+	object.configDirs = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		const dirs = [object.config(options)];
 		if (env.XDG_CONFIG_DIRS) {
@@ -122,7 +122,7 @@ const windows = (name, isolated) => {
 		return dirs;
 	};
 
-	object.dataDirs = (options = {isolated: null}) => {
+	object.dataDirs = (options = null) => {
 		options = _normalizeOptions(options, isolated);
 		const dirs = [object.data(options)];
 		if (env.XDG_DATA_DIRS) {
@@ -136,8 +136,8 @@ const windows = (name, isolated) => {
 };
 
 class _XDGAppPaths {
-	constructor(options = {name: null, suffix: null, isolated: true}) {
-		const XDGAppPaths = function (options = {name: null, suffix: null, isolated: true}) {
+	constructor(options = null) {
+		const XDGAppPaths = function (options = null) {
 			return new _XDGAppPaths(options)._fn;
 		};
 

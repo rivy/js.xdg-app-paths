@@ -12,5 +12,5 @@ declare namespace XDGAppPaths {
 	function $name(): string;
 	function $isolated(): boolean;
 }
-declare function XDGAppPaths( options?: string | {name: string, suffix: string, isolated: boolean} ): typeof XDGAppPaths;
+declare function XDGAppPaths(options?: string | {name: string; suffix: string; isolated: boolean}): typeof XDGAppPaths;
 export = XDGAppPaths;

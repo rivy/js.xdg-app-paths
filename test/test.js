@@ -1,11 +1,11 @@
 /* eslint-env es6, node */
 'use strict';
 
-import path from 'path';
+const path = require('path');
 
-import test from 'ava';
+const test = require('ava');
 
-import _module from '../src/lib';
+const _module = require('../src/lib');
 
 const isWinOS = (/^win/i.test(process.platform));
 
@@ -41,7 +41,7 @@ test('default', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) {
+			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
 				t.regex(v, regex, `${key}:${v}`);
 			}
 		}
@@ -56,7 +56,7 @@ test('alternate constructor (via function)', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) {
+			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
 				t.regex(v, regex, `${key}:${v}`);
 			}
 		}
@@ -71,7 +71,7 @@ test('alternate constructor (via new())', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) {
+			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
 				t.regex(v, regex, `${key}:${v}`);
 			}
 		}
@@ -86,7 +86,7 @@ test('alternate constructor (via new)', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) {
+			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
 				t.regex(v, regex, `${key}:${v}`);
 			}
 		}
@@ -103,7 +103,7 @@ test('chosen application name', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) {
+			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
 				t.regex(v, regex, `${key}:${v}`);
 			}
 		}
@@ -119,7 +119,7 @@ test('chosen suffix', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) {
+			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
 				t.regex(v, regex, `${key}:${v}`);
 			}
 		}
@@ -137,7 +137,7 @@ test('chosen application name + suffix', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) {
+			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
 				t.regex(v, regex, `${key}:${v}`);
 			}
 		}
@@ -263,14 +263,14 @@ test('correct paths with XDG_* set', t => {
 });
 
 test('construction throws with bad arguments', t => {
-	t.throws(() => _module(-1), {instanceOf: TypeError, message: /^Expected string for "name"/i});
-	t.throws(() => _module({name: -1}), {instanceOf: TypeError, message: /^Expected string for "name"/i});
-	t.throws(() => _module({suffix: -1}), {instanceOf: TypeError, message: /^Expected string for "suffix"/i});
-	t.throws(() => _module({isolated: -1}), {instanceOf: TypeError, message: /^Expected boolean for "isolated"/i});
+	t.throws(() => _module(-1), {instanceOf: TypeError, message: /^expected string for "name"/i});
+	t.throws(() => _module({name: -1}), {instanceOf: TypeError, message: /^expected string for "name"/i});
+	t.throws(() => _module({suffix: -1}), {instanceOf: TypeError, message: /^expected string for "suffix"/i});
+	t.throws(() => _module({isolated: -1}), {instanceOf: TypeError, message: /^expected boolean for "isolated"/i});
 });
 
 test('methods throw with bad arguments', t => {
 	const paths = _module();
-	t.throws(() => paths.config(-1), {instanceOf: TypeError, message: /^Expected boolean for "isolated"/i});
-	t.throws(() => paths.config({isolated: -1}), {instanceOf: TypeError, message: /^Expected boolean for "isolated"/i});
+	t.throws(() => paths.config(-1), {instanceOf: TypeError, message: /^expected boolean for "isolated"/i});
+	t.throws(() => paths.config({isolated: -1}), {instanceOf: TypeError, message: /^expected boolean for "isolated"/i});
 });

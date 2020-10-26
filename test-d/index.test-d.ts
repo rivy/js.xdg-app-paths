@@ -12,7 +12,7 @@ expectType<string>(paths.cache(false));
 expectType<string>(paths.cache({isolated: true}));
 expectType<string>(paths.config());
 expectType<string>(paths.config(true));
-expectType<string>(paths.config({isolated:false}));
+expectType<string>(paths.config({isolated: false}));
 expectType<string>(paths.data());
 expectType<string>(paths.data(false));
 expectType<string>(paths.data({isolated: true}));

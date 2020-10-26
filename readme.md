@@ -164,14 +164,17 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 
 const appPaths = require('xdg-app-paths');
-// Extend appPaths with a "log" location
-appPaths.log = (options = {isolated: appPaths.$isolated()}) => {
+// Extend appPaths with a "log" location function
+appPaths.log = function (options = null) {
     if (typeof options === 'boolean') {
         options = {isolated: options};
     }
 
-    const isolated = ((options.isolated === undefined) || (options.isolated === null)) ? appPaths.$isolated() : options.isolated;
-    return path.join(appPaths.state(options), (isolated ? '' : appPaths.$name() + '-') + 'log');
+    if ((typeof options !== 'object') || (options === null) || (typeof options.isolated !== 'boolean')) {
+        options = {isolated: this.$isolated()};
+    }
+
+    return path.join(appPaths.state(options), (options.isolated ? '' : this.$name() + '-') + 'log');
 };
 
 // log file
