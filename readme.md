@@ -11,6 +11,7 @@
 
 > Get ([XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) application-specific (and cross-platform) paths for storing things like cache, config, data, state, etc
 
+[![Build status][gha-image]][gha-url]
 [![Build status][travis-image]][travis-url]
 [![Build status][appveyor-image]][appveyor-url]
 [![Coverage status][coverage-image]][coverage-url]
@@ -236,6 +237,8 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 <!-- [appveyor-image]: https://ci.appveyor.com/api/projects/status/.../branch/master?svg=true -->
 [appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths/master.svg?style=flat&logo=AppVeyor&logoColor=deepskyblue
 [appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
+[gha-image]: https://github.com/rivy/js.xdg-app-paths/workflows/CI/badge.svg
+[gha-url]: https://github.com/rivy/js.xdg-app-paths/actions?query=workflow%3ACI
 <!-- [travis-image]: https://travis-ci.org/rivy/js.xdg-app-paths.svg?branch=master -->
 <!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=Travis-CI&logoColor=silver -->
 [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=travis
