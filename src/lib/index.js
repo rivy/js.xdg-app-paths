@@ -138,7 +138,7 @@ const windows = (name, isolated) => {
 class _XDGAppPaths {
 	constructor(options = {name: null, suffix: null, isolated: true}) {
 		const XDGAppPaths = function (options = {name: null, suffix: null, isolated: true}) {
-			return new _XDGAppPaths(options);
+			return new _XDGAppPaths(options)._fn;
 		};
 
 		this._fn = XDGAppPaths;
@@ -180,9 +180,7 @@ class _XDGAppPaths {
 		Object.keys(extension).forEach(key => {
 			this._fn[key] = extension[key];
 		});
-
-		return this._fn;
 	}
 }
 
-module.exports = new _XDGAppPaths();
+module.exports = new _XDGAppPaths()._fn;
