@@ -172,14 +172,14 @@ class _XDGAppPaths {
 			name += suffix;
 		}
 
-		this._fn.$name = () => name;
-		this._fn.$isolated = () => isolated;
-
 		// Connect to platform-specific API functions by extension
 		const extension = isWinOS ? windows(name, isolated) : base(name, isolated);
 		Object.keys(extension).forEach(key => {
 			this._fn[key] = extension[key];
 		});
+
+		this._fn.$name = () => name;
+		this._fn.$isolated = () => isolated;
 	}
 }
 
