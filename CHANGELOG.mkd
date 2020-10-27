@@ -2,6 +2,32 @@
 
 ---
 
+## [v5.3.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.2.0...v5.3.0) <small>(2020-10-26)</small>
+
+#### Fixes
+
+* fix `npx xo` warnings &ac; [`bbfb8aa`](https://github.com/rivy/js.xdg-app-paths/commit/bbfb8aa63c13e672139acd551a5991608537b071)
+
+#### Dependency Updates
+
+* update dependencies &ac; [`382ec3c`](https://github.com/rivy/js.xdg-app-paths/commit/382ec3c5180b16adf4f33ad6f86911c219315802)
+
+#### Maintenance
+
+* maint ~ reconfigure for `git-changelog` (from GH:rivy-go) &ac; [`69611f1`](https://github.com/rivy/js.xdg-app-paths/commit/69611f152d1d4b15cf33eab51c1258dc55cbe370)
+* maint/**CICD**: add GitHub Actions CI &ac; [`b893e31`](https://github.com/rivy/js.xdg-app-paths/commit/b893e31340232d9b5fcf3a4e24e609bd0e4ef4fc)
+* maint/**build**: refactor run-scripts for code coverage to run only for Node-v10+ &ac; [`fba5f36`](https://github.com/rivy/js.xdg-app-paths/commit/fba5f36821eeb220cb6ae0c94a924ca0ab09ce79)
+* maint/**build**: refactor run-scripts for updated `cspell`, `tsd`, and `xo` to run only for Node-v10+ &ac; [`29a92ed`](https://github.com/rivy/js.xdg-app-paths/commit/29a92ed7c7678eab96358803d19ca23f7ad8d0d7)
+* maint/**dev**: update editorconfig + whitespace cleanup &ac; [`398555d`](https://github.com/rivy/js.xdg-app-paths/commit/398555d7bdf58fcd08c666493037ed4e0b28de98)
+
+#### Refactoring
+
+* refactor ~ add state functions after adding base platform-dependent extension functions &ac; [`9632d64`](https://github.com/rivy/js.xdg-app-paths/commit/9632d6419f94069f1fabf3a6f8b33b17e149fb85)
+* refactor ~ remove unusual use of return in class constructor &ac; [`f69c9f2`](https://github.com/rivy/js.xdg-app-paths/commit/f69c9f261f683dc41984439c6eea77234e12daaf)
+* refactor repository directory structure prior to typescript (and then deno) conversion &ac; [`d680042`](https://github.com/rivy/js.xdg-app-paths/commit/d680042f7292675f0841449d49d65873ad9f64ed)
+
+---
+
 ## [v5.2.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.1.0...v5.2.0) <small>(2019-10-04)</small>
 
 #### Documentation
