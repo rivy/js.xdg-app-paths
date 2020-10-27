@@ -12,7 +12,7 @@
 		"node": ">=6"
 	},
 	"scripts": {
-		"coverage": "nyc report --reporter=text-lcov | codecov --disable=gcov --pipe",
+		"coverage": "run-s -s _:min-node-10 _:coverage || run-s -s _:max-node-8 _:coverage-warn",
 		"lint": "run-p lint:*",
 		"lint:spell": "run-s -s _:min-node-10 _:spellcheck || run-s -s _:max-node-8 _:spellcheck-warn",
 		"lint:style": "run-s -s _:min-node-10 _:xo || run-s -s _:max-node-8 _:xo-warn",
@@ -22,6 +22,8 @@
 		"test:types": "run-s -s _:min-node-10 _:tsd || run-s -s _:max-node-8 _:tsd-warn",
 		"_:min-node-10": "is-node-modern 10",
 		"_:max-node-8": "is-node-not-modern 10",
+		"_:coverage": "nyc report --reporter=text-lcov | codecov --disable=gcov --pipe",
+		"_:coverage-warn": "echo-cli \"coverage WARN Code coverage skipped [for NodeJS < v10]\"",
 		"_:spellcheck": "cspell *.js *.ts readme.md --no-summary",
 		"_:spellcheck-warn": "echo-cli \"lint:spell WARN Spell-check skipped [for NodeJS < v10]\"",
 		"_:tsd": "tsd",
