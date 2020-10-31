@@ -5,7 +5,7 @@ const path = require('path');
 
 const test = require('ava');
 
-const _module = require('../src/lib');
+const module_ = require('../src/lib');
 
 const isWinOS = (/^win/i.test(process.platform));
 
@@ -24,8 +24,19 @@ function xdgPathRegex(name) {
 }
 
 test('api', t => {
-	const paths = _module;
-	const api = ['cache', 'config', 'data', 'runtime', 'state', 'configDirs', 'dataDirs', '$name', '$isolated'];
+	const paths = module_;
+	const api = [
+		'$name',
+		'$isolated',
+		'cache',
+		'config',
+		'data',
+		'runtime',
+		'state',
+		'configDirs',
+		'dataDirs'
+	];
+
 	t.is(typeof paths, 'function');
 	t.is(Object.keys(paths).length, api.length);
 	api.forEach(key => {
@@ -34,117 +45,202 @@ test('api', t => {
 });
 
 test('default', t => {
-	const paths = _module;
+	const isolated = true;
+	const paths = module_;
 	const regex = xdgPathRegex(paths.$name());
-	for (const key of Object.keys(paths)) {
+
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
 			}
-		}
-	}
+		});
+	});
 });
 
-test('alternate constructor (via function)', t => {
-	const paths = _module('a');
+test('alternate constructor (via function())', t => {
+	const isolated = true;
+	const paths = module_();
 	const regex = xdgPathRegex(paths.$name());
-	for (const key of Object.keys(paths)) {
+
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
 			}
-		}
-	}
+		});
+	});
+});
+
+test('alternate constructor (via function(...))', t => {
+	const name = 'albacore';
+	const isolated = true;
+	const paths = module_(name);
+	const regex = xdgPathRegex(paths.$name());
+
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
+		const value = paths[key];
+		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
+			}
+		});
+	});
 });
 
 test('alternate constructor (via new())', t => {
-	const paths = new _module('aa');
+	const isolated = true;
+	// eslint-disable-next-line new-cap
+	const paths = new module_(); // Aka, `new module_(undefined)`
 	const regex = xdgPathRegex(paths.$name());
-	for (const key of Object.keys(paths)) {
+
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
 			}
-		}
-	}
+		});
+	});
 });
 
-test('alternate constructor (via new)', t => {
-	const paths = new _module; // eslint-disable-line new-parens
+test('alternate constructor (via new(...))', t => {
+	const isolated = true;
+	const name = 'behemoth';
+	// eslint-disable-next-line new-cap
+	const paths = new module_(name);
 	const regex = xdgPathRegex(paths.$name());
-	for (const key of Object.keys(paths)) {
+
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
 			}
-		}
-	}
+		});
+	});
 });
 
 test('chosen application name', t => {
-	const name = 'aardvark';
-	const paths = _module(name);
+	const isolated = true;
+	const name = 'crux';
+	const paths = module_(name);
 	const regex = xdgPathRegex(name);
+
 	t.is(paths.$name(), name);
-	for (const key of Object.keys(paths)) {
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
 			}
-		}
-	}
+		});
+	});
 });
 
 test('chosen suffix', t => {
+	const isolated = true;
 	const suffix = '-nodejs';
-	const paths = _module({suffix});
+	const paths = module_({suffix});
 	const regex = xdgPathRegex(paths.$name());
-	for (const key of Object.keys(paths)) {
+
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
 			}
-		}
-	}
+		});
+	});
 });
 
 test('chosen application name + suffix', t => {
-	const name = 'behemoth';
+	const isolated = true;
+	const name = 'debacle';
 	const suffix = '-nodejs';
-	const paths = _module({name, suffix});
+	const paths = module_({name, suffix});
 	const regex = xdgPathRegex(paths.$name());
+
 	t.is(paths.$name(), name + suffix);
-	for (const key of Object.keys(paths)) {
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		for (const v of values) {
-			if (!key.match(/^(([$].*)|runtime)$/) && (typeof v !== 'undefined')) { // eslint-disable-line unicorn/better-regex
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
 			}
-		}
-	}
+		});
+	});
 });
 
-test('correct paths with XDG_*_HOME set', t => {
+test('correct paths with only XDG_*_HOME set', t => {
 	const envVars = {
 		cache: 'XDG_CACHE_HOME',
 		config: 'XDG_CONFIG_HOME',
@@ -153,56 +249,57 @@ test('correct paths with XDG_*_HOME set', t => {
 	};
 	delete process.env.XDG_CONFIG_DIRS;
 	delete process.env.XDG_DATA_DIRS;
-	for (const key of Object.keys(envVars)) {
+	Object.keys(envVars).forEach(key => {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
-	}
+	});
 
-	const name = 'canticle';
-	const paths = _module(name);
-
-	for (const key of Object.keys(paths)) {
-		const value = paths[key];
-		t.log(key, ':', value());
-	}
-
-	for (const env of Object.keys(envVars)) {
-		const expectedPath = process.env[envVars[env]];
-		t.true((paths[env])().startsWith(expectedPath) && (paths[env])().endsWith(name));
-	}
-});
-
-test('correct "isolated" paths with XDG_*_HOME set', t => {
-	const envVars = {
-		cache: 'XDG_CACHE_HOME',
-		config: 'XDG_CONFIG_HOME',
-		data: 'XDG_DATA_HOME',
-		state: 'XDG_STATE_HOME'
-	};
-	delete process.env.XDG_CONFIG_DIRS;
-	delete process.env.XDG_DATA_DIRS;
-	for (const key of Object.keys(envVars)) {
-		const env = envVars[key];
-		process.env[env] = path.join('.', env);
-	}
-
-	const name = 'debacle';
 	const isolated = true;
-	const paths = _module({name, isolated});
+	const name = 'excalibur';
+	const paths = module_(name);
+	const regex = xdgPathRegex(paths.$name());
 
-	for (const key of Object.keys(paths)) {
-		const value = paths[key];
-		t.log(key, ':', value());
-	}
-
+	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
-	for (const env of Object.keys(envVars)) {
-		const expectedPath = process.env[envVars[env]];
-		t.is((paths[env])(), path.join(expectedPath, name));
-	}
+
+	Object.keys(paths).forEach(key => {
+		const value = paths[key];
+		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
+			}
+		});
+	});
+
+	Object.keys(envVars).forEach(env => {
+		const expectedPath = path.join(process.env[envVars[env]], name);
+		t.is(paths[env](), expectedPath);
+	});
+
+	const configDirs = paths.configDirs();
+	t.is(configDirs.length, 1);
+	t.is(configDirs[0], paths.config());
+	t.deepEqual(paths.configDirs(isolated)[0], paths.config(isolated));
+	t.deepEqual(paths.configDirs({isolated})[0], paths.config({isolated}));
+	t.deepEqual(paths.configDirs(!isolated)[0], paths.config(!isolated));
+	t.deepEqual(paths.configDirs({isolated: !isolated})[0], paths.config({isolated: !isolated}));
+
+	const dataDirs = paths.dataDirs();
+	t.is(dataDirs.length, 1);
+	t.is(dataDirs[0], paths.data());
+	t.deepEqual(paths.dataDirs(isolated)[0], paths.data(isolated));
+	t.deepEqual(paths.dataDirs({isolated})[0], paths.data({isolated}));
+	t.deepEqual(paths.dataDirs(!isolated)[0], paths.data(!isolated));
+	t.deepEqual(paths.dataDirs({isolated: !isolated})[0], paths.data({isolated: !isolated}));
 });
 
-test('correct private ("non-isolated") paths with XDG_*_HOME set', t => {
+test('correct "isolated" paths with only XDG_*_HOME set', t => {
 	const envVars = {
 		cache: 'XDG_CACHE_HOME',
 		config: 'XDG_CONFIG_HOME',
@@ -216,20 +313,97 @@ test('correct private ("non-isolated") paths with XDG_*_HOME set', t => {
 		process.env[env] = path.join('.', env);
 	}
 
-	const name = 'excalibur';
-	const isolated = false;
-	const paths = _module({name, isolated});
+	const name = 'foundling';
+	const isolated = true;
+	const paths = module_({name, isolated});
+	const regex = xdgPathRegex(paths.$name());
 
-	for (const key of Object.keys(paths)) {
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
+		const value = paths[key];
+		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach(v => {
+			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
+			}
+		});
+	});
+
+	Object.keys(envVars).forEach(env => {
+		const expectedPath = path.join(process.env[envVars[env]], name);
+		t.is(paths[env](), expectedPath);
+	});
+
+	const configDirs = paths.configDirs();
+	t.is(configDirs.length, 1);
+	t.is(configDirs[0], paths.config());
+	t.deepEqual(paths.configDirs(isolated)[0], paths.config(isolated));
+	t.deepEqual(paths.configDirs({isolated})[0], paths.config({isolated}));
+	t.deepEqual(paths.configDirs(!isolated)[0], paths.config(!isolated));
+	t.deepEqual(paths.configDirs({isolated: !isolated})[0], paths.config({isolated: !isolated}));
+
+	const dataDirs = paths.dataDirs();
+	t.is(dataDirs.length, 1);
+	t.is(dataDirs[0], paths.data());
+	t.deepEqual(paths.dataDirs(isolated)[0], paths.data(isolated));
+	t.deepEqual(paths.dataDirs({isolated})[0], paths.data({isolated}));
+	t.deepEqual(paths.dataDirs(!isolated)[0], paths.data(!isolated));
+	t.deepEqual(paths.dataDirs({isolated: !isolated})[0], paths.data({isolated: !isolated}));
+});
+
+test('correct non-"isolated" paths with only XDG_*_HOME set', t => {
+	const envVars = {
+		cache: 'XDG_CACHE_HOME',
+		config: 'XDG_CONFIG_HOME',
+		data: 'XDG_DATA_HOME',
+		state: 'XDG_STATE_HOME'
+	};
+	delete process.env.XDG_CONFIG_DIRS;
+	delete process.env.XDG_DATA_DIRS;
+	Object.keys(envVars).forEach(key => {
+		const env = envVars[key];
+		process.env[env] = path.join('.', env);
+	});
+
+	const name = 'gremlins';
+	const isolated = false;
+	const paths = module_({name, isolated});
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		t.log(key, ':', value());
-	}
+	});
 
+	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
-	for (const env of Object.keys(envVars)) {
+
+	Object.keys(envVars).forEach(env => {
 		const expectedPath = process.env[envVars[env]];
-		t.is((paths[env])(), expectedPath);
-	}
+		t.is(paths[env](), expectedPath);
+	});
+
+	const configDirs = paths.configDirs();
+	t.is(configDirs.length, 1);
+	t.is(configDirs[0], paths.config());
+	t.deepEqual(paths.configDirs(isolated)[0], paths.config(isolated));
+	t.deepEqual(paths.configDirs({isolated})[0], paths.config({isolated}));
+	t.deepEqual(paths.configDirs(!isolated)[0], paths.config(!isolated));
+	t.deepEqual(paths.configDirs({isolated: !isolated})[0], paths.config({isolated: !isolated}));
+
+	const dataDirs = paths.dataDirs();
+	t.is(dataDirs.length, 1);
+	t.is(dataDirs[0], paths.data());
+	t.deepEqual(paths.dataDirs(isolated)[0], paths.data(isolated));
+	t.deepEqual(paths.dataDirs({isolated})[0], paths.data({isolated}));
+	t.deepEqual(paths.dataDirs(!isolated)[0], paths.data(!isolated));
+	t.deepEqual(paths.dataDirs({isolated: !isolated})[0], paths.data({isolated: !isolated}));
 });
 
 test('correct paths with XDG_* set', t => {
@@ -242,35 +416,202 @@ test('correct paths with XDG_* set', t => {
 		configDirs: 'XDG_CONFIG_DIRS',
 		dataDirs: 'XDG_DATA_DIRS'
 	};
-	for (const key of Object.keys(envVars)) {
+	Object.keys(envVars).forEach(key => {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
-	}
+	});
 
-	const name = 'crux';
-	const paths = _module(name);
+	const isolated = true;
+	const name = 'howling';
+	const paths = module_(name);
+	const regex = xdgPathRegex(paths.$name());
 
-	for (const key of Object.keys(paths)) {
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
+		const value = paths[key];
+		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach(v => {
+			if (!key.match(/^(\$.*)$/) && typeof v !== 'undefined') {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
+			}
+		});
+	});
+
+	const configDirs = paths.configDirs();
+	t.is(configDirs.length, 2);
+	t.is(configDirs[0], paths.config());
+	t.is(configDirs[1], path.join(envVars.configDirs, name));
+	t.deepEqual(paths.configDirs(isolated)[0], paths.config(isolated));
+	t.deepEqual(paths.configDirs({isolated})[0], paths.config({isolated}));
+	t.deepEqual(paths.configDirs(!isolated)[0], paths.config(!isolated));
+	t.deepEqual(paths.configDirs({isolated: !isolated})[0], paths.config({isolated: !isolated}));
+	t.deepEqual(paths.configDirs(isolated)[1], path.join(envVars.configDirs, name));
+	t.deepEqual(paths.configDirs({isolated})[1], path.join(envVars.configDirs, name));
+	t.notDeepEqual(paths.configDirs(!isolated)[1], path.join(envVars.configDirs, name));
+	t.notDeepEqual(
+		paths.configDirs({isolated: !isolated})[1],
+		path.join(envVars.configDirs, name)
+	);
+
+	const dataDirs = paths.dataDirs();
+	t.is(dataDirs.length, 2);
+	t.is(dataDirs[0], paths.data());
+	t.is(dataDirs[1], path.join(envVars.dataDirs, name));
+	t.deepEqual(paths.dataDirs(isolated)[0], paths.data(isolated));
+	t.deepEqual(paths.dataDirs({isolated})[0], paths.data({isolated}));
+	t.deepEqual(paths.dataDirs(!isolated)[0], paths.data(!isolated));
+	t.deepEqual(paths.dataDirs({isolated: !isolated})[0], paths.data({isolated: !isolated}));
+	t.deepEqual(paths.dataDirs(isolated)[1], path.join(envVars.dataDirs, name));
+	t.deepEqual(paths.dataDirs({isolated})[1], path.join(envVars.dataDirs, name));
+	t.notDeepEqual(paths.dataDirs(!isolated)[1], path.join(envVars.dataDirs, name));
+	t.notDeepEqual(paths.dataDirs({isolated: !isolated})[1], path.join(envVars.dataDirs, name));
+});
+
+test('correct "isolated" paths with XDG_* set', t => {
+	const envVars = {
+		cache: 'XDG_CACHE_HOME',
+		config: 'XDG_CONFIG_HOME',
+		data: 'XDG_DATA_HOME',
+		runtime: 'XDG_RUNTIME_DIR',
+		state: 'XDG_STATE_HOME',
+		configDirs: 'XDG_CONFIG_DIRS',
+		dataDirs: 'XDG_DATA_DIRS'
+	};
+	Object.keys(envVars).forEach(key => {
+		const env = envVars[key];
+		process.env[env] = path.join('.', env);
+	});
+
+	const name = 'ignoble';
+	const isolated = true;
+	const paths = module_({name, isolated});
+	const regex = xdgPathRegex(paths.$name());
+
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
+		const value = paths[key];
+		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach(v => {
+			if (!key.match(/^(\$.*)$/) && typeof v !== 'undefined') {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({isolated}));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({isolated: !isolated}));
+			}
+		});
+	});
+
+	const configDirs = paths.configDirs();
+	t.is(configDirs.length, 2);
+	t.is(configDirs[0], paths.config());
+	t.is(configDirs[1], path.join(envVars.configDirs, name));
+	t.deepEqual(paths.configDirs(isolated)[0], paths.config(isolated));
+	t.deepEqual(paths.configDirs({isolated})[0], paths.config({isolated}));
+	t.deepEqual(paths.configDirs(!isolated)[0], paths.config(!isolated));
+	t.deepEqual(paths.configDirs({isolated: !isolated})[0], paths.config({isolated: !isolated}));
+	t.deepEqual(paths.configDirs(isolated)[1], path.join(envVars.configDirs, name));
+	t.deepEqual(paths.configDirs({isolated})[1], path.join(envVars.configDirs, name));
+	t.notDeepEqual(paths.configDirs(!isolated)[1], path.join(envVars.configDirs, name));
+	t.notDeepEqual(
+		paths.configDirs({isolated: !isolated})[1],
+		path.join(envVars.configDirs, name)
+	);
+
+	const dataDirs = paths.dataDirs();
+	t.is(dataDirs.length, 2);
+	t.is(dataDirs[0], paths.data());
+	t.is(dataDirs[1], path.join(envVars.dataDirs, name));
+	t.deepEqual(paths.dataDirs(isolated)[0], paths.data(isolated));
+	t.deepEqual(paths.dataDirs({isolated})[0], paths.data({isolated}));
+	t.deepEqual(paths.dataDirs(!isolated)[0], paths.data(!isolated));
+	t.deepEqual(paths.dataDirs({isolated: !isolated})[0], paths.data({isolated: !isolated}));
+	t.deepEqual(paths.dataDirs(isolated)[1], path.join(envVars.dataDirs, name));
+	t.deepEqual(paths.dataDirs({isolated})[1], path.join(envVars.dataDirs, name));
+	t.notDeepEqual(paths.dataDirs(!isolated)[1], path.join(envVars.dataDirs, name));
+	t.notDeepEqual(paths.dataDirs({isolated: !isolated})[1], path.join(envVars.dataDirs, name));
+});
+
+test('correct non-"isolated" paths with XDG_* set', t => {
+	const envVars = {
+		cache: 'XDG_CACHE_HOME',
+		config: 'XDG_CONFIG_HOME',
+		data: 'XDG_DATA_HOME',
+		runtime: 'XDG_RUNTIME_DIR',
+		state: 'XDG_STATE_HOME',
+		configDirs: 'XDG_CONFIG_DIRS',
+		dataDirs: 'XDG_DATA_DIRS'
+	};
+	Object.keys(envVars).forEach(key => {
+		const env = envVars[key];
+		process.env[env] = path.join('.', env);
+	});
+
+	const name = 'jackals';
+	const isolated = false;
+	const paths = module_({name, isolated});
+
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach(key => {
 		const value = paths[key];
 		t.log(key, ':', value());
-	}
+	});
 
-	for (const env of Object.keys(envVars)) {
+	Object.keys(envVars).forEach(env => {
 		const expectedPath = process.env[envVars[env]];
-		const path = (typeof paths[env]() === 'string') ? paths[env]() : paths[env]()[1];
-		t.true(path.startsWith(expectedPath) && path.endsWith(name));
-	}
+		if (!env.endsWith('Dirs')) {
+			t.is(paths[env](), expectedPath);
+		}
+	});
+
+	const configDirs = paths.configDirs();
+	t.is(configDirs.length, 2);
+	t.is(configDirs[0], paths.config());
+	t.is(configDirs[1], envVars.configDirs);
+	t.deepEqual(paths.configDirs(isolated)[0], paths.config(isolated));
+	t.deepEqual(paths.configDirs({isolated})[0], paths.config({isolated}));
+	t.deepEqual(paths.configDirs(!isolated)[0], paths.config(!isolated));
+	t.deepEqual(paths.configDirs({isolated: !isolated})[0], paths.config({isolated: !isolated}));
+	t.deepEqual(paths.configDirs(isolated)[1], envVars.configDirs);
+	t.deepEqual(paths.configDirs({isolated})[1], envVars.configDirs);
+	t.notDeepEqual(paths.configDirs(!isolated)[1], envVars.configDirs);
+	t.notDeepEqual(paths.configDirs({isolated: !isolated})[1], envVars.configDirs);
+
+	const dataDirs = paths.dataDirs();
+	t.is(dataDirs.length, 2);
+	t.is(dataDirs[0], paths.data());
+	t.is(dataDirs[1], envVars.dataDirs);
+	t.deepEqual(paths.dataDirs(isolated)[0], paths.data(isolated));
+	t.deepEqual(paths.dataDirs({isolated})[0], paths.data({isolated}));
+	t.deepEqual(paths.dataDirs(!isolated)[0], paths.data(!isolated));
+	t.deepEqual(paths.dataDirs({isolated: !isolated})[0], paths.data({isolated: !isolated}));
+	t.deepEqual(paths.dataDirs(isolated)[1], envVars.dataDirs);
+	t.deepEqual(paths.dataDirs({isolated})[1], envVars.dataDirs);
+	t.notDeepEqual(paths.dataDirs(!isolated)[1], envVars.dataDirs);
+	t.notDeepEqual(paths.dataDirs({isolated: !isolated})[1], envVars.dataDirs);
 });
 
 test('construction throws with bad arguments', t => {
-	t.throws(() => _module(-1), {instanceOf: TypeError, message: /^expected string for "name"/i});
-	t.throws(() => _module({name: -1}), {instanceOf: TypeError, message: /^expected string for "name"/i});
-	t.throws(() => _module({suffix: -1}), {instanceOf: TypeError, message: /^expected string for "suffix"/i});
-	t.throws(() => _module({isolated: -1}), {instanceOf: TypeError, message: /^expected boolean for "isolated"/i});
+	t.throws(() => module_(-1), {instanceOf: TypeError, message: /^expected string for "name"/i});
+	t.throws(() => module_({name: -1}), {instanceOf: TypeError, message: /^expected string for "name"/i});
+	t.throws(() => module_({suffix: -1}), {instanceOf: TypeError, message: /^expected string for "suffix"/i});
+	t.throws(() => module_({isolated: -1}), {instanceOf: TypeError, message: /^expected boolean for "isolated"/i});
 });
 
 test('methods throw with bad arguments', t => {
-	const paths = _module();
+	const paths = module_();
 	t.throws(() => paths.config(-1), {instanceOf: TypeError, message: /^expected boolean for "isolated"/i});
 	t.throws(() => paths.config({isolated: -1}), {instanceOf: TypeError, message: /^expected boolean for "isolated"/i});
 });
