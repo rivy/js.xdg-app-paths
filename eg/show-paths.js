@@ -11,16 +11,20 @@ const xdgAppPathsModulePath = '../src/lib';
 const appPaths = require(xdgAppPathsModulePath);
 
 // Extend appPaths with a "log" location function
-appPaths.log = function (options = null) {
-	if (typeof options === 'boolean') {
-		options = {isolated: options};
+appPaths.log = function (dirOptions = null) {
+	function typeOf(x) { // Use avoids circumvention of eslint variable tracking for `x`
+		return typeof x;
 	}
 
-	if ((typeof options !== 'object') || (options === null) || (typeof options.isolated !== 'boolean')) {
-		options = {isolated: this.$isolated()};
+	if (typeOf(dirOptions) === 'boolean') {
+		dirOptions = {isolated: dirOptions};
 	}
 
-	return path.join(appPaths.state(options), (options.isolated ? '' : this.$name() + '-') + 'log');
+	if ((typeOf(dirOptions) !== 'object') || (dirOptions === null) || (typeOf(dirOptions.isolated) !== 'boolean')) {
+		dirOptions = {isolated: this.$isolated()};
+	}
+
+	return path.join(this.state(dirOptions), (dirOptions.isolated ? '' : this.$name() + '-') + 'log');
 };
 
 console.log('appPaths:', inspect(appPaths));
@@ -30,9 +34,9 @@ if (_) {
 	});
 }
 
-// # console.log('appPaths.log():', appPaths.log());
-// # console.log('appPaths.log(false):', appPaths.log(false));
-// # console.log('appPaths.log(true):', appPaths.log(true));
+console.log('appPaths.log():', appPaths.log());
+console.log('appPaths.log(false):', appPaths.log(false));
+console.log('appPaths.log(true):', appPaths.log(true));
 
 delete process.env.XDG_CONFIG_HOME;
 let p = require(xdgAppPathsModulePath)('dross');
