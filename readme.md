@@ -4,8 +4,11 @@
 <!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
 
 <!-- markdownlint-disable heading-increment ul-style -->
-<!-- spell-checker:ignore rivy Sindre sindresorhus Sorhus -->
-<!-- spell-checker:ignore APPDATA LOCALAPPDATA typeof -->
+<!-- spell-checker:ignore (names) rivy Sindre sindresorhus Sorhus -->
+<!-- spell-checker:ignore (abbrev/jargon) CICD -->
+<!-- spell-checker:ignore (JS/TS) concat mkdirp readonly typeof -->
+<!-- spell-checker:ignore (markdown) nbsp -->
+<!-- spell-checker:ignore (platform/windows) APPDATA LOCALAPPDATA -->
 
 # [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
 
@@ -62,7 +65,7 @@ paths.data();
 
 ### Initialization
 
-#### `require('xdg-app-paths')( options? ): XDGAppPaths()`
+#### `require('xdg-app-paths')( Options? ): XDGAppPaths()`
 
 ```js
 const xdgAppPaths = require('xdg-app-paths');
@@ -72,29 +75,29 @@ const xdgAppPaths = require('xdg-app-paths')( options );
 
 The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. When called directly (eg, `const p = xdgAppPaths(...)`), it acts as a constructor, returning a new, and unrelated, XDGAppPaths object.
 
-> #### `options`
+> #### `Options`
 >
-> ##### `options: string` => `{ name: string }`
+> ##### `Options: string` => `{ name: string }`
 >
-> As a shortcut, when supplied as a `string`, options is interpreted as the options name property (ie, `options = { name: options }`).
+> As a shortcut, when supplied as a `string`, options is interpreted as the Options name property (ie, `options = { name: options }`).
 >
-> ##### `options: object`
+> ##### `Options: object`
 >
 > * default = `{ name: '', suffix: '', isolated: true }`
 >
-> ###### `options.name: string`
+> ###### `Options.name: string`
 >
 > * default = `''`
 >
 > Name of your application; used to generate the paths. If missing, `null`, or empty (`''`), it is generated automatically from the available process information.
 >
-> ###### `options.suffix: string`
+> ###### `Options.suffix: string`
 >
 > * default = `''`
 >
 > Suffix which is appended to the application name when generating the application paths.
 >
-> ###### `options.isolated: boolean`
+> ###### `Options.isolated: boolean`
 >
 > * default = `true`
 >
@@ -104,45 +107,45 @@ The object returned by the module constructor is an XDGAppPaths Function object,
 
 All returned path strings are simple, platform-compatible, strings and are *not* guaranteed to exist. The application is responsible for construction of the directories. If needed, [`make-dir`](https://www.npmjs.com/package/make-dir) or [`mkdirp`](https://www.npmjs.com/package/mkdirp) can be used to create the directories.
 
-#### `xdgAppPaths.cache( dir_options? ): string`
+#### `xdgAppPaths.cache( DirOptions? ): string`
 
 Returns the directory for non-essential data files
 
-#### `xdgAppPaths.config( dir_options? ): string`
+#### `xdgAppPaths.config( DirOptions? ): string`
 
 Returns the directory for config files
 
-#### `xdgAppPaths.data( dir_options? ): string`
+#### `xdgAppPaths.data( DirOptions? ): string`
 
 Returns the directory for data files
 
-#### `xdgAppPaths.runtime( dir_options? ): string?`
+#### `xdgAppPaths.runtime( DirOptions? ): string?`
 
 Returns the directory for runtime files; may return `undefined`
 
-#### `xdgAppPaths.state( dir_options? ): string`
+#### `xdgAppPaths.state( DirOptions? ): string`
 
 Returns the directory for state files.
 
-#### `xdgAppPaths.configDirs( dir_options? ): string[]`
+#### `xdgAppPaths.configDirs( DirOptions? ): readonly string[]`
 
 Returns a priority-sorted list of possible directories for configuration file storage (includes `paths.config()` as the first entry)
 
-#### `xdgAppPaths.dataDirs( dir_options? ): string[]`
+#### `xdgAppPaths.dataDirs( DirOptions? ): readonly string[]`
 
 Returns a priority-sorted list of possible directories for data file storage (includes `paths.data()` as the first entry)
 
-> #### `dir_options`
+> #### `DirOptions`
 >
-> ##### `dir_options: boolean` => `{ isolated: boolean }`
+> ##### `DirOptions: boolean` => `{ isolated: boolean }`
 >
-> As a shortcut, when supplied as a `boolean`, dir_options is interpreted as the dir_options isolated property (ie, `dir_options = { isolated: dir_options }`).
+> As a shortcut, when supplied as a `boolean`, dirOptions is interpreted as the DirOptions isolated property (ie, `dirOptions = { isolated: dirOptions }`).
 >
-> ##### `dir_options: object`
+> ##### `DirOptions: object`
 >
 > * default = `{ isolated: true }`
 >
-> ###### `dir_options.isolated: boolean`
+> ###### `DirOptions.isolated: boolean`
 >
 > * default = `true`
 >
