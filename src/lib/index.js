@@ -10,10 +10,11 @@ const xdg = require('xdg-portable');
 const isWinOS = /^win/i.test(process.platform);
 
 function _normalizeOptions(options, isolated) {
-	options = options || {};
 	if (typeof options !== 'object') {
 		options = {isolated: options};
 	}
+
+	options = options || {};
 
 	options.isolated = ((options.isolated === undefined) || (options.isolated === null)) ? isolated : options.isolated;
 	if (typeof options.isolated !== 'boolean') {
