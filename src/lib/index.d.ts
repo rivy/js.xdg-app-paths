@@ -1,16 +1,26 @@
-// # spell-checker:ignore rivy
-declare namespace XDGAppPaths {
-	function cache(dir_options?: boolean | {isolated: boolean}): string;
-	function config(dir_options?: boolean | {isolated: boolean}): string;
-	function data(dir_options?: boolean | {isolated: boolean}): string;
-	function runtime(dir_options?: boolean | {isolated: boolean}): string | undefined;
-	function state(dir_options?: boolean | {isolated: boolean}): string;
+export declare type Options = {
+	readonly name?: string | null;
+	readonly suffix?: string | null;
+	readonly isolated?: boolean | null;
+};
 
-	function configDirs(dir_options?: boolean | {isolated: boolean}): string[];
-	function dataDirs(dir_options?: boolean | {isolated: boolean}): string[];
+export declare type DirOptions = {
+	readonly isolated?: boolean | null;
+};
 
-	function $name(): string;
-	function $isolated(): boolean;
-}
-declare function XDGAppPaths(options?: string | {name: string; suffix: string; isolated: boolean}): typeof XDGAppPaths;
-export = XDGAppPaths;
+export declare type XDGAppPaths = {
+	readonly $name: () => string;
+	readonly $isolated: () => boolean;
+	readonly cache: (dirOptions?: DirOptions | boolean) => string;
+	readonly config: (dirOptions?: DirOptions | boolean) => string;
+	readonly data: (dirOptions?: DirOptions | boolean) => string;
+	readonly runtime: (dirOptions?: DirOptions | boolean) => string | undefined;
+	readonly state: (dirOptions?: DirOptions | boolean) => string;
+	readonly configDirs: (dirOptions?: DirOptions | boolean) => readonly string[];
+	readonly dataDirs: (dirOptions?: DirOptions | boolean) => readonly string[];
+	new (options?: Options | string): XDGAppPaths;
+	(options?: Options | string): XDGAppPaths;
+};
+
+declare const _default: XDGAppPaths;
+export default _default;
