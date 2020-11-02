@@ -71,6 +71,7 @@
 		"ava": "^1.4.1",
 		"codecov": "^3.5.0",
 		"coveralls": "^3.0.5",
+		"cross-spawn": "^6.0.5",
 		"cspell": "^4.1.2",
 		"echo-cli": "^1.0.8",
 		"eslint": "^7.11.0",
