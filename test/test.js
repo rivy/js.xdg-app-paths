@@ -9,8 +9,20 @@ const module_ = require('../src/lib');
 
 const isWinOS = (/^win/i.test(process.platform));
 
+function isDefined(value) {
+	return typeOf(value) !== 'undefined';
+}
+
+function isFunction(value) {
+	return typeOf(value) === 'function';
+}
+
 function regexpEscape(s) {
 	return s.replace(/\W/g, '\\$&');
+}
+
+function typeOf(value) {
+	return typeof value;
 }
 
 function xdgPathRegex(name) {
@@ -37,10 +49,10 @@ test('api', t => {
 		'dataDirs'
 	];
 
-	t.is(typeof paths, 'function');
+	t.true(isFunction(paths));
 	t.is(Object.keys(paths).length, api.length);
 	api.forEach(key => {
-		t.is(typeof paths[key], 'function');
+		t.true(isFunction(paths[key]));
 	});
 });
 
@@ -56,7 +68,7 @@ test('default', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -79,7 +91,7 @@ test('alternate constructor (via function())', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -104,7 +116,7 @@ test('alternate constructor (via function(...))', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -128,7 +140,7 @@ test('alternate constructor (via new())', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -154,7 +166,7 @@ test('alternate constructor (via new(...))', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -179,7 +191,7 @@ test('chosen application name', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -203,7 +215,7 @@ test('chosen suffix', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -229,7 +241,7 @@ test('chosen application name + suffix', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -267,7 +279,7 @@ test('correct paths with only XDG_*_HOME set', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -326,7 +338,7 @@ test('correct "isolated" paths with only XDG_*_HOME set', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^((\$.*)|runtime)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -434,7 +446,7 @@ test('correct paths with XDG_* set', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^(\$.*)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^(\$.*)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
@@ -502,7 +514,7 @@ test('correct "isolated" paths with XDG_* set', t => {
 		const values = [].concat(value()); // Convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach(v => {
-			if (!key.match(/^(\$.*)$/) && typeof v !== 'undefined') {
+			if (!key.match(/^(\$.*)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({isolated}));
