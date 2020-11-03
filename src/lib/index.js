@@ -100,9 +100,7 @@ class XDGAppPaths_ {
 
 		XDGAppPaths.runtime = function (dirOptions = null) {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			return xdg.runtime()
-				? path.join(xdg.runtime() || '', dirOptions.isolated ? name_ : '')
-				: undefined;
+			return xdg.runtime() ? path.join(xdg.runtime(), dirOptions.isolated ? name_ : '') : undefined;
 		};
 
 		XDGAppPaths.state = function (dirOptions = null) {
