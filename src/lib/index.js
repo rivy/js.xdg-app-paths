@@ -85,44 +85,39 @@ class XDGAppPaths_ {
 
 		XDGAppPaths.cache = (dirOptions = null) => {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.cache(), isolated ? name_ : '');
+			return path.join(xdg.cache(), dirOptions.isolated ? name_ : '');
 		};
 
 		XDGAppPaths.config = function (dirOptions = null) {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.config(), isolated ? name_ : '');
+			return path.join(xdg.config(), dirOptions.isolated ? name_ : '');
 		};
 
 		XDGAppPaths.data = function (dirOptions = null) {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.data(), isolated ? name_ : '');
+			return path.join(xdg.data(), dirOptions.isolated ? name_ : '');
 		};
 
 		XDGAppPaths.runtime = function (dirOptions = null) {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.runtime() ? path.join(xdg.runtime() || '', isolated ? name_ : '') : undefined;
+			return xdg.runtime()
+				? path.join(xdg.runtime() || '', dirOptions.isolated ? name_ : '')
+				: undefined;
 		};
 
 		XDGAppPaths.state = function (dirOptions = null) {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.state(), isolated ? name_ : '');
+			return path.join(xdg.state(), dirOptions.isolated ? name_ : '');
 		};
 
 		XDGAppPaths.configDirs = function (dirOptions = null) {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.configDirs().map((s) => path.join(s, isolated ? name_ : ''));
+			return xdg.configDirs().map((s) => path.join(s, dirOptions.isolated ? name_ : ''));
 		};
 
 		XDGAppPaths.dataDirs = function (dirOptions = null) {
 			dirOptions = normalizeOptions_(dirOptions, isolated_);
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.dataDirs().map((s) => path.join(s, isolated ? name_ : ''));
+			return xdg.dataDirs().map((s) => path.join(s, dirOptions.isolated ? name_ : ''));
 		};
 
 		this.fn = XDGAppPaths;
