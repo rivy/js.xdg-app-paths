@@ -13,8 +13,8 @@
 	},
 	"files": [
 		"src/**/*",
-		"license",
-		"readme.md"
+		"LICENSE",
+		"README.mkd"
 	],
 	"main": "src/lib/index.js",
 	"types": "src/lib/index.d.ts",
