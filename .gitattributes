@@ -1,1 +1,5 @@
 * text=auto eol=lf
+
+*.[Bb][Aa][Tt] text eol=crlf
+*.[Cm][Mm][Dd] text eol=crlf
+*.[Ss][Ll][Nn] text eol=crlf
