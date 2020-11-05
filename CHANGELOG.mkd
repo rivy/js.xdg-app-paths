@@ -1,4 +1,57 @@
+<!-- markdownlint-disable heading-increment no-duplicate-heading no-inline-html -->
+<!-- spellchecker:ignore () CICD Deno EditorConfig chglog gitattributes maint markdownlint rivy typeof -->
+
 # CHANGELOG <br/> [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
+
+---
+
+## [v5.4.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.3.0...v5.4.0) <small>(2020-11-04)</small>
+
+#### Fixes
+
+* fix options normalization logic error &ac; [`28857ac`](https://github.com/rivy/js.xdg-app-paths/commit/28857acc6c3c3f2e00693ea024710b03c2dbe577)
+
+#### Documentation
+
+* docs ~ polish README badges &ac; [`33b40aa`](https://github.com/rivy/js.xdg-app-paths/commit/33b40aa1b8a4501fe2029182d38175480dc30d1e)
+* docs ~ update LICENSE filename &ac; [`92257b0`](https://github.com/rivy/js.xdg-app-paths/commit/92257b03f8765643217604e48a956132cdaa594b)
+* docs ~ update README &ac; [`4feb8c6`](https://github.com/rivy/js.xdg-app-paths/commit/4feb8c6ad4c418cf7b65eeccf469bc10bf550f65)
+* docs ~ update example code (improved `appPaths.log()`) &ac; [`8e12d9f`](https://github.com/rivy/js.xdg-app-paths/commit/8e12d9f8e846d4b584e6c2aa870ef014c7d913ca)
+* docs ~ update README &ac; [`14f4c59`](https://github.com/rivy/js.xdg-app-paths/commit/14f4c590d9273dd68ac68f0c141f767a7b2dddb7)
+* docs/**polish**: minor comment reformatting &ac; [`20610fd`](https://github.com/rivy/js.xdg-app-paths/commit/20610fd53ce8f5b394ed8e44299906f158adf584)
+* docs/**polish**: improved show-paths.js example &ac; [`29f9de5`](https://github.com/rivy/js.xdg-app-paths/commit/29f9de5ee4543614063a2c33dc0e79d5183a45e7)
+
+#### Maintenance
+
+* maint/**CICD**: add MacOS CI testing &ac; [`2da1365`](https://github.com/rivy/js.xdg-app-paths/commit/2da1365799c8815e4c23186e707919664d5241b8)
+* maint/**CICD**: synchronize GHA CI name/config &ac; [`a331ef3`](https://github.com/rivy/js.xdg-app-paths/commit/a331ef3581d6d791160c3da857e7ed924e85457e)
+* maint/**build**: refactor package NodeJS engine compatibility specification &ac; [`dd45719`](https://github.com/rivy/js.xdg-app-paths/commit/dd457190b4cd98528b61951d84415ec1b8096429)
+* maint/**build**: update package files for LICENSE and README &ac; [`51d31a9`](https://github.com/rivy/js.xdg-app-paths/commit/51d31a9ef729a5e829cd5dea68096b841014024c)
+* maint/**build**: refactor npm scripts &ac; [`f9e9c4f`](https://github.com/rivy/js.xdg-app-paths/commit/f9e9c4fded7814be45bdf47b96554171501cd9d8)
+* maint/**build**: update CHANGELOG template with markdown-lint and spell-checker signals &ac; [`d367cdd`](https://github.com/rivy/js.xdg-app-paths/commit/d367cdd2dbfc1a62210063fcd4aa172a2652ee61)
+* maint/**build**: update EditorConfig (include more file types and commentary) &ac; [`a835c2d`](https://github.com/rivy/js.xdg-app-paths/commit/a835c2df2177a2692f9fecef61cea4cf7e837787)
+* maint/**build**: revise and polish npm scripts &ac; [`60f91fa`](https://github.com/rivy/js.xdg-app-paths/commit/60f91fa6e2bed2c1e08c78c1ba535604fce8ce11)
+* maint/**build**: add explanation for NPMrc `package-lock=false` &ac; [`c9f6092`](https://github.com/rivy/js.xdg-app-paths/commit/c9f60920a3b6b1e93f664b226d5ac01b393ff318)
+* maint/**build**: reorganize package.json &ac; [`0c9c821`](https://github.com/rivy/js.xdg-app-paths/commit/0c9c8213cd3f6a959c6837be04a8d694bcafc32f)
+* maint/**dev**: add Prettier ignore file (to simplify automation) &ac; [`881586a`](https://github.com/rivy/js.xdg-app-paths/commit/881586a8d6120e1052961f2c405fd7f4153f9b6a)
+* maint/**dev**: add Prettier &ac; [`69e18ad`](https://github.com/rivy/js.xdg-app-paths/commit/69e18ad9a86d73f02fc30019944cb462b89c7d37)
+* maint/**dev**: XO => ESLint/Prettier (better tooling + TypeScript prep) &ac; [`258445b`](https://github.com/rivy/js.xdg-app-paths/commit/258445bf24cf5084c776d9992ff138c63a8ca7fc)
+* maint/**dev**: change to 'eslintrc.js' configuration file &ac; [`15af0d2`](https://github.com/rivy/js.xdg-app-paths/commit/15af0d2a8cf53536dc1ae67db5b4f84297fe3d66)
+* maint/**dev**: add ESLint &ac; [`91df9e0`](https://github.com/rivy/js.xdg-app-paths/commit/91df9e063f8aea80eae18728669a41095c97acb5)
+* maint/**dev**: remove XO &ac; [`47d12b5`](https://github.com/rivy/js.xdg-app-paths/commit/47d12b5322dfddf703f774de9bacf8b093ae6e84)
+* maint/**dev**: add VSCode settings (ENABLE auto-format on save) &ac; [`84378e5`](https://github.com/rivy/js.xdg-app-paths/commit/84378e5f0de50409260f7ecde8c183ee967b995f)
+* maint/**dev**: add/update .gitattributes &ac; [`62d06d6`](https://github.com/rivy/js.xdg-app-paths/commit/62d06d6916c75d9c7298382a77dcd6caa70502fe)
+* maint/**dev**: update .gitignore files &ac; [`8f13ac7`](https://github.com/rivy/js.xdg-app-paths/commit/8f13ac7c4a91969505e4b472d6952e5b9d4603f9)
+* maint/**dev**: add Prettier configuration &ac; [`c2e9f42`](https://github.com/rivy/js.xdg-app-paths/commit/c2e9f42ae545bfb504b15f2a02de375c48cd37fc)
+
+#### Refactoring
+
+* refactor ~ remove unnecessary extra test for `xdg.runtime()` &ac; [`a5fa5d0`](https://github.com/rivy/js.xdg-app-paths/commit/a5fa5d0332dff202b3f04de976d8cd2eacebc223)
+* refactor ~ remove unnecessary `dirOptions.isolated` tests &ac; [`cfa4ed3`](https://github.com/rivy/js.xdg-app-paths/commit/cfa4ed3b90070f67e357e2ee8218934031d0a3ba)
+* refactor ~ minimize use of `typeof x` to avoid loss of linter variable tracking &ac; [`3d0a586`](https://github.com/rivy/js.xdg-app-paths/commit/3d0a586802bc4852cfbc1fdafacc2e6195c810a8)
+* refactor ~ remove unnecessary OS-specific code &ac; [`472ea08`](https://github.com/rivy/js.xdg-app-paths/commit/472ea0819eebd42b10c3522d5df84efbcbcbeadb)
+* refactor/**polish**: fix ESLint complaints &ac; [`1a3853d`](https://github.com/rivy/js.xdg-app-paths/commit/1a3853db79348861a60f35f70bd576ea98415a60)
+* refactor/**polish**: `prettier` re-format &ac; [`c8330ea`](https://github.com/rivy/js.xdg-app-paths/commit/c8330ea473c561b66cc1047b6033de7c5e8c0fe3)
 
 ---
 
