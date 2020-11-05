@@ -4,6 +4,7 @@
 
 const path = require('path');
 const { inspect } = require('util');
+
 const _ = require('lodash') || undefined;
 
 const xdgAppPathsModulePath = '../src/lib';

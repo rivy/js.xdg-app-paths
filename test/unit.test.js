@@ -132,7 +132,6 @@ test('alternate constructor (via function(...))', (t) => {
 
 test('alternate constructor (via new())', (t) => {
 	const isolated = true;
-	// eslint-disable-next-line new-cap
 	const paths = new module_(); // Aka, `new module_(undefined)`
 	const regex = xdgPathRegex(paths.$name());
 
@@ -157,7 +156,6 @@ test('alternate constructor (via new())', (t) => {
 test('alternate constructor (via new(...))', (t) => {
 	const isolated = true;
 	const name = 'behemoth';
-	// eslint-disable-next-line new-cap
 	const paths = new module_(name);
 	const regex = xdgPathRegex(paths.$name());
 
