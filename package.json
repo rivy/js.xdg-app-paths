@@ -92,6 +92,22 @@
 		"os-paths": "^4.0.1",
 		"xdg-portable": "^7.2.0"
 	},
+	"prettier # overrides/[*.markdown]/tabWidth": "// set to 4 when https://github.com/prettier/prettier/issues/5019 is fixed",
+	"prettier": {
+		"printWidth": 100,
+		"singleQuote": true,
+		"useTabs": true,
+		"tabWidth": 2,
+		"overrides": [
+			{
+				"files": [ "*.md", "*.mkd",	"*.markdown" ],
+				"options": {
+					"tabWidth": 2,
+					"useTabs": false
+				}
+			}
+		]
+	},
 	"tsd": {
 		"directory": "test"
 	}
