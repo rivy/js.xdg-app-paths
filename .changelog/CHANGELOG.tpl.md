@@ -10,6 +10,9 @@
 {{ range .Commits }}{{ template "format-commit" . -}}{{ end -}}
 {{ end -}}
 
+<!-- markdownlint-disable heading-increment no-duplicate-heading no-inline-html -->
+<!-- spellchecker:ignore () CICD Deno EditorConfig chglog maint markdownlint rivy typeof -->
+
 # CHANGELOG <br/> [{{ $.Info.Title }}]({{ $.Info.RepositoryURL }})
 {{ if .Unreleased.CommitGroups }}{{/* <a name="unreleased"></a> */}}
 ## [Unreleased]
