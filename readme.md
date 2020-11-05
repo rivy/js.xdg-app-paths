@@ -70,7 +70,7 @@ paths.data();
 ```js
 const xdgAppPaths = require('xdg-app-paths');
 // or ...
-const xdgAppPaths = require('xdg-app-paths')( options );
+const xdgAppPaths = require('xdg-app-paths')(options);
 ```
 
 The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. When called directly (eg, `const p = xdgAppPaths(...)`), it acts as a constructor, returning a new, and unrelated, XDGAppPaths object.
@@ -83,29 +83,29 @@ The object returned by the module constructor is an XDGAppPaths Function object,
 >
 > ##### `Options: object`
 >
-> * default = `{ name: '', suffix: '', isolated: true }`
+> - default = `{ name: '', suffix: '', isolated: true }`
 >
 > ###### `Options.name: string`
 >
-> * default = `''`
+> - default = `''`
 >
 > Name of your application; used to generate the paths. If missing, `null`, or empty (`''`), it is generated automatically from the available process information.
 >
 > ###### `Options.suffix: string`
 >
-> * default = `''`
+> - default = `''`
 >
 > Suffix which is appended to the application name when generating the application paths.
 >
 > ###### `Options.isolated: boolean`
 >
-> * default = `true`
+> - default = `true`
 >
 > Default isolation flag.
 
 ### Methods
 
-All returned path strings are simple, platform-compatible, strings and are *not* guaranteed to exist. The application is responsible for construction of the directories. If needed, [`make-dir`](https://www.npmjs.com/package/make-dir) or [`mkdirp`](https://www.npmjs.com/package/mkdirp) can be used to create the directories.
+All returned path strings are simple, platform-compatible, strings and are _not_ guaranteed to exist. The application is responsible for construction of the directories. If needed, [`make-dir`](https://www.npmjs.com/package/make-dir) or [`mkdirp`](https://www.npmjs.com/package/mkdirp) can be used to create the directories.
 
 #### `xdgAppPaths.cache( DirOptions? ): string`
 
@@ -143,11 +143,11 @@ Returns a priority-sorted list of possible directories for data file storage (in
 >
 > ##### `DirOptions: object`
 >
-> * default = `{ isolated: true }`
+> - default = `{ isolated: true }`
 >
 > ###### `DirOptions.isolated: boolean`
 >
-> * default = `true`
+> - default = `true`
 >
 > Isolation flag; used to override the default isolation mode, when needed.
 
@@ -170,19 +170,24 @@ const path = require('path');
 const appPaths = require('xdg-app-paths');
 // Extend appPaths with a "log" location function
 appPaths.log = function (dirOptions = null) {
-    function typeOf(x) { // use avoids circumvention of eslint variable tracking for `x`
-        return typeof x;
-    }
+  function typeOf(x) {
+    // use avoids circumvention of eslint variable tracking for `x`
+    return typeof x;
+  }
 
-    if (typeOf(dirOptions) === 'boolean') {
-        dirOptions = {isolated: dirOptions};
-    }
+  if (typeOf(dirOptions) === 'boolean') {
+    dirOptions = { isolated: dirOptions };
+  }
 
-    if ((typeOf(dirOptions) !== 'object') || (dirOptions === null) || (typeOf(dirOptions.isolated) !== 'boolean')) {
-        dirOptions = {isolated: this.$isolated()};
-    }
+  if (
+    typeOf(dirOptions) !== 'object' ||
+    dirOptions === null ||
+    typeOf(dirOptions.isolated) !== 'boolean'
+  ) {
+    dirOptions = { isolated: this.$isolated() };
+  }
 
-    return path.join(this.state(dirOptions), (dirOptions.isolated ? '' : this.$name() + '-') + 'log');
+  return path.join(this.state(dirOptions), (dirOptions.isolated ? '' : this.$name() + '-') + 'log');
 };
 
 // log file
@@ -191,9 +196,10 @@ mkdirp.sync(path.dirname(logPath), 0o700);
 
 // config file
 // * search for config file within user preferred directories; otherwise, use preferred directory
-const possibleConfigPaths = appPaths.configDirs()
-    .concat(appPaths.configDirs({isolated: !appPaths.$isolated()}))
-    .map(v => path.join(v, appPaths.$name() + '.json'));
+const possibleConfigPaths = appPaths
+  .configDirs()
+  .concat(appPaths.configDirs({ isolated: !appPaths.$isolated() }))
+  .map((v) => path.join(v, appPaths.$name() + '.json'));
 const configPath = locatePath.sync(possibleConfigPaths) || possibleConfigPaths[0];
 // debug(logPath, 'configPath="%s"', configPath);
 mkdirp.sync(path.dirname(configPath), 0o700);
@@ -238,32 +244,41 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 <!-- badge references -->
 
 <!-- [npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat&label=npm&logo=NPM&logoColor=linen -->
+
 [npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat
 [npm-url]: https://npmjs.org/package/xdg-app-paths
 
 <!-- [appveyor-image]: https://ci.appveyor.com/api/projects/status/.../branch/master?svg=true -->
+
 [appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths/master.svg?style=flat&logo=AppVeyor&logoColor=deepskyblue
 [appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
 [gha-image]: https://github.com/rivy/js.xdg-app-paths/workflows/CI/badge.svg
 [gha-url]: https://github.com/rivy/js.xdg-app-paths/actions?query=workflow%3ACI
+
 <!-- [travis-image]: https://travis-ci.org/rivy/js.xdg-app-paths.svg?branch=master -->
 <!-- [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=Travis-CI&logoColor=silver -->
+
 [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=travis
 [travis-url]: https://travis-ci.org/rivy/js.xdg-app-paths
 
 <!-- [coverage-image]: https://img.shields.io/coveralls/github/rivy/xdg-app-paths/master.svg -->
 <!-- [coverage-url]: https://coveralls.io/github/rivy/xdg-app-paths -->
+
 [coverage-image]: https://img.shields.io/codecov/c/github/rivy/js.xdg-app-paths/master.svg
 [coverage-url]: https://codecov.io/gh/rivy/js.xdg-app-paths
 [downloads-image]: http://img.shields.io/npm/dm/xdg-app-paths.svg?style=flat
 [downloads-url]: https://npmjs.org/package/xdg-app-paths
 [license-image]: https://img.shields.io/npm/l/xdg-app-paths.svg?style=flat
 [license-url]: license
+
 <!-- [repository-image]:https://img.shields.io/badge/%E2%9D%A4-darkcyan?style=flat&logo=github -->
 <!-- note: %E2%81%A3 == utf-8 sequence of 'Unicode Character 'INVISIBLE SEPARATOR' (U+2063)' -->
-[repository-image]:https://img.shields.io/github/v/tag/rivy/js.xdg-app-paths?label=%E2%81%A3&logo=github&logoColor=white
-[repository-url]:https://github.com/rivy/js.xdg-app-paths
+
+[repository-image]: https://img.shields.io/github/v/tag/rivy/js.xdg-app-paths?label=%E2%81%A3&logo=github&logoColor=white
+[repository-url]: https://github.com/rivy/js.xdg-app-paths
+
 <!-- [style-image]: https://img.shields.io/badge/code_style-standard-darkcyan.svg -->
 <!-- [style-url]: https://standardjs.com -->
+
 [style-image]: https://img.shields.io/badge/code_style-XO-darkcyan.svg
 [style-url]: https://github.com/xojs/xo

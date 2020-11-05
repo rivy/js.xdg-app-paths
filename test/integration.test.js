@@ -11,7 +11,7 @@ const module_ = require('../src/lib');
 
 // Integration tests
 
-test('api', t => {
+test('api', (t) => {
 	const paths = module_;
 	const api = [
 		'$name',
@@ -22,23 +22,23 @@ test('api', t => {
 		'runtime',
 		'state',
 		'configDirs',
-		'dataDirs'
+		'dataDirs',
 	];
 
 	t.is(typeof paths, 'function');
 	t.is(Object.keys(paths).length, api.length);
-	api.forEach(key => {
+	api.forEach((key) => {
 		t.is(typeof paths[key], 'function');
 	});
 });
 
-test('correctly derive script name (JavaScript/CJS)', t => {
+test('correctly derive script name (JavaScript/CJS)', (t) => {
 	const command = 'node';
 	const script = 'test/fixtures/cli-display-name.js';
 	const args = [script];
-	const options = {shell: true};
+	const options = { shell: true };
 
-	const {error, status, stdout, stderr} = spawn.sync(command, args, options);
+	const { error, status, stdout, stderr } = spawn.sync(command, args, options);
 
 	t.log('error=', error);
 	t.log('status=', status);
