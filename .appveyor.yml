@@ -1,6 +1,6 @@
 # spell-checker:ignore repo
 
-version: "{build} ~ {branch}"
+version: '{build} ~ {branch}'
 
 branches:
   except:
@@ -8,10 +8,10 @@ branches:
 
 environment:
   matrix:
-    - nodejs_version: "12"
-    - nodejs_version: "10"
-    - nodejs_version: "8"
-    - nodejs_version: "6"
+    - nodejs_version: '12'
+    - nodejs_version: '10'
+    - nodejs_version: '8'
+    - nodejs_version: '6'
     # - nodejs_version: "4"
 
 # platform:
