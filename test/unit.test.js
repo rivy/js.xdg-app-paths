@@ -32,7 +32,7 @@ function xdgPathRegex(name) {
 			')' +
 			regexpEscape(name) +
 			'(' +
-			// For windows, `name` may be embedded within the generated paths (instead of always trailing as in MacOS/*nix)
+			// for windows, `name` may be embedded within the generated paths (instead of always trailing as in MacOS/*nix)
 			(isWinOS ? regexpEscape(path.sep) + '|' : '') +
 			'$)'
 	);
@@ -68,7 +68,7 @@ test('default', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -91,7 +91,7 @@ test('alternate constructor (via function())', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -116,7 +116,7 @@ test('alternate constructor (via function(...))', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -132,14 +132,14 @@ test('alternate constructor (via function(...))', (t) => {
 
 test('alternate constructor (via new())', (t) => {
 	const isolated = true;
-	const paths = new module_(); // Aka, `new module_(undefined)`
+	const paths = new module_(); // aka, `new module_(undefined)`
 	const regex = xdgPathRegex(paths.$name());
 
 	t.is(paths.$isolated(), isolated);
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -164,7 +164,7 @@ test('alternate constructor (via new(...))', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -189,7 +189,7 @@ test('chosen application name', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -213,7 +213,7 @@ test('chosen suffix', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -239,7 +239,7 @@ test('chosen application name + suffix', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -277,7 +277,7 @@ test('correct paths with only XDG_*_HOME set', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -336,7 +336,7 @@ test('correct "isolated" paths with only XDG_*_HOME set', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
@@ -444,7 +444,7 @@ test('correct paths with XDG_* set', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^(\$.*)$/) && isDefined(v)) {
@@ -509,7 +509,7 @@ test('correct "isolated" paths with XDG_* set', (t) => {
 
 	Object.keys(paths).forEach((key) => {
 		const value = paths[key];
-		const values = [].concat(value()); // Convert value (single value or array) to a flat array
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
 		values.forEach((v) => {
 			if (!key.match(/^(\$.*)$/) && isDefined(v)) {

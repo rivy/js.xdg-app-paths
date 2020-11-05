@@ -14,7 +14,7 @@ const appPaths = require(xdgAppPathsModulePath);
 // Extend appPaths with a "log" location function
 appPaths.log = function (dirOptions = null) {
 	function typeOf(x) {
-		// Use avoids circumvention of eslint variable tracking for `x`
+		// * use avoids circumvention of eslint variable tracking for `x`
 		return typeof x;
 	}
 
