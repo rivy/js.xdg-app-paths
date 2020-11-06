@@ -9,7 +9,7 @@
 		"email": "rivy.dev@gmail.com"
 	},
 	"engines": {
-		"node": ">=6"
+		"node": ">= 6.0"
 	},
 	"files": [
 		"src/**/*",
