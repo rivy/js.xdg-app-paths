@@ -5,9 +5,9 @@
 
 <!-- markdownlint-disable heading-increment ul-style -->
 <!-- spell-checker:ignore (names) rivy Sindre sindresorhus Sorhus -->
-<!-- spell-checker:ignore (abbrev/jargon) CICD -->
+<!-- spell-checker:ignore (abbrev/jargon) CICD NodeJS -->
 <!-- spell-checker:ignore (JS/TS) concat mkdirp readonly typeof -->
-<!-- spell-checker:ignore (markdown) nbsp -->
+<!-- spell-checker:ignore (markdown) nbsp nodejsv -->
 <!-- spell-checker:ignore (platform/windows) APPDATA LOCALAPPDATA -->
 
 # [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
@@ -19,11 +19,12 @@
 [![Build status][appveyor-image]][appveyor-url]
 [![Coverage status][coverage-image]][coverage-url]
 [![License][license-image]][license-url]
+[![Javascript Style Guide][style-image]][style-url]
 &nbsp; <br/>
 [![Repository][repository-image]][repository-url]
 [![NPM version][npm-image]][npm-url]
+[![NodeJS version][nodejsv-image]][repository-url]
 [![Downloads][downloads-image]][downloads-url]
-[![Javascript Style Guide][style-image]][style-url]
 
 <!--
 ## References
@@ -248,8 +249,9 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 
 [repository-image]: https://img.shields.io/github/v/tag/rivy/js.xdg-app-paths?label=%E2%81%A3&logo=github&logoColor=white
 [repository-url]: https://github.com/rivy/js.xdg-app-paths
-[license-image]: https://img.shields.io/npm/l/xdg-app-paths.svg?style=flat
+[license-image]: https://img.shields.io/npm/l/xdg-app-paths.svg?color=royalblue&style=flat
 [license-url]: license
+[nodejsv-image]: https://img.shields.io/node/v/xdg-app-paths?color=blue
 [style-image]: https://img.shields.io/badge/code_style-prettier-mediumvioletred.svg
 [style-url]: https://prettier.io
 
@@ -257,7 +259,7 @@ MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresor
 
 [appveyor-image]: https://img.shields.io/appveyor/ci/rivy/js-xdg-app-paths/master.svg?style=flat&logo=AppVeyor&logoColor=deepskyblue
 [appveyor-url]: https://ci.appveyor.com/project/rivy/js-xdg-app-paths
-[gha-image]: https://github.com/rivy/js.xdg-app-paths/workflows/CI/badge.svg
+[gha-image]: https://img.shields.io/github/workflow/status/rivy/js.xdg-app-paths/CI?label=CI&logo=github
 [gha-url]: https://github.com/rivy/js.xdg-app-paths/actions?query=workflow%3ACI
 [travis-image]: https://img.shields.io/travis/rivy/js.xdg-app-paths/master.svg?style=flat&logo=travis
 [travis-url]: https://travis-ci.org/rivy/js.xdg-app-paths
