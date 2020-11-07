@@ -14,7 +14,7 @@
 	"files": [
 		"src/**/*",
 		"LICENSE",
-		"README.mkd"
+		"README.md"
 	],
 	"main": "src/lib/index.js",
 	"types": "src/lib/index.d.ts",
