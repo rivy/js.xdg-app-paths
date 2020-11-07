@@ -2,11 +2,14 @@ import { expectType } from 'tsd';
 
 import xdgAppPaths from '../src/lib';
 
-const paths: typeof xdgAppPaths = xdgAppPaths('MyApp');
-
+expectType<typeof xdgAppPaths>(xdgAppPaths);
 expectType<typeof xdgAppPaths>(xdgAppPaths());
 expectType<typeof xdgAppPaths>(xdgAppPaths('MyApp'));
 expectType<typeof xdgAppPaths>(xdgAppPaths({ name: 'MyApp', suffix: '-nodejs', isolated: false }));
+
+const paths = xdgAppPaths('MyApp');
+
+expectType<typeof xdgAppPaths>(paths);
 
 expectType<string>(paths.$name());
 expectType<boolean>(paths.$isolated());
