@@ -2,6 +2,7 @@
 // spell-checker:ignore (modules) execa
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 
 const test = require('ava');
@@ -47,4 +48,31 @@ test('correctly derive script name (JavaScript/CJS)', (t) => {
 	t.log('stderr=', stderr);
 
 	t.is(stdout.toString().trim(), path.parse(script).name);
+});
+
+test('examples are executable without error (JavaScript)', (t) => {
+	const egDirPath = 'eg';
+	const extensions = ['.js', '.cjs', '.mjs'];
+
+	const files = fs.readdirSync(egDirPath);
+
+	files
+		.filter((file) => {
+			return extensions.includes(path.extname(file));
+		})
+		.forEach((file) => {
+			const command = 'node';
+			const script = path.join(egDirPath, file);
+			const args = [script];
+			const options = { shell: true };
+
+			t.log({ script });
+
+			const { error, status } = spawn.sync(command, args, options);
+
+			t.log({ error, status });
+
+			t.is(error, null);
+			t.is(status, 0);
+		});
 });
