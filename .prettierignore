@@ -4,7 +4,8 @@
 .vscode
 package.json
 
-# * build/coverage artifacts
+# * build/coverage/dev artifacts
+.history
 .nyc_output
 build
 coverage
