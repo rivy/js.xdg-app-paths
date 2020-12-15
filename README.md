@@ -19,7 +19,7 @@
 [![Build status][appveyor-image]][appveyor-url]
 [![Coverage status][coverage-image]][coverage-url]
 [![License][license-image]][license-url]
-[![Javascript Style Guide][style-image]][style-url]
+[![Style Guide][style-image]][style-url]
 &nbsp; <br/>
 [![Repository][repository-image]][repository-url]
 [![NPM version][npm-image]][npm-url]
@@ -233,6 +233,56 @@ By default, this module returns paths which are isolated, application-specific s
 
 This module was forked from [sindresorhus/env-paths](https://github.com/sindresorhus/env-paths) in order to add cross-platform portability and support simpler cross-platform applications.
 
+## Building and Contributing
+
+### Build requirements
+
+- NodeJS >= 6.0
+- a JavaScript package/project manager ([`npm`](https://www.npmjs.com/get-npm) or [`yarn`](https://yarnpkg.com))
+
+> #### optional
+>
+> - [`git-changelog`](https://github.com/rivy-go/git-changelog) ... enables changelog automation
+
+### Build/test
+
+```shell
+npm install
+npm test
+```
+
+### Project development scripts
+
+```shell
+> npm run help
+...
+usage: `npm run TARGET [TARGET..]`
+
+TARGETs:
+
+coverage            calculate and display (or send) code coverage [alias: 'cov']
+fix                 fix package issues (automated/non-interactive)
+fix:lint            fix `ESLint` issues
+fix:style           fix `Prettier` formatting issues
+help                display help
+lint                check for package code 'lint'
+lint:lint           check for code 'lint' (using `ESLint`)
+lint:spell          check for spelling errors (using `cSpell`)
+lint:style          check for format imperfections (using `Prettier`)
+lint:types          check for type declaration errors (using `tsd`)
+test                test package
+test:code           test package code
+update:changelog    update CHANGELOG (using `git changelog ...`)
+```
+
+### Contributions
+
+Contributions are welcome.
+
+Any pull requests should be based off of the default branch (`master`). And, whenever possible, please include tests for any new code, ensuring that local (via `npm test`) and remote CI testing passes.
+
+By contributing to the project, you are agreeing to provide your contributions under the same [license](./LICENSE) as the project itself.
+
 ## Related
 
 - [`xdg-portable`](https://www.npmjs.com/package/xdg-portable) ... XDG Base Directory paths (cross-platform)
@@ -240,7 +290,7 @@ This module was forked from [sindresorhus/env-paths](https://github.com/sindreso
 
 ## License
 
-MIT © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresorhus.com)
+[MIT](./LICENSE) © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresorhus.com)
 
 <!-- badge references -->
 
