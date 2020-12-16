@@ -31,12 +31,18 @@ appPaths.log = function (dirOptions = null) {
 	return path.join(self.state(dirOptions), (dirOptions.isolated ? '' : self.$name() + '-') + 'log');
 };
 
+function showObjectEntries(obj) {
+	var strings = [];
+	Object.keys(obj).forEach((key) => {
+		const value = obj[key];
+		const val = typeof value === 'function' ? value() : value;
+		strings.push(key + ' = ' + val);
+	});
+	return strings.join('\n');
+}
+
 console.log({ appPaths });
-Object.entries(appPaths).forEach((entry) => {
-	const [key, value] = entry;
-	const val = typeof value === 'function' ? value() : value;
-	console.log(key, '=', val);
-});
+console.log(showObjectEntries(appPaths));
 
 console.log('appPaths.log():', appPaths.log());
 console.log('appPaths.log(false):', appPaths.log(false));
@@ -46,35 +52,19 @@ delete process.env.XDG_CONFIG_HOME;
 let p = require(xdgAppPathsModulePath)('dross');
 
 console.log({ p });
-Object.entries(p).forEach((entry) => {
-	const [key, value] = entry;
-	const val = typeof value === 'function' ? value() : value;
-	console.log(key, '=', val);
-});
+console.log(showObjectEntries(p));
 
 p = require(xdgAppPathsModulePath)({ suffix: '-nodejs' });
 
 console.log({ p });
-Object.entries(p).forEach((entry) => {
-	const [key, value] = entry;
-	const val = typeof value === 'function' ? value() : value;
-	console.log(key, '=', val);
-});
+console.log(showObjectEntries(p));
 
 p = require(xdgAppPathsModulePath)({ name: 'extraordinaire', suffix: '-nodejs' });
 
 console.log({ p });
-Object.entries(p).forEach((entry) => {
-	const [key, value] = entry;
-	const val = typeof value === 'function' ? value() : value;
-	console.log(key, '=', val);
-});
+console.log(showObjectEntries(p));
 
 p = require(xdgAppPathsModulePath)({ name: 'fluffy', isolated: false });
 
 console.log({ p });
-Object.entries(p).forEach((entry) => {
-	const [key, value] = entry;
-	const val = typeof value === 'function' ? value() : value;
-	console.log(key, '=', val);
-});
+console.log(showObjectEntries(p));
