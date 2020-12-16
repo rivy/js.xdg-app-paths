@@ -5,6 +5,14 @@
 
 ---
 
+## [v5.5.1](https://github.com/rivy/js.xdg-app-paths/compare/v5.5.0...v5.5.1) <small>(2020-12-15)</small>
+
+#### Fixes
+
+* fix examples (restore Node-v6 compatibility) &ac; [`a76fe7d`](https://github.com/rivy/js.xdg-app-paths/commit/a76fe7d2ad52ebcb8df554427c13a0449ddf110d)
+
+---
+
 ## [v5.5.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.4.1...v5.5.0) <small>(2020-12-15)</small>
 
 #### Fixes
