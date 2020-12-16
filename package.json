@@ -13,6 +13,7 @@
 	},
 	"files": [
 		"src/**/*",
+		"CHANGELOG.mkd",
 		"LICENSE",
 		"README.md"
 	],
