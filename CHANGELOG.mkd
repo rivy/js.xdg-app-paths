@@ -1,5 +1,5 @@
 <!-- markdownlint-disable heading-increment no-duplicate-heading no-inline-html -->
-<!-- spellchecker:ignore () CICD Deno EditorConfig chglog gitattributes maint markdownlint rivy typeof -->
+<!-- spellchecker:ignore () CICD Deno EditorConfig chglog gitattributes maint markdownlint prettierignore rivy typeof -->
 
 # CHANGELOG <br/> [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
 
