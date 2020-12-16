@@ -5,6 +5,31 @@
 
 ---
 
+## [v5.5.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.4.1...v5.5.0) <small>(2020-12-15)</small>
+
+#### Fixes
+
+* fix ~ remove erroneous devDependency ('fs[@0](https://github.com/0).0.1-security') &ac; [`d9d97ce`](https://github.com/rivy/js.xdg-app-paths/commit/d9d97ce74f52248a15d23b4da682d5d46bab4f67)
+
+#### Documentation
+
+* docs ~ refactor examples (improved flexibility and robustness) &ac; [`b4c702d`](https://github.com/rivy/js.xdg-app-paths/commit/b4c702d904b0cb5e6d99a83db25cbfdfda0fc354)
+* docs ~ add CHANGELOG spell-checker exceptions &ac; [`d26c92e`](https://github.com/rivy/js.xdg-app-paths/commit/d26c92e38881c7cf30683d9607b44ce1bead16d4)
+* docs ~ add TypeScript example &ac; [`655beee`](https://github.com/rivy/js.xdg-app-paths/commit/655beeefbcc36d0f53640810f3f8a7f08c102129)
+* docs ~ polish README &ac; [`73414bc`](https://github.com/rivy/js.xdg-app-paths/commit/73414bc998944b5d54f8fa8a35efbc6da6611591)
+
+#### Maintenance
+
+* maint/**build**: fix package keywords &ac; [`0240b3a`](https://github.com/rivy/js.xdg-app-paths/commit/0240b3a91d249d333a8194f86fe3b49e05430f2c)
+* maint/**build**: include CHANGELOG in distribution file list &ac; [`ce467f3`](https://github.com/rivy/js.xdg-app-paths/commit/ce467f3dc559a5e83a7abe7ce45a4a82e28e81cd)
+* maint/**build**: update 'README.md' filename in package manifest &ac; [`708ad3a`](https://github.com/rivy/js.xdg-app-paths/commit/708ad3af461b9cc7bcb2a8c24efb432e50b699c1)
+* maint/**dev**: refactor/polish package.json &ac; [`bdd0cff`](https://github.com/rivy/js.xdg-app-paths/commit/bdd0cff0ac07f8269eb711118922e394bdec7bbf)
+* maint/**dev**: npm script polish &ac; [`3c5f95a`](https://github.com/rivy/js.xdg-app-paths/commit/3c5f95a539be18f0a3f92891cd39aa96b8d4a91a)
+* maint/**dev**: include .history (for VSCode plugin) in .prettierignore &ac; [`f6fd80c`](https://github.com/rivy/js.xdg-app-paths/commit/f6fd80ca6a66c2c9db088ae24bde9d0a93a4d05d)
+* maint/**dev**: include .history (for VSCode plugin) in .gitignore &ac; [`c58b821`](https://github.com/rivy/js.xdg-app-paths/commit/c58b82108f93457004e90bd02b736f7d66332653)
+
+---
+
 ## [v5.4.1](https://github.com/rivy/js.xdg-app-paths/compare/v5.4.0...v5.4.1) <small>(2020-11-05)</small>
 
 #### Documentation
