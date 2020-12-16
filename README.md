@@ -171,6 +171,7 @@ const path = require('path');
 const appPaths = require('xdg-app-paths');
 // Extend appPaths with a "log" location function
 appPaths.log = function (dirOptions = null) {
+  const self = appPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
   function typeOf(x) {
     // use avoids circumvention of eslint variable tracking for `x`
     return typeof x;
@@ -185,10 +186,10 @@ appPaths.log = function (dirOptions = null) {
     dirOptions === null ||
     typeOf(dirOptions.isolated) !== 'boolean'
   ) {
-    dirOptions = { isolated: this.$isolated() };
+    dirOptions = { isolated: self.$isolated() };
   }
 
-  return path.join(this.state(dirOptions), (dirOptions.isolated ? '' : this.$name() + '-') + 'log');
+  return path.join(self.state(dirOptions), (dirOptions.isolated ? '' : self.$name() + '-') + 'log');
 };
 
 // log file

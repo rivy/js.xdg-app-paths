@@ -3,15 +3,16 @@
 'use strict';
 
 const path = require('path');
-const { inspect } = require('util');
-const _ = require('lodash') || undefined;
+
 const xdgAppPathsModulePath = '../src/lib';
+
 const appPaths = require(xdgAppPathsModulePath);
 
 // Extend appPaths with a "log" location function
 appPaths.log = function (dirOptions = null) {
+	const self = appPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
 	function typeOf(x) {
-		// Use avoids circumvention of eslint variable tracking for `x`
+		// * use avoids circumvention of eslint variable tracking for `x`
 		return typeof x;
 	}
 
@@ -24,18 +25,18 @@ appPaths.log = function (dirOptions = null) {
 		dirOptions === null ||
 		typeOf(dirOptions.isolated) !== 'boolean'
 	) {
-		dirOptions = { isolated: this.$isolated() };
+		dirOptions = { isolated: self.$isolated() };
 	}
 
-	return path.join(this.state(dirOptions), (dirOptions.isolated ? '' : this.$name() + '-') + 'log');
+	return path.join(self.state(dirOptions), (dirOptions.isolated ? '' : self.$name() + '-') + 'log');
 };
 
-console.log('appPaths:', inspect(appPaths));
-if (_) {
-	_.each(appPaths, (value, key) => {
-		console.log(key, '=', appPaths[key]());
-	});
-}
+console.log({ appPaths });
+Object.entries(appPaths).forEach((entry) => {
+	const [key, value] = entry;
+	const val = typeof value === 'function' ? value() : value;
+	console.log(key, '=', val);
+});
 
 console.log('appPaths.log():', appPaths.log());
 console.log('appPaths.log(false):', appPaths.log(false));
@@ -44,36 +45,36 @@ console.log('appPaths.log(true):', appPaths.log(true));
 delete process.env.XDG_CONFIG_HOME;
 let p = require(xdgAppPathsModulePath)('dross');
 
-console.log('p:', inspect(p));
-if (_) {
-	_.each(p, (value, key) => {
-		console.log(key, '=', p[key]());
-	});
-}
+console.log({ p });
+Object.entries(p).forEach((entry) => {
+	const [key, value] = entry;
+	const val = typeof value === 'function' ? value() : value;
+	console.log(key, '=', val);
+});
 
 p = require(xdgAppPathsModulePath)({ suffix: '-nodejs' });
 
-console.log('p:', inspect(p));
-if (_) {
-	_.each(p, (value, key) => {
-		console.log(key, '=', p[key]());
-	});
-}
+console.log({ p });
+Object.entries(p).forEach((entry) => {
+	const [key, value] = entry;
+	const val = typeof value === 'function' ? value() : value;
+	console.log(key, '=', val);
+});
 
 p = require(xdgAppPathsModulePath)({ name: 'extraordinaire', suffix: '-nodejs' });
 
-console.log('p:', inspect(p));
-if (_) {
-	_.each(p, (value, key) => {
-		console.log(key, '=', p[key]());
-	});
-}
+console.log({ p });
+Object.entries(p).forEach((entry) => {
+	const [key, value] = entry;
+	const val = typeof value === 'function' ? value() : value;
+	console.log(key, '=', val);
+});
 
 p = require(xdgAppPathsModulePath)({ name: 'fluffy', isolated: false });
 
-console.log('p:', inspect(p));
-if (_) {
-	_.each(p, (value, key) => {
-		console.log(key, '=', p[key]());
-	});
-}
+console.log({ p });
+Object.entries(p).forEach((entry) => {
+	const [key, value] = entry;
+	const val = typeof value === 'function' ? value() : value;
+	console.log(key, '=', val);
+});
