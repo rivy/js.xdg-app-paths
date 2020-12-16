@@ -88,6 +88,10 @@
 		"preversion": "run-s test",
 		"version": "run-s _:version:update:changelog lint:spell && git add CHANGELOG.mkd"
 	},
+	"dependencies": {
+		"os-paths": "^4.0.1",
+		"xdg-portable": "^7.2.0"
+	},
 	"devDependencies:#": "* for testing, Node-v6 requires ava < v2 and nyc < v15",
 	"devDependencies": {
 		"ava": "^1.4.1",
@@ -112,10 +116,6 @@
 		"tsd": "^0.13.1",
 		"util": "^0.12.1"
 	},
-	"dependencies": {
-		"os-paths": "^4.0.1",
-		"xdg-portable": "^7.2.0"
-	},
 	"prettier:#": "overrides/[*.markdown]/tabWidth == 2; may reset to 4 when https://github.com/prettier/prettier/issues/5019 is fixed",
 	"prettier": {
 		"printWidth": 100,
@@ -124,7 +124,11 @@
 		"tabWidth": 2,
 		"overrides": [
 			{
-				"files": [ "*.md", "*.mkd",	"*.markdown" ],
+				"files": [
+					"*.md",
+					"*.mkd",
+					"*.markdown"
+				],
 				"options": {
 					"tabWidth": 2,
 					"useTabs": false
