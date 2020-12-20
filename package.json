@@ -91,7 +91,6 @@
 		"version": "run-s _:version:update:changelog lint:spell && git add CHANGELOG.mkd"
 	},
 	"dependencies": {
-		"os-paths": "^4.0.1",
 		"xdg-portable": "^7.2.0"
 	},
 	"devDependencies:#": "* for testing, Node-v6 requires ava < v2 and nyc < v15",
