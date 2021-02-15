@@ -1,70 +1,59 @@
-// # spell-checker:ignore APPNAME
-/* eslint-env es6, node */
-'use strict';
+import path from 'path';
+import { inspect } from 'util';
 
-const path = require('path');
+/* eslint-disable @typescript-eslint/no-explicit-any , functional/immutable-data , no-console , security-node/detect-crlf , security/detect-object-injection */
 
-const xdgAppPathsModulePath = '../src/lib';
+import appPaths from '../dist/cjs/mod.cjs';
+import type { DirOptions, XDGAppPaths } from '../src/mod.esm';
 
-const appPaths = require(xdgAppPathsModulePath);
-
-// Extend appPaths with a "log" location function
-appPaths.log = function (dirOptions = null) {
-	const self = appPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
-	function typeOf(x) {
-		// * use avoids circumvention of eslint variable tracking for `x`
-		return typeof x;
-	}
-
-	if (typeOf(dirOptions) === 'boolean') {
-		dirOptions = { isolated: dirOptions };
-	}
-
-	if (
-		typeOf(dirOptions) !== 'object' ||
-		dirOptions === null ||
-		typeOf(dirOptions.isolated) !== 'boolean'
-	) {
-		dirOptions = { isolated: self.$isolated() };
-	}
-
-	return path.join(self.state(dirOptions), (dirOptions.isolated ? '' : self.$name() + '-') + 'log');
-};
-
-function showObjectEntries(obj) {
-	var strings = [];
+function objectEntries(obj: any) {
+	const map: any = {};
 	Object.keys(obj).forEach((key) => {
 		const value = obj[key];
 		const val = typeof value === 'function' ? value() : value;
-		strings.push(key + ' = ' + val);
+		map[key] = val;
 	});
-	return strings.join('\n');
+	return map;
 }
 
-console.log({ appPaths });
-console.log(showObjectEntries(appPaths));
+// eslint-disable-next-line functional/prefer-readonly-type
+type XDGAppPathsWithLog = XDGAppPaths & { log: (dirOptions?: DirOptions | boolean) => string };
 
-console.log('appPaths.log():', appPaths.log());
-console.log('appPaths.log(false):', appPaths.log(false));
-console.log('appPaths.log(true):', appPaths.log(true));
+// Extend appPaths with a "log" location
+(appPaths as XDGAppPathsWithLog).log = function log(dirOptions?: DirOptions | boolean) {
+	const self = appPaths;
+	dirOptions = dirOptions ?? { isolated: self.$isolated() };
+	const isolated = typeof dirOptions === 'boolean' ? dirOptions : dirOptions.isolated || true;
+	return path.join(self.state(isolated), (isolated ? '' : self.$name() + '-') + 'log');
+};
+
+console.log('appPaths:', inspect(appPaths));
+console.log('appPaths.state(false):', appPaths.state(false));
+console.log('appPaths.state(true):', appPaths.state(true));
+console.log(objectEntries(appPaths));
+console.log('appPaths.log(false):', (appPaths as XDGAppPathsWithLog).log(false));
+console.log('appPaths.log(true):', (appPaths as XDGAppPathsWithLog).log(true));
 
 delete process.env.XDG_CONFIG_HOME;
-let p = require(xdgAppPathsModulePath)('dross');
+// eslint-disable-next-line functional/no-let
+let p = appPaths('dross');
 
-console.log({ p });
-console.log(showObjectEntries(p));
+console.log('p:', inspect(p));
+console.log(objectEntries(p));
 
-p = require(xdgAppPathsModulePath)({ suffix: '-nodejs' });
+p = appPaths({ suffix: '-nodejs' });
 
-console.log({ p });
-console.log(showObjectEntries(p));
+console.log('p:', inspect(p));
+console.log(objectEntries(p));
 
-p = require(xdgAppPathsModulePath)({ name: 'extraordinaire', suffix: '-nodejs' });
+p = appPaths({ name: 'extraordinaire', suffix: '-nodejs' });
 
-console.log({ p });
-console.log(showObjectEntries(p));
+console.log('p:', inspect(p));
+console.log(objectEntries(p));
 
-p = require(xdgAppPathsModulePath)({ name: 'fluffy', isolated: false });
+p = appPaths({ name: 'fluffy', isolated: false });
 
-console.log({ p });
-console.log(showObjectEntries(p));
+console.log('p:', inspect(p));
+console.log(objectEntries(p));
+
+/* eslint-enable @typescript-eslint/no-explicit-any , functional/immutable-data , no-console , security-node/detect-crlf , security/detect-object-injection */

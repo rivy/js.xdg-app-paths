@@ -4,11 +4,14 @@
 
 const path = require('path');
 
-const xdgAppPathsModulePath = '../src/lib';
+/* eslint-disable no-console , security-node/detect-crlf , security-node/detect-non-literal-require-calls , security/detect-non-literal-require , security/detect-object-injection */
+
+const xdgAppPathsModulePath = '../dist/cjs/mod.cjs.js';
 
 const appPaths = require(xdgAppPathsModulePath);
 
 // Extend appPaths with a "log" location function
+// eslint-disable-next-line functional/immutable-data
 appPaths.log = function (dirOptions = null) {
 	const self = appPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
 	function typeOf(x) {
@@ -48,7 +51,9 @@ console.log('appPaths.log():', appPaths.log());
 console.log('appPaths.log(false):', appPaths.log(false));
 console.log('appPaths.log(true):', appPaths.log(true));
 
+// eslint-disable-next-line functional/immutable-data
 delete process.env.XDG_CONFIG_HOME;
+// eslint-disable-next-line functional/no-let
 let p = require(xdgAppPathsModulePath)('dross');
 
 console.log({ p });
@@ -68,3 +73,5 @@ p = require(xdgAppPathsModulePath)({ name: 'fluffy', isolated: false });
 
 console.log({ p });
 console.log(showObjectEntries(p));
+
+/* eslint-enable no-console , security-node/detect-crlf , security-node/detect-non-literal-require-calls , security/detect-non-literal-require , security/detect-object-injection */
