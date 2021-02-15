@@ -1,5 +1,6 @@
+/* eslint-disable security/detect-object-injection , security/detect-non-literal-fs-filename */
 /* eslint-env es6, node */
-// spell-checker:ignore (modules) execa
+// spell-checker:ignore (vars) ESM ESMs vNodeJSMajor vNodeJSminor
 'use strict';
 
 const fs = require('fs');
@@ -8,7 +9,19 @@ const path = require('path');
 const test = require('ava');
 const spawn = require('cross-spawn');
 
-const module_ = require('../src/lib');
+const module_ = require('../build/tests_/src/mod.cjs.js');
+
+const vNodeJS = process.versions.node.split('.');
+const vNodeJSMajor = +vNodeJS[0];
+const vNodeJSminor = +vNodeJS[1];
+
+// removal of `--experimental-modules` flag gate for ESM
+// ref: [NodeJS-v12.17 changes]<https://github.com/nodejs/node/pull/33197>
+// ref: [NodeJS-v13.2 changes]<https://github.com/nodejs/node/pull/30547>
+const settledSupportForESMs =
+	vNodeJSMajor > 13 ||
+	(vNodeJSMajor === 13 && vNodeJSminor >= 2) ||
+	(vNodeJSMajor === 12 && vNodeJSminor >= 17);
 
 // Integration tests
 
@@ -34,45 +47,103 @@ test('api', (t) => {
 });
 
 test('correctly derive script name (JavaScript/CJS)', (t) => {
-	const command = 'node';
-	const script = 'test/fixtures/cli-display-name.js';
-	const args = [script];
-	const options = { shell: true };
+	const fixtureDirPath = 'test/fixtures';
+	const extensions = ['.js', '.cjs'];
 
-	const { error, status, stdout, stderr } = spawn.sync(command, args, options);
-
-	t.log('error=', error);
-	t.log('status=', status);
-	t.log('stdout=', stdout);
-	t.log('stdout.toString()=', stdout.toString().trim());
-	t.log('stderr=', stderr);
-
-	t.is(stdout.toString().trim(), path.parse(script).name);
-});
-
-test('examples are executable without error (JavaScript)', (t) => {
-	const egDirPath = 'eg';
-	const extensions = ['.js', '.cjs', '.mjs'];
-
-	const files = fs.readdirSync(egDirPath);
+	const files = fs.readdirSync(fixtureDirPath);
 
 	files
 		.filter((file) => {
 			return extensions.includes(path.extname(file));
 		})
 		.forEach((file) => {
-			const command = 'node';
-			const script = path.join(egDirPath, file);
-			const args = [script];
-			const options = { shell: true };
+			if (settledSupportForESMs || path.extname(file) === '.js') {
+				const command = 'node';
+				const script = path.join(fixtureDirPath, file);
+				const args = [script];
+				const options = { shell: true, encoding: 'utf-8' };
 
-			t.log({ script });
+				t.log({ script });
 
-			const { error, status } = spawn.sync(command, args, options);
+				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
 
-			t.log({ error, status });
+				t.log({ error, status, stdout, stderr });
 
-			t.is(error, null);
-			t.is(status, 0);
+				t.deepEqual({ error, status }, { error: null, status: 0 });
+
+				t.is(stdout.toString().trim(), path.parse(script).name);
+			}
 		});
 });
+
+// test examples using '--test-dist'
+if (process.env.NPM_CONFIG_TEST_DIST) {
+	test('examples are executable without error (JavaScript)', (t) => {
+		// t.timeout(30000); // 30s timeout
+
+		const egDirPath = 'eg';
+		const extensions = ['.js', '.cjs', '.mjs'];
+
+		const files = fs.readdirSync(egDirPath);
+
+		files
+			.filter((file) => {
+				return extensions.includes(path.extname(file));
+			})
+			.forEach((file) => {
+				if (settledSupportForESMs || path.extname(file) === '.js') {
+					const command = 'node';
+					const script = path.join(egDirPath, file);
+					const args = [script];
+					const options = { shell: true, encoding: 'utf-8' };
+
+					t.log({ script });
+
+					const { error, status, stdout } = spawn.sync(command, args, options);
+
+					t.log({ error, status, stdout });
+
+					t.deepEqual({ error, status }, { error: null, status: 0 });
+				}
+			});
+	});
+
+	test('examples are executable without error (TypeScript)', (t) => {
+		// t.timeout(30000); // 30s timeout
+
+		const egDirPath = 'eg';
+		const extensions = ['.js', '.cjs', '.mjs', '.ts'];
+
+		const files = fs.readdirSync(egDirPath);
+
+		files
+			.filter((file) => {
+				const extension = path.extname(file);
+				const name = path.basename(file, extension);
+				const nameExtension = path.extname(name);
+				const isDenoTS = extension === '.ts' && nameExtension === '.deno';
+				return extensions.includes(extension) && !isDenoTS;
+			})
+			.forEach((file) => {
+				if (settledSupportForESMs || path.extname(file) === '.js' || path.extname(file) === '.ts') {
+					const command = 'node';
+					const script = path.join(egDirPath, file);
+					const args = ['node_modules/ts-node/dist/bin.js', script];
+					const options = { shell: true, encoding: 'utf8' };
+
+					const basename = path.basename(file);
+					const extension = path.extname(file);
+					const name = path.basename(file, extension);
+					const nameExtension = path.extname(name);
+
+					t.log({ script, basename, name, extension, nameExtension });
+
+					const { error, status, stdout } = spawn.sync(command, args, options);
+
+					t.log({ error, status, stdout });
+
+					t.deepEqual({ error, status }, { error: null, status: 0 });
+				}
+			});
+	});
+}

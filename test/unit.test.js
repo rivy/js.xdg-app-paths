@@ -1,3 +1,4 @@
+/* eslint-disable functional/immutable-data , functional/no-loop-statement , security-node/non-literal-reg-expr , security/detect-non-literal-regexp , security/detect-object-injection */
 /* eslint-env es6, node */
 'use strict';
 
@@ -5,7 +6,7 @@ const path = require('path');
 
 const test = require('ava');
 
-const module_ = require('../src/lib');
+const module_ = require('../build/tests_/src/mod.cjs.js');
 
 const isWinOS = /^win/i.test(process.platform);
 

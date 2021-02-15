@@ -1,6 +1,6 @@
 import { expectType } from 'tsd';
 
-import xdgAppPaths from '../src/lib';
+import xdgAppPaths from '../src/mod.esm';
 
 expectType<typeof xdgAppPaths>(xdgAppPaths);
 expectType<typeof xdgAppPaths>(xdgAppPaths());
