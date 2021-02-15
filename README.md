@@ -3,20 +3,21 @@
 <!-- -## editors ## (emacs/sublime) -*- coding: utf8-nix; tab-width: 4; mode: markdown; indent-tabs-mode: nil; basic-offset: 2; st-word_wrap: 'true' -*- ## (jEdit) :tabSize=4:indentSize=4:mode=markdown: ## (notepad++) vim:tabstop=4:syntax=markdown:expandtab:smarttab:softtabstop=2 ## modeline (see <https://archive.is/djTUD>@@<http://webcitation.org/66W3EhCAP> ) -->
 <!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
 
-<!-- markdownlint-disable heading-increment ul-style -->
-<!-- spell-checker:ignore (names) rivy Sindre sindresorhus Sorhus -->
+<!-- markdownlint-disable heading-increment no-emphasis-as-heading ul-style -->
 <!-- spell-checker:ignore (abbrev/jargon) CICD NodeJS -->
 <!-- spell-checker:ignore (JS/TS) concat mkdirp readonly typeof -->
 <!-- spell-checker:ignore (markdown) nbsp nodejsv -->
+<!-- spell-checker:ignore (npm) realclean -->
 <!-- spell-checker:ignore (platform/windows) APPDATA LOCALAPPDATA -->
+<!-- spell-checker:ignore (people) rivy -->
 
 # [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
 
-> Get ([XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) application-specific (and cross-platform) paths for storing things like cache, config, data, state, etc
+> Determine ([XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) paths for storing application files (cache, config, data, etc)
 
-[![Build status][gha-image]][gha-url]
-[![Build status][travis-image]][travis-url]
-[![Build status][appveyor-image]][appveyor-url]
+[![Build status (GHA)][gha-image]][gha-url]
+[![Build status (Travis-CI)][travis-image]][travis-url]
+[![Build status (AppVeyor)][appveyor-image]][appveyor-url]
 [![Coverage status][coverage-image]][coverage-url]
 [![License][license-image]][license-url]
 [![Style Guide][style-image]][style-url]
@@ -24,85 +25,122 @@
 [![Repository][repository-image]][repository-url]
 [![NPM version][npm-image]][npm-url]
 [![NodeJS version][nodejsv-image]][repository-url]
-[![Downloads][downloads-image]][downloads-url]
+[![npmJS Downloads][downloads-image]][downloads-url]
+[![JSDelivr Downloads][jsdelivr-image]][jsdelivr-url]
 
 <!--
-## References
-
-// XDG references
-// # ref: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html> @@ <https://archive.is/aAhtw>
-// # ref: <https://specifications.freedesktop.org/basedir-spec/latest/ar01s03.html> @@ <https://archive.is/7N0TN>
-// # ref: <https://wiki.archlinux.org/index.php/XDG_Base_Directory> @@ <https://archive.is/VdO9n>
-// # ref: <https://wiki.debian.org/XDGBaseDirectorySpecification#state> @@ <http://archive.is/pahId>
-// # ref: <https://ploum.net/207-modify-your-application-to-use-xdg-folders> @@ <https://archive.is/f43Gk>
+XDG references
+# ref: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html> @@ <https://archive.is/aAhtw>
+# ref: <https://specifications.freedesktop.org/basedir-spec/latest/ar01s03.html> @@ <https://archive.is/7N0TN>
+# ref: <https://wiki.archlinux.org/index.php/XDG_Base_Directory> @@ <https://archive.is/VdO9n>
+# ref: <https://wiki.debian.org/XDGBaseDirectorySpecification#state> @@ <http://archive.is/pahId>
+# ref: <https://ploum.net/207-modify-your-application-to-use-xdg-folders> @@ <https://archive.is/f43Gk>
 -->
 
-## Installation
+## Installation (CJS/ESM/TypeScript)
 
 ```shell
 npm install xdg-app-paths
+# or... `npm install "git:github.com/rivy/js.xdg-app-paths"`
+# or... `npm install "git:github.com/rivy/js.xdg-app-paths#v6.0.0"`
+# or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/dist/xdg-app-paths.tgz"`
 ```
 
 ## Usage
 
+#### CommonJS (CJS)
+
 ```js
 // MyApp.js
-const paths = require('xdg-app-paths');
+const xdgAppPaths = require('xdg-app-paths/cjs');
 
-paths.cache();
+const cache = xdgAppPaths.cache();
 //(nix)=> '/home/rivy/.cache/MyApp.js'
 //(win)=> 'C:\\Users\\rivy\\AppData\\Local\\MyApp\\Cache'
 
-paths.config();
+const config = xdgAppPaths.config();
 //(nix)=> '/home/rivy/.config/MyApp.js'
 //(win)=> 'C:\\Users\\rivy\\AppData\\Roaming\\MyApp\\Config'
 
-paths.data();
+const data = xdgAppPaths.data();
 //(nix)=> '/home/rivy/.local/share/MyApp.js'
 //(win)=> 'C:\\Users\\rivy\\AppData\\Roaming\\MyApp\\Data'
 ```
 
-## API
-
-### Initialization
-
-#### `require('xdg-app-paths')( Options? ): XDGAppPaths()`
+#### ECMAScript (ESM)/TypeScript
 
 ```js
-const xdgAppPaths = require('xdg-app-paths');
-// or ...
-const xdgAppPaths = require('xdg-app-paths')(options);
+import xdgAppPaths from 'xdg-app-paths';
+const configDirs = xdgAppPaths.configDirs();
+//...
 ```
 
-The object returned by the module constructor is an XDGAppPaths Function object, augmented with attached methods. When called directly (eg, `const p = xdgAppPaths(...)`), it acts as a constructor, returning a new, and unrelated, XDGAppPaths object.
+## API
 
-> #### `Options`
+### Construction/Initialization
+
+#### `XDGAppPaths( Options? )`
+
+```js
+// CJS
+const xdgAppPaths = require('xdg-app-paths/cjs');
+// or ...
+const xdgAppPaths = require('xdg-app-paths/cjs')(options);
+
+// ESM/TypeScript
+import xdgAppPaths from 'xdg-app-paths';
+// or ...
+import XDGAppPaths from 'xdg-app-paths';
+const xdgAppPaths = XDGAppPaths(options);
+```
+
+When importing this module, the object returned is a function object, `XDGAppPaths`, augmented with attached methods. Additional `XDGAppPaths` objects may be constructed by direct call of the imported `XDGAppPaths` object (eg, `const x = xdgAppPaths(...)`) or by using `new` (eg, `const x = new xdgAppPaths(...)`).
+
+Upon construction, if not supplied with a specified name (via `Options.name`), `XDGAppPaths` will generate an application name which is used to further generate isolated application directories, where needed. "an-anonymous-script" is used as the fallback value when automatically generating names (ie, for immediate mode scripts such as `node -e "..."`). The generated or supplied name is stored during `XDGAppPaths` construction and subsequently accessible via the `$name()` method.
+
+### Types
+
+#### `XDGAppPaths`
+
+_Primary module-supplied function object_
+
+#### `Options`
+
+_Configuration options supplied when constructing `XDGAppPaths`; (optional)_
+
+<small>
+
+> **`Options: string` => `{ name: string }`** <br/> As a shortcut, when `Options` is supplied as a `string`, is interpreted directly as the `name` property (ie, `options = { name: options }`).
 >
-> ##### `Options: string` => `{ name: string }`
+> ---
 >
-> As a shortcut, when supplied as a `string`, options is interpreted as the Options name property (ie, `options = { name: options }`).
+> **`Options: object`** <br/> &bullet; default = `{ name: '', suffix: '', isolated: true }`
 >
-> ##### `Options: object`
+> **`Options.name: string`** <br/> &bullet; default = `''` <br/> _Name of your application; used to generate the paths_ <br/> If missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the available process information.
 >
-> - default = `{ name: '', suffix: '', isolated: true }`
+> **`Options.suffix: string`** <br/> &bullet; default = `''` <br/> _Suffix which is appended to the application name when generating the application paths_
 >
-> ###### `Options.name: string`
+> **`Options.isolated: boolean`** <br/> &bullet; default = `true` <br/> _Default isolation flag (used when no isolation flag is supplied for `DirOptions`)_
+
+</small>
+
+#### `DirOptions`
+
+_Configuration options supplied to `XDGAppPaths` methods; (optional)_
+
+<small>
+
+> **`DirOptions: boolean` => `{ isolated: boolean }`** <br/> As a shortcut, when `DirOptions` is supplied as a `boolean`, it is directly interpreted as the `isolated` property (ie, `dirOptions = { isolated: dirOptions }`).
 >
-> - default = `''`
+> ---
 >
-> Name of your application; used to generate the paths. If missing, `null`, or empty (`''`), it is generated automatically from the available process information.
+> **`DirOptions: object`** <br/> &bullet; default = `{ isolated: true }`
 >
-> ###### `Options.suffix: string`
->
-> - default = `''`
->
-> Suffix which is appended to the application name when generating the application paths.
->
-> ###### `Options.isolated: boolean`
->
-> - default = `true`
->
-> Default isolation flag.
+> **`DirOptions.isolated: boolean`** <br/> &bullet; default = `true` <br/> _Isolation flag; used to override the default isolation mode, when needed_
+
+</small>
+
+Types named here are exported individually by name (eg, as "XDGAppPaths").
 
 ### Methods
 
@@ -110,55 +148,49 @@ All returned path strings are simple, platform-compatible, strings and are _not_
 
 #### `xdgAppPaths.cache( DirOptions? ): string`
 
-Returns the directory for non-essential data files
+_Returns the directory for non-essential data files_
+
+> Deletion of the data contained here might cause an application to slow down.
 
 #### `xdgAppPaths.config( DirOptions? ): string`
 
-Returns the directory for config files
+_Returns the directory for config files_
+
+> Deletion of the data contained here might require the user to reconfigure an application.
 
 #### `xdgAppPaths.data( DirOptions? ): string`
 
-Returns the directory for data files
+_Returns the directory for data files_
+
+> Deletion of the data contained here might force the user to restore from backups.
 
 #### `xdgAppPaths.runtime( DirOptions? ): string?`
 
-Returns the directory for runtime files; may return `undefined`
+_Returns the directory for runtime files; may return `undefined`_
+
+> Deletion of the data contained here might interfere with a currently executing application but should have no effect on future executions.
 
 #### `xdgAppPaths.state( DirOptions? ): string`
 
-Returns the directory for state files.
+_Returns the directory for state files_
+
+> Deletion of the data contained here should not materially interfere with execution of an application.
 
 #### `xdgAppPaths.configDirs( DirOptions? ): readonly string[]`
 
-Returns a priority-sorted list of possible directories for configuration file storage (includes `paths.config()` as the first entry)
+_Returns a priority-sorted list of possible directories for configuration file storage (includes `paths.config()` as the first entry)_
 
 #### `xdgAppPaths.dataDirs( DirOptions? ): readonly string[]`
 
-Returns a priority-sorted list of possible directories for data file storage (includes `paths.data()` as the first entry)
-
-> #### `DirOptions`
->
-> ##### `DirOptions: boolean` => `{ isolated: boolean }`
->
-> As a shortcut, when supplied as a `boolean`, dirOptions is interpreted as the DirOptions isolated property (ie, `dirOptions = { isolated: dirOptions }`).
->
-> ##### `DirOptions: object`
->
-> - default = `{ isolated: true }`
->
-> ###### `DirOptions.isolated: boolean`
->
-> - default = `true`
->
-> Isolation flag; used to override the default isolation mode, when needed.
+_Returns a priority-sorted list of possible directories for data file storage (includes `paths.data()` as the first entry)_
 
 #### `xdgAppPaths.$name(): string`
 
-Application name used for path construction (from supplied or auto-generated information)
+_Application name used for path construction (from supplied configuration or auto-generated)_
 
 #### `xdgAppPaths.$isolated(): boolean`
 
-Default isolation mode used by the particular XDGAppPaths instance
+_Default isolation mode used by the particular `XDGAppPaths` instance_
 
 ## Example
 
@@ -168,10 +200,10 @@ const locatePath = require('locate-path');
 const mkdirp = require('mkdirp');
 const path = require('path');
 
-const appPaths = require('xdg-app-paths');
+const xdgAppPaths = require('xdg-app-paths/cjs');
 // Extend appPaths with a "log" location function
-appPaths.log = function (dirOptions = null) {
-  const self = appPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
+xdgAppPaths.log = function (dirOptions = null) {
+  const self = xdgAppPaths; // * bind `self` to `xdgAppPaths` => avoids `this` variability due to caller context
   function typeOf(x) {
     // use avoids circumvention of eslint variable tracking for `x`
     return typeof x;
@@ -193,21 +225,21 @@ appPaths.log = function (dirOptions = null) {
 };
 
 // log file
-const logPath = path.join(appPaths.log(), 'debug.txt');
+const logPath = path.join(xdgAppPaths.log(), 'debug.txt');
 mkdirp.sync(path.dirname(logPath), 0o700);
 
 // config file
 // * search for config file within user preferred directories; otherwise, use preferred directory
-const possibleConfigPaths = appPaths
+const possibleConfigPaths = xdgAppPaths
   .configDirs()
-  .concat(appPaths.configDirs({ isolated: !appPaths.$isolated() }))
-  .map((v) => path.join(v, appPaths.$name() + '.json'));
+  .concat(xdgAppPaths.configDirs({ isolated: !xdgAppPaths.$isolated() }))
+  .map((v) => path.join(v, xdgAppPaths.$name() + '.json'));
 const configPath = locatePath.sync(possibleConfigPaths) || possibleConfigPaths[0];
 // debug(logPath, 'configPath="%s"', configPath);
 mkdirp.sync(path.dirname(configPath), 0o700);
 
 // cache file
-const cacheDir = path.join(appPaths.cache());
+const cacheDir = path.join(xdgAppPaths.cache());
 // debug(logPath, 'cacheDir="%s"', cacheDir);
 mkdirp.sync(cacheDir, 0o700);
 const cachePath = {};
@@ -215,6 +247,49 @@ cachePath.orders = path.join(cacheDir, 'orders.json');
 cachePath.customers = path.join(cacheDir, 'customers.json');
 //...
 ```
+
+## Supported Platforms
+
+### NodeJS
+
+> #### Requirements
+>
+> NodeJS >= 4.0[^*]
+
+<!--{blockquote: .--info style="font-size:75%;"}-->
+
+[^*]: With the conversion to a TypeScript-based project, due to tooling constraints, building and testing are more difficult and more limited on Node platforms earlier than NodeJS-v10. However, the generated CommonJS/UMD project code is fully tested (for NodeJS-v10+) and continues to be compatible with NodeJS-v4+.
+
+#### CommonJS modules (CJS; `*.js` and `*.cjs`)
+
+CJS is the basic supported output (with support for NodeJS versions as early as NodeJS-v4).
+
+```js
+const xdgAppPaths = require('xdg-app-paths/cjs');
+console.log(xdgAppPaths.config());
+```
+
+> Note: for CJS, `require('xdg-app-paths')` is supported for backward-compatibility and will execute correctly at run-time. However, `require('xdg-app-paths')` links to the default package type declarations which, though _correct_ for ESM or TypeScript, are _incorrect_ for CJS. This, then, leads to incorrect analysis of CJS files by static analysis tools such as TypeScript and Intellisense.
+>
+> Using `require('xdg-app-paths/cjs')` is preferred as it associates the proper CJS type declarations and provides correct information to static analysis tools.
+
+#### ECMAScript modules (ESM; `*.mjs`)
+
+- <small><span title="ESM support added in v6.0">Requires `v6.0`+.</span></small>
+
+`XDG` fully supports ESM imports.
+
+```js
+import xdgAppPaths from 'xdg-app-paths';
+console.log(xdgAppPaths.config());
+```
+
+### TypeScript (`*.ts`)
+
+- <small><span title="TypeScript support added in v6.0">Requires `v6.0`+.</span></small>
+
+As of `v6.0`+, `XDG` has been converted to a TypeScript-based module.
+As a consequence, TypeScript type definitions are automatically generated, bundled, and exported by the module.
 
 ## Discussion
 
@@ -236,20 +311,29 @@ This module was forked from [sindresorhus/env-paths](https://github.com/sindreso
 
 ## Building and Contributing
 
+[![Repository][repository-image]][repository-url]
+[![Build status (GHA)][gha-image]][gha-url]
+[![Build status (Travis-CI)][travis-image]][travis-url]
+[![Build status (AppVeyor)][appveyor-image]][appveyor-url]
+[![Coverage status][coverage-image]][coverage-url]
+&nbsp; <br/>
+[![Quality status (Codacy)][codacy-image]][codacy-url]
+[![Quality status (CodeClimate)][codeclimate-image]][codeclimate-url]
+[![Quality status (CodeFactor)][codefactor-image]][codefactor-url]
+
 ### Build requirements
 
-- NodeJS >= 6.0
+- NodeJS >= 10.14
 - a JavaScript package/project manager ([`npm`](https://www.npmjs.com/get-npm) or [`yarn`](https://yarnpkg.com))
 
 > #### optional
 >
-> - [`git-changelog`](https://github.com/rivy-go/git-changelog) ... enables changelog automation
+> - [`git-changelog`](https://github.com/rivy-go/git-changelog) (v1.1+) ... enables changelog automation
 
 ### Build/test
 
 ```shell
-npm install
-npm test
+npm install-test
 ```
 
 ### Project development scripts
@@ -257,23 +341,35 @@ npm test
 ```shell
 > npm run help
 ...
-usage: `npm run TARGET [TARGET..]`
+usage: `npm run TARGET` or `npx run-s TARGET [TARGET..]`
 
 TARGETs:
 
+build               build/compile package
+clean               remove build artifacts
 coverage            calculate and display (or send) code coverage [alias: 'cov']
 fix                 fix package issues (automated/non-interactive)
-fix:lint            fix `ESLint` issues
-fix:style           fix `Prettier` formatting issues
+fix:lint            fix ESLint issues
+fix:style           fix Prettier formatting issues
 help                display help
 lint                check for package code 'lint'
-lint:lint           check for code 'lint' (using `ESLint`)
-lint:spell          check for spelling errors (using `cSpell`)
-lint:style          check for format imperfections (using `Prettier`)
-lint:types          check for type declaration errors (using `tsd`)
+lint:commits        check for commit flaws (using `commitlint` and `cspell`)
+lint:editorconfig   check for EditorConfig format flaws (using `editorconfig-checker`)
+lint:lint           check for code 'lint' (using `eslint`)
+lint:markdown       check for markdown errors (using `remark`)
+lint:spell          check for spelling errors (using `cspell`)
+lint:style          check for format imperfections (using `prettier`)
+realclean           remove all generated files
+rebuild             clean and (re-)build project
+retest              clean and (re-)test project
+reset:hard          remove *all* generated files and reinstall dependencies
+show:deps           show package dependencies
 test                test package
 test:code           test package code
+test:types          test for type declaration errors (using `tsd`)
+update              update/prepare for distribution [alias: 'dist']
 update:changelog    update CHANGELOG (using `git changelog ...`)
+update:dist         update distribution content
 ```
 
 ### Contributions
@@ -291,18 +387,18 @@ By contributing to the project, you are agreeing to provide your contributions u
 
 ## License
 
-[MIT](./LICENSE) © [Roy Ivy III](https://github.com/rivy), [Sindre Sorhus](https://sindresorhus.com)
+[MIT](./LICENSE) © [Roy Ivy III](https://github.com/rivy)
 
 <!-- badge references -->
 
 <!-- Repository -->
-<!-- Note: for '[repository-image] ...', `%E2%81%A3` == utf-8 sequence of 'Unicode Character 'INVISIBLE SEPARATOR' (U+2063)' -->
+<!-- Note: for '[repository-image] ...', `%E2%81%A3` == utf-8 sequence of "Unicode Character 'INVISIBLE SEPARATOR' (U+2063)"; ref: <https://codepoints.net/U+2063> -->
 
-[repository-image]: https://img.shields.io/github/v/tag/rivy/js.xdg-app-paths?label=%E2%81%A3&logo=github&logoColor=white
+[repository-image]: https://img.shields.io/github/v/tag/rivy/js.xdg-app-paths?sort=semver&label=%E2%81%A3&logo=github&logoColor=white
 [repository-url]: https://github.com/rivy/js.xdg-app-paths
-[license-image]: https://img.shields.io/npm/l/xdg-app-paths.svg?color=royalblue&style=flat
+[license-image]: https://img.shields.io/npm/l/xdg-app-paths.svg?color=tomato&style=flat
 [license-url]: license
-[nodejsv-image]: https://img.shields.io/node/v/xdg-app-paths?color=blue
+[nodejsv-image]: https://img.shields.io/node/v/xdg-app-paths?color=slateblue
 [style-image]: https://img.shields.io/badge/code_style-prettier-mediumvioletred.svg
 [style-url]: https://prettier.io
 
@@ -319,13 +415,21 @@ By contributing to the project, you are agreeing to provide your contributions u
 
 [coverage-image]: https://img.shields.io/codecov/c/github/rivy/js.xdg-app-paths/master.svg
 [coverage-url]: https://codecov.io/gh/rivy/js.xdg-app-paths
+[codeclimate-url]: https://codeclimate.com/github/rivy/js.xdg-app-paths
+[codeclimate-image]: https://img.shields.io/codeclimate/maintainability/rivy/js.xdg-app-paths?label=codeclimate
+[codacy-image]: https://img.shields.io/codacy/grade/6f019c41b12b4c35a5ac5693744e4b96?label=codacy
+[codacy-url]: https://app.codacy.com/gh/rivy/js.xdg-app-paths/dashboard
+[codefactor-image]: https://img.shields.io/codefactor/grade/github/rivy/js.xdg-app-paths?label=codefactor
+[codefactor-url]: https://www.codefactor.io/repository/github/rivy/js.xdg-app-paths
 
 <!-- Distributors/Registries -->
 
-[npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat
-[npm-url]: https://npmjs.org/package/xdg-app-paths
 [downloads-image]: http://img.shields.io/npm/dm/xdg-app-paths.svg?style=flat
 [downloads-url]: https://npmjs.org/package/xdg-app-paths
+[jsdelivr-image]: https://img.shields.io/jsdelivr/gh/hm/rivy/js.xdg-app-paths?style=flat
+[jsdelivr-url]: https://www.jsdelivr.com/package/gh/rivy/js.xdg-app-paths
+[npm-image]: https://img.shields.io/npm/v/xdg-app-paths.svg?style=flat
+[npm-url]: https://npmjs.org/package/xdg-app-paths
 
 <!-- Alternate/Old image/URL links -->
 
