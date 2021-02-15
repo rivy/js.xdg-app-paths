@@ -610,31 +610,3 @@ test('correct non-"isolated" paths with XDG_* set', (t) => {
 	t.notDeepEqual(paths.dataDirs(!isolated)[1], envVars.dataDirs);
 	t.notDeepEqual(paths.dataDirs({ isolated: !isolated })[1], envVars.dataDirs);
 });
-
-test('construction throws with bad arguments', (t) => {
-	t.throws(() => module_(-1), { instanceOf: TypeError, message: /^expected string for "name"/i });
-	t.throws(() => module_({ name: -1 }), {
-		instanceOf: TypeError,
-		message: /^expected string for "name"/i,
-	});
-	t.throws(() => module_({ suffix: -1 }), {
-		instanceOf: TypeError,
-		message: /^expected string for "suffix"/i,
-	});
-	t.throws(() => module_({ isolated: -1 }), {
-		instanceOf: TypeError,
-		message: /^expected boolean for "isolated"/i,
-	});
-});
-
-test('methods throw with bad arguments', (t) => {
-	const paths = module_();
-	t.throws(() => paths.config(-1), {
-		instanceOf: TypeError,
-		message: /^expected boolean for "isolated"/i,
-	});
-	t.throws(() => paths.config({ isolated: -1 }), {
-		instanceOf: TypeError,
-		message: /^expected boolean for "isolated"/i,
-	});
-});
