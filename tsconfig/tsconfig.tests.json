@@ -1,0 +1,19 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../build/tests_",
+		"rootDir": "..",
+		"declaration": true, // generate side-by-side type declarations
+		"module": "CommonJS",
+		"noEmit": false,
+		"removeComments": false
+	},
+	"exclude": [
+		"../eg/**",
+		"../src/esm-wrapper/**",
+		"../src/**/*.deno.ts",
+		"../test/**/*.js",
+		"../test/**/*.test-d.ts",
+		"../node_modules/**"
+	]
+}

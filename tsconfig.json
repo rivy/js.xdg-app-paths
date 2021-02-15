@@ -1,0 +1,53 @@
+{
+	"compilerOptions": {
+		"incremental": false,
+		"target": "es3",
+		"outDir": "build/cjs",
+		// "rootDir": "src", // interferes with `tsd`; see <https://github.com/SamVerschueren/tsd/issues/80> ; disabling builds exactly the same files/structure except placing *.tsbuildinfo files into the respective subdirectories
+		"moduleResolution": "node",
+		"module": "CommonJS",
+		"newLine": "lf",
+		"declaration": true /* Enables automatic generation of type declarations */,
+		"inlineSourceMap": true,
+		"esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+		"resolveJsonModule": true /* Include modules imported with .json extension.; note: UMD generation requires 'false' */,
+
+		"strict": true /* Enable all strict type-checking options. */,
+
+		/* Strict Type-Checking Options */
+		// "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
+		// "strictNullChecks": true /* Enable strict null checks. */,
+		// "strictFunctionTypes": true /* Enable strict checking of function types. */,
+		// "strictPropertyInitialization": true /* Enable strict checking of property initialization in classes. */,
+		// "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+		// "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
+
+		/* Additional Checks */
+		"noUnusedLocals": true /* Report errors on unused locals. */,
+		"noUnusedParameters": true /* Report errors on unused parameters. */,
+		"noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+		"noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+
+		/* Debugging Options */
+		"traceResolution": false /* Report module resolution log messages. */,
+		"listEmittedFiles": false /* Print names of generated files part of the compilation. */,
+		"listFiles": false /* Print names of files part of the compilation. */,
+		"pretty": true /* Stylize errors and messages using color and context. */,
+
+		/* Experimental Options */
+		// "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
+		// "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
+
+		"types": ["node"],
+		"typeRoots": ["node_modules/@types", "src/types", "dist/types", "vendor/types"],
+
+		"allowJs": true,
+		"noEmit": true,
+		"isolatedModules": true /* Enables warnings for code which may be interpreted incorrectly by single-file transpilation tools */,
+
+		"removeComments": true
+	},
+	"include": ["src/**/*", "eg/**/*", "test/**/*"],
+	"exclude": ["src/esm-wrapper/**", "node_modules/**"],
+	"compileOnSave": false
+}

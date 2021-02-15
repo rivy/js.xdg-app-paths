@@ -1,0 +1,21 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../build/umd",
+		"rootDir": "..",
+		"declaration": false, // generate side-by-side type declarations
+		"module": "UMD",
+		"noEmit": false,
+		"resolveJsonModule": false /* Include modules imported with .json extension.; UMD generation requires 'false' */
+	},
+	"exclude": [
+		"../eg/**",
+		"../src/esm-wrapper/**",
+		"../src/**/*.deno.ts",
+		"../src/**/*.esm.ts",
+		"../src/**/*.spec.*",
+		"../src/**/*.test.*",
+		"../test/**",
+		"../node_modules/**"
+	]
+}
