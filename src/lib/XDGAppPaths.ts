@@ -6,13 +6,13 @@ import path from 'path';
 
 import xdg from 'xdg-portable';
 
-type Options = {
-	readonly name?: string | null;
-	readonly suffix?: string | null;
+type DirOptions = {
 	readonly isolated?: boolean | null;
 };
 
-type DirOptions = {
+type Options = {
+	readonly name?: string | null;
+	readonly suffix?: string | null;
 	readonly isolated?: boolean | null;
 };
 
@@ -125,5 +125,5 @@ class XDGAppPaths_ {
 	}
 }
 
-export type { Options, DirOptions, XDGAppPaths };
+export type { DirOptions, Options, XDGAppPaths };
 export default new XDGAppPaths_() as XDGAppPaths;
