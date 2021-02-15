@@ -1,0 +1,26 @@
+* acronyms
+AST * abstract syntax tree
+CICD * continuous integration/deployment
+CPU
+CPUs
+DevOps
+FIFO
+FIFOs
+FQDN * fully qualified domain name
+GID * group ID
+GIDs
+MSVC
+POSIX
+POSIXLY
+RNG * random number generator
+RNGs
+UID * user ID
+UIDs * universally unique identifier
+UUID
+* names
+Codacy
+Deno
+EditorConfig
+JSDelivr
+npmJS
+Yargs
