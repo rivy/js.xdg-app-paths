@@ -11,5 +11,9 @@
 		".history": true,
 		".nyc_output": true
 	},
-	"todo-tree.filtering.excludeGlobs": ["build", "dist"]
+	"todo-tree.filtering.excludeGlobs": [
+		"build",
+		"dist",
+		"vendor"
+	]
 }
