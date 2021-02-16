@@ -85,47 +85,43 @@ class XDGAppPaths_ {
 		XDGAppPaths.cache = function cache(dirOptions?: DirOptions | boolean) {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
 			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.cache(), isolated ? (name_ as string) : '');
+			return path.join(xdg.cache(), isolated ? name_ : '');
 		};
 
 		XDGAppPaths.config = function config(dirOptions?: DirOptions | boolean) {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
 			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.config(), isolated ? (name_ as string) : '');
+			return path.join(xdg.config(), isolated ? name_ : '');
 		};
 
 		XDGAppPaths.data = function data(dirOptions?: DirOptions | boolean) {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
 			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.data(), isolated ? (name_ as string) : '');
+			return path.join(xdg.data(), isolated ? name_ : '');
 		};
 
 		XDGAppPaths.runtime = function runtime(dirOptions?: DirOptions | boolean) {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
 			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.runtime()
-				? path.join(xdg.runtime() as string, isolated ? (name_ as string) : '')
-				: void 0;
+			return xdg.runtime() ? path.join(xdg.runtime() as string, isolated ? name_ : '') : void 0;
 		};
 
 		XDGAppPaths.state = function state(dirOptions?: DirOptions | boolean) {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
 			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.state(), isolated ? (name_ as string) : '');
+			return path.join(xdg.state(), isolated ? name_ : '');
 		};
 
-		XDGAppPaths.configDirs = function configDirs(
-			dirOptions?: DirOptions | boolean
-		): readonly string[] {
+		XDGAppPaths.configDirs = function configDirs(dirOptions?: DirOptions | boolean) {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
 			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.configDirs().map((s: string) => path.join(s, isolated ? (name_ as string) : ''));
+			return xdg.configDirs().map((s) => path.join(s, isolated ? name_ : '')) as readonly string[];
 		};
 
-		XDGAppPaths.dataDirs = function dataDirs(dirOptions?: DirOptions | boolean): readonly string[] {
+		XDGAppPaths.dataDirs = function dataDirs(dirOptions?: DirOptions | boolean) {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
 			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.dataDirs().map((s: string) => path.join(s, isolated ? (name_ as string) : ''));
+			return xdg.dataDirs().map((s) => path.join(s, isolated ? name_ : '')) as readonly string[];
 		};
 
 		return XDGAppPaths as XDGAppPaths;
