@@ -46,9 +46,9 @@ test('api', (t) => {
 	});
 });
 
-test('correctly derive script name (JavaScript/CJS)', (t) => {
+test('correctly derive script name (JavaScript)', (t) => {
 	const fixtureDirPath = 'test/fixtures';
-	const extensions = ['.js', '.cjs'];
+	const extensions = ['.js', '.cjs', '.mjs'];
 
 	const files = fs.readdirSync(fixtureDirPath);
 
@@ -62,6 +62,40 @@ test('correctly derive script name (JavaScript/CJS)', (t) => {
 				const script = path.join(fixtureDirPath, file);
 				const args = [script];
 				const options = { shell: true, encoding: 'utf-8' };
+
+				t.log({ script });
+
+				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+
+				t.log({ error, status, stdout, stderr });
+
+				t.deepEqual({ error, status }, { error: null, status: 0 });
+
+				t.is(stdout.toString().trim(), path.parse(script).name);
+			}
+		});
+});
+
+test('correctly derive script name (TypeScript)', (t) => {
+	const fixtureDirPath = 'test/fixtures';
+	const extensions = ['.js', '.cjs', '.mjs', '.ts'];
+
+	const files = fs.readdirSync(fixtureDirPath);
+
+	files
+		.filter((file) => {
+			const extension = path.extname(file);
+			const name = path.basename(file, extension);
+			const nameExtension = path.extname(name);
+			const isDenoTS = extension === '.ts' && nameExtension === '.deno';
+			return extensions.includes(extension) && !isDenoTS;
+		})
+		.forEach((file) => {
+			if (settledSupportForESMs || path.extname(file) === '.js' || path.extname(file) === '.ts') {
+				const command = 'node';
+				const script = path.join(fixtureDirPath, file);
+				const args = ['node_modules/ts-node/dist/bin.js', script];
+				const options = { shell: true, encoding: 'utf8' };
 
 				t.log({ script });
 
