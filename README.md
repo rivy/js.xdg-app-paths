@@ -1,13 +1,13 @@
-<!DOCTYPE markdown><!-- markdownlint-disable no-inline-html -->
+<!DOCTYPE markdown><!-- markdownlint-disable first-line-h1 no-inline-html -->
 <meta charset="utf-8" content="text/markdown" lang="en">
 <!-- -## editors ## (emacs/sublime) -*- coding: utf8-nix; tab-width: 4; mode: markdown; indent-tabs-mode: nil; basic-offset: 2; st-word_wrap: 'true' -*- ## (jEdit) :tabSize=4:indentSize=4:mode=markdown: ## (notepad++) vim:tabstop=4:syntax=markdown:expandtab:smarttab:softtabstop=2 ## modeline (see <https://archive.is/djTUD>@@<http://webcitation.org/66W3EhCAP> ) -->
 <!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
 
-<!-- markdownlint-disable heading-increment no-emphasis-as-heading ul-style -->
+<!-- markdownlint-disable heading-increment no-duplicate-heading no-emphasis-as-heading ul-style -->
 <!-- spell-checker:ignore (abbrev/jargon) CICD NodeJS -->
 <!-- spell-checker:ignore (JS/TS) concat mkdirp readonly typeof -->
 <!-- spell-checker:ignore (markdown) nbsp nodejsv -->
-<!-- spell-checker:ignore (npm) realclean -->
+<!-- spell-checker:ignore (npm/targets) realclean -->
 <!-- spell-checker:ignore (platform/windows) APPDATA LOCALAPPDATA -->
 <!-- spell-checker:ignore (people) rivy -->
 
@@ -23,6 +23,7 @@
 [![Style Guide][style-image]][style-url]
 &nbsp; <br/>
 [![Repository][repository-image]][repository-url]
+[![Deno version][deno-image]][deno-url]
 [![NPM version][npm-image]][npm-url]
 [![NodeJS version][nodejsv-image]][repository-url]
 [![npmJS Downloads][downloads-image]][downloads-url]
@@ -75,6 +76,28 @@ const configDirs = xdgAppPaths.configDirs();
 //...
 ```
 
+#### Deno
+
+```ts
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
+//or...
+//import xdg from 'https://deno.land/x/xdg_app_paths@v9.0.0/src/mod.deno.ts';
+//or (via CDN, with optional version/version-range/latest/commit support)...
+//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7.0.0/src/mod.deno.ts'; // v7.0.0
+//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7/src/mod.deno.ts'; // v7.x.y
+//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/src/mod.deno.ts'; // latest
+//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@latest/src/mod.deno.ts'; // latest
+//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT/src/mod.deno.ts'; // commit
+const configDirs = xdgAppPaths.configDirs();
+//...
+```
+
+##### Required Deno permissions
+
+**`--allow-env`** _(allow access to the process environment variables)_
+<br/>
+This module/package requires access to various environment variable to determine platform and user configuration (eg, XDG configuration variables, location of temp and user directories, ...).
+
 ## API
 
 ### Construction/Initialization
@@ -92,6 +115,12 @@ import xdgAppPaths from 'xdg-app-paths';
 // or ...
 import XDGAppPaths from 'xdg-app-paths';
 const xdgAppPaths = XDGAppPaths(options);
+
+// Deno
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
+// or ...
+import XDGAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
+const xdgAppPaths = XDGAppPaths(options);
 ```
 
 When importing this module, the object returned is a function object, `XDGAppPaths`, augmented with attached methods. Additional `XDGAppPaths` objects may be constructed by direct call of the imported `XDGAppPaths` object (eg, `const x = xdgAppPaths(...)`) or by using `new` (eg, `const x = new xdgAppPaths(...)`).
@@ -99,6 +128,12 @@ When importing this module, the object returned is a function object, `XDGAppPat
 Upon construction, if not supplied with a specified name (via `Options.name`), `XDGAppPaths` will generate an application name which is used to further generate isolated application directories, where needed. "an-anonymous-script" is used as the fallback value when automatically generating names (ie, for immediate mode scripts such as `node -e "..."`). The generated or supplied name is stored during `XDGAppPaths` construction and subsequently accessible via the `$name()` method.
 
 ### Types
+
+```js
+import type { DirOptions, Options, XDGAppPaths } from 'xdg-app-paths'; // TypeScript
+//or...
+//import type { DirOptions, Options, XDGAppPaths } from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts'; // Deno
+```
 
 #### `XDGAppPaths`
 
@@ -202,7 +237,7 @@ const path = require('path');
 
 const xdgAppPaths = require('xdg-app-paths/cjs');
 // Extend appPaths with a "log" location function
-xdgAppPaths.log = function (dirOptions = null) {
+xdgAppPaths.log = function (dirOptions) {
   const self = xdgAppPaths; // * bind `self` to `xdgAppPaths` => avoids `this` variability due to caller context
   function typeOf(x) {
     // use avoids circumvention of eslint variable tracking for `x`
@@ -291,9 +326,20 @@ console.log(xdgAppPaths.config());
 As of `v6.0`+, `XDG` has been converted to a TypeScript-based module.
 As a consequence, TypeScript type definitions are automatically generated, bundled, and exported by the module.
 
+### Deno
+
+- <small><span title="Deno support added in v7.0">Requires `v7.0`+.</span></small>
+
+`XDGAppPaths` also fully supports use by Deno.
+
+```js deno
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
+console.log(xdgAppPaths.config());
+```
+
 ## Discussion
 
-The [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html) defines categories of user information (ie, "cache", "config", "data", ...), defines their standard storage locations, and defines the standard process for user configuration of those locations (using `XDG_CACHE_HOME`, etc).
+The [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)<small><sup>[`@`](https://archive.is/J0mTC)</sup></small> defines categories of user information (ie, "cache", "config", "data", ...), defines their standard storage locations, and defines the standard process for user configuration of those locations (using `XDG_CACHE_HOME`, etc).
 
 Applications supporting the XDG convention are expected to store user-specific files within these locations, either within the common/shared directory (eg, `` `${xdg.cache()}/filename` ``) or within a more isolated application-defined subdirectory (eg, `` `${xdg.config()/dir/filename` ``; `dir` usually being the application name).
 
@@ -424,6 +470,8 @@ By contributing to the project, you are agreeing to provide your contributions u
 
 <!-- Distributors/Registries -->
 
+[deno-image]: https://img.shields.io/github/v/tag/rivy/js.xdg-app-paths?label=deno
+[deno-url]: https://deno.land/x/xdg_app_paths
 [downloads-image]: http://img.shields.io/npm/dm/xdg-app-paths.svg?style=flat
 [downloads-url]: https://npmjs.org/package/xdg-app-paths
 [jsdelivr-image]: https://img.shields.io/jsdelivr/gh/hm/rivy/js.xdg-app-paths?style=flat
