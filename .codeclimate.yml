@@ -1,0 +1,57 @@
+# JavaScript/TypeScript
+# ref: https://docs.codeclimate.com/docs/advanced-configuration
+# spell-checker:ignore () EditorConfig MarkdownLint ShellCheck StyleLint
+version: '2' # required to adjust maintainability checks
+checks:
+  argument-count:
+    config:
+      threshold: 4
+  complex-logic:
+    config:
+      threshold: 4
+  file-lines:
+    config:
+      threshold: 250
+  method-complexity:
+    config:
+      threshold: 20 ## default: 5
+  method-count:
+    config:
+      threshold: 20
+  method-lines:
+    config:
+      threshold: 40 ## default: 25
+  nested-control-flow:
+    config:
+      threshold: 4
+  return-statements:
+    config:
+      threshold: 4
+  # similar-code:
+  # config:
+  #   threshold: # has language-specific defaults; an override will affect all languages
+  # identical-code:
+  # config:
+  #   threshold: # has language-specific defaults; an override will affect all languages.
+
+plugins:
+  duplication:
+    enabled: true
+    exclude_patterns:
+      - 'eg/'
+      - 'dist/'
+      - 'vendor/'
+  editorconfig:
+    enabled: true
+  # ref: https://docs.codeclimate.com/docs/eslint
+  # * disabled; `eslint-plugin-import` fails and `eslint-plugin-functional` is not supported
+  # eslint:
+  #   enabled: true
+  # ref: https://docs.codeclimate.com/docs/markdownlint , https://github.com/markdownlint/markdownlint
+  # * disabled; not configurable per-file/occurrence
+  # markdownlint:
+  #   enabled: true
+  shellcheck:
+    enabled: true
+  stylelint:
+    enabled: true
