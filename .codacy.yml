@@ -1,0 +1,16 @@
+---
+# note: use "Configuration file" setting in 'REPO/Code patterns/ESLint' and 'REPO/Code patterns/RemarkLint'
+engines:
+  duplication:
+    exclude_paths:
+      - 'eg/**'
+      - 'tests/**'
+      - '**.spec.js'
+      - '**.spec.ts'
+      - '**.test.js'
+      - '**.test.ts'
+exclude_paths:
+  - '.changelog/**'
+  - 'CHANGELOG.mkd'
+  - 'dist/**'
+  - 'vendor/**'
