@@ -8,12 +8,12 @@ const path = require('path');
 
 const xdgAppPathsModulePath = '../dist/cjs/mod.cjs.js';
 
-const appPaths = require(xdgAppPathsModulePath);
+const xdgAppPaths = require(xdgAppPathsModulePath);
 
 // Extend appPaths with a "log" location function
 // eslint-disable-next-line functional/immutable-data
-appPaths.log = function (dirOptions = null) {
-	const self = appPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
+xdgAppPaths.log = function (dirOptions = null) {
+	const self = xdgAppPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
 	function typeOf(x) {
 		// * use avoids circumvention of eslint variable tracking for `x`
 		return typeof x;
@@ -44,12 +44,12 @@ function showObjectEntries(obj) {
 	return strings.join('\n');
 }
 
-console.log({ appPaths });
-console.log(showObjectEntries(appPaths));
+console.log({ appPaths: xdgAppPaths });
+console.log(showObjectEntries(xdgAppPaths));
 
-console.log('appPaths.log():', appPaths.log());
-console.log('appPaths.log(false):', appPaths.log(false));
-console.log('appPaths.log(true):', appPaths.log(true));
+console.log('appPaths.log():', xdgAppPaths.log());
+console.log('appPaths.log(false):', xdgAppPaths.log(false));
+console.log('appPaths.log(true):', xdgAppPaths.log(true));
 
 // eslint-disable-next-line functional/immutable-data
 delete process.env.XDG_CONFIG_HOME;
