@@ -17,6 +17,8 @@ USERPROFILE
 * `git`
 gitattributes
 gitignore
+* keywords
+typeof
 * `npm`
 preversion
 * utilities
