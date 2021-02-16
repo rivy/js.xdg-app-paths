@@ -12,10 +12,13 @@
 		"node": ">= 6.0"
 	},
 	"files": [
-		"src/**/*",
+		"cjs",
+		"dist/cjs",
+		"dist/types",
 		"CHANGELOG.mkd",
 		"LICENSE",
-		"README.md"
+		"README.md",
+		"package.json"
 	],
 	"type": "commonjs",
 	"main": "./dist/cjs/mod.cjs.js",
