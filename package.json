@@ -17,8 +17,23 @@
 		"LICENSE",
 		"README.md"
 	],
-	"main": "src/lib/index.js",
-	"types": "src/lib/index.d.ts",
+	"type": "commonjs",
+	"main": "./dist/cjs/mod.cjs.js",
+	"module": "./dist/cjs/esm-wrapper/mod.esm.js",
+	"types": "./dist/types/mod.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/cjs/esm-wrapper/mod.esm.js",
+			"require": "./dist/cjs/mod.cjs.js",
+			"types": "./dist/types/mod.d.ts",
+			"default": "./dist/cjs/mod.cjs.js"
+		},
+		"./package.json": "./package.json",
+		"./cjs": {
+			"require": "./dist/cjs/mod.cjs.js",
+			"types": "./dist/cjs/mod.cjs.d.ts"
+		}
+	},
 	"keywords": [
 		"appdir",
 		"application",
