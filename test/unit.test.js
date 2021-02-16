@@ -14,10 +14,6 @@ function isDefined(value) {
 	return typeOf(value) !== 'undefined';
 }
 
-function isFunction(value) {
-	return typeOf(value) === 'function';
-}
-
 function regexpEscape(s) {
 	return s.replace(/\W/g, '\\$&');
 }
@@ -38,27 +34,6 @@ function xdgPathRegex(name) {
 			'$)'
 	);
 }
-
-test('api', (t) => {
-	const paths = module_;
-	const api = [
-		'$name',
-		'$isolated',
-		'cache',
-		'config',
-		'data',
-		'runtime',
-		'state',
-		'configDirs',
-		'dataDirs',
-	];
-
-	t.true(isFunction(paths));
-	t.is(Object.keys(paths).length, api.length);
-	api.forEach((key) => {
-		t.true(isFunction(paths[key]));
-	});
-});
 
 test('default', (t) => {
 	const isolated = true;
