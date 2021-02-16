@@ -12,7 +12,7 @@ const xdgAppPaths = require(xdgAppPathsModulePath);
 
 // Extend appPaths with a "log" location function
 // eslint-disable-next-line functional/immutable-data
-xdgAppPaths.log = function (dirOptions = null) {
+xdgAppPaths.log = function (dirOptions) {
 	const self = xdgAppPaths; // * bind `self` to `appPaths` => avoids `this` variability due to caller context
 	function typeOf(x) {
 		// * use avoids circumvention of eslint variable tracking for `x`
