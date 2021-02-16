@@ -9,7 +9,7 @@
 		"email": "rivy.dev@gmail.com"
 	},
 	"engines": {
-		"node": ">= 6.0"
+		"node": ">= 4.0"
 	},
 	"files": [
 		"cjs",
