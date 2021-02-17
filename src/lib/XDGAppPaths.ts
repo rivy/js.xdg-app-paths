@@ -72,7 +72,7 @@ class XDGAppPaths_ {
 		// ToDO: add ES6/ESM (.mjs) module compatibility for name generation (lacks `require`; see `yargs` for possibilities using `import.meta.url`)
 		const name_ = path.parse(
 			([options.name, require && require.main && require.main.filename].find((e) => isString(e)) ??
-				process.execPath) + (suffix ?? '')
+				'an-anonymous-script') + (suffix ?? '')
 		).name;
 
 		XDGAppPaths.$name = function $name() {
