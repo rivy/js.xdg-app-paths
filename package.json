@@ -109,6 +109,8 @@
 		"realclean": "run-s clean && rimraf coverage .nyc_output",
 		"# rebuild # clean and (re-)build project": "",
 		"rebuild": "run-s clean build",
+		"# rebuild:all # clean and fully reconstruct project distribution": "",
+		"rebuild:all": "run-s clean update",
 		"rebuild:cjs": "shx rm -fr build/cjs && tsc -p tsconfig/tsconfig.cjs.json && shx cp -r src/esm-wrapper build/cjs/src && shx mkdir -p build/.targets && shx touch build/.targets/build-cjs.succeeded",
 		"rebuild:esm": "shx rm -fr build/esm && tsc -p tsconfig/tsconfig.esm.json && shx cp src/esm-wrapper/package.json build/esm/src && shx mkdir -p build/.targets && shx touch build/.targets/build-esm.succeeded",
 		"rebuild:umd": "shx rm -fr build/umd && tsc -p tsconfig/tsconfig.umd.json && shx mkdir -p build/.targets && shx touch build/.targets/build-umd.succeeded",
