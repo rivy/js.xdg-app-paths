@@ -53,6 +53,18 @@ function typeOf<T>(t: T): string {
 	return typeof t;
 }
 
+const requireMain =
+	typeof require !== 'undefined' && require !== null && require.main
+		? require.main
+		: { filename: void 0 };
+const requireMainFilename = requireMain.filename;
+const mainFilename =
+	// HACK: additional comparison `require?.main?.filename !== process.execArgv[0]` compensates for ESM scripts run via `ts-node`
+	(requireMainFilename !== process.execArgv[0] ? requireMainFilename : void 0) ||
+	// HACK: `process._eval` is undocumented; used here (again, for ESM) as evidence of `node -e ...` differentiating between immediate eval vs file-bound scripts
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
+
 // eslint-disable-next-line functional/no-class
 class XDGAppPaths_ {
 	constructor(options: Options = {}) {
@@ -67,67 +79,61 @@ class XDGAppPaths_ {
 		const suffix = options.suffix ?? '';
 		const isolated_ = options.isolated ?? true;
 
-		// derive a suitable application name (ref: <https://stackoverflow.com/a/46110961/43774>)
-		const mainFilename =
-			// HACK: additional comparison `require?.main?.filename !== process.execArgv[0]` compensates for ESM run via `ts-node`
-			(typeof require !== 'undefined' && require?.main?.filename !== process.execArgv[0]
-				? require?.main?.filename
-				: void 0) ||
-			// HACK: `process._eval` is undocumented; used here (for ESM) as evidence of `node -e ...` differentiating between immediate eval vs file-bound scripts
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
+		// derive a suitable application name
 		const namePriorityList = [options.name, mainFilename];
-		const name_ = path.parse(
-			(namePriorityList.find((e) => isString(e)) ?? 'an-anonymous-script') + suffix
-		).name;
+		const nameFallback = 'an-anonymous-script';
+		const name = path.parse((namePriorityList.find((e) => isString(e)) ?? nameFallback) + suffix)
+			.name;
 
 		XDGAppPaths.$name = function $name() {
-			return name_;
+			return name;
 		};
 		XDGAppPaths.$isolated = function $isolated() {
 			return isolated_;
 		};
 
-		XDGAppPaths.cache = function cache(dirOptions?: DirOptions | boolean) {
+		function isIsolated(dirOptions?: DirOptions | boolean): boolean {
 			dirOptions = dirOptions ?? { isolated: isolated_ };
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.cache(), isolated ? name_ : '');
+			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated ?? isolated_;
+			return isolated;
+		}
+
+		function finalPathSegment(dirOptions?: DirOptions | boolean): string {
+			return isIsolated(dirOptions) ? name : '';
+		}
+
+		XDGAppPaths.cache = function cache(dirOptions?: DirOptions | boolean) {
+			return path.join(xdg.cache(), finalPathSegment(dirOptions));
 		};
 
 		XDGAppPaths.config = function config(dirOptions?: DirOptions | boolean) {
-			dirOptions = dirOptions ?? { isolated: isolated_ };
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.config(), isolated ? name_ : '');
+			return path.join(xdg.config(), finalPathSegment(dirOptions));
 		};
 
 		XDGAppPaths.data = function data(dirOptions?: DirOptions | boolean) {
-			dirOptions = dirOptions ?? { isolated: isolated_ };
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.data(), isolated ? name_ : '');
+			return path.join(xdg.data(), finalPathSegment(dirOptions));
 		};
 
 		XDGAppPaths.runtime = function runtime(dirOptions?: DirOptions | boolean) {
-			dirOptions = dirOptions ?? { isolated: isolated_ };
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.runtime() ? path.join(xdg.runtime() as string, isolated ? name_ : '') : void 0;
+			return xdg.runtime()
+				? path.join(xdg.runtime() as string, finalPathSegment(dirOptions))
+				: void 0;
 		};
 
 		XDGAppPaths.state = function state(dirOptions?: DirOptions | boolean) {
-			dirOptions = dirOptions ?? { isolated: isolated_ };
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return path.join(xdg.state(), isolated ? name_ : '');
+			return path.join(xdg.state(), finalPathSegment(dirOptions));
 		};
 
 		XDGAppPaths.configDirs = function configDirs(dirOptions?: DirOptions | boolean) {
-			dirOptions = dirOptions ?? { isolated: isolated_ };
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.configDirs().map((s) => path.join(s, isolated ? name_ : '')) as readonly string[];
+			return xdg
+				.configDirs()
+				.map((s) => path.join(s, finalPathSegment(dirOptions))) as readonly string[];
 		};
 
 		XDGAppPaths.dataDirs = function dataDirs(dirOptions?: DirOptions | boolean) {
-			dirOptions = dirOptions ?? { isolated: isolated_ };
-			const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated;
-			return xdg.dataDirs().map((s) => path.join(s, isolated ? name_ : '')) as readonly string[];
+			return xdg
+				.dataDirs()
+				.map((s) => path.join(s, finalPathSegment(dirOptions))) as readonly string[];
 		};
 
 		return XDGAppPaths as XDGAppPaths;
