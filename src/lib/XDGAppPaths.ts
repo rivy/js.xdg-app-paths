@@ -69,7 +69,10 @@ class XDGAppPaths_ {
 
 		// derive a suitable application name (ref: <https://stackoverflow.com/a/46110961/43774>)
 		const mainFilename =
-			(typeof require !== 'undefined' ? require?.main?.filename : void 0) ||
+			// HACK: additional comparison `require?.main?.filename !== process.execArgv[0]` compensates for ESM run via `ts-node`
+			(typeof require !== 'undefined' && require?.main?.filename !== process.execArgv[0]
+				? require?.main?.filename
+				: void 0) ||
 			// HACK: `process._eval` is undocumented; used here (for ESM) as evidence of `node -e ...` differentiating between immediate eval vs file-bound scripts
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
