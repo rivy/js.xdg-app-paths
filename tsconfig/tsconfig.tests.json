@@ -14,6 +14,7 @@
 		"../src/**/*.deno.ts",
 		"../test/**/*.js",
 		"../test/**/*.test-d.ts",
+		"../test/fixtures/**/*",
 		"../node_modules/**"
 	]
 }
