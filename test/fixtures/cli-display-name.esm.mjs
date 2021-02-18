@@ -4,3 +4,4 @@
 import p from '../../build/esm/src/mod.esm.js';
 
 console.log(p.$name());
+// console.warn({ process });
