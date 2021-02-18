@@ -78,7 +78,7 @@ class XDGAppPaths_ {
 			(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
 		const namePriorityList = [options.name, mainFilename];
 		const name_ = path.parse(
-			(namePriorityList.find((e) => isString(e)) ?? 'an-anonymous-script') + (suffix ?? '')
+			(namePriorityList.find((e) => isString(e)) ?? 'an-anonymous-script') + suffix
 		).name;
 
 		XDGAppPaths.$name = function $name() {
