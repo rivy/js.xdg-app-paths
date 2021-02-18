@@ -237,6 +237,9 @@
 	"nyc": {
 		"extends": "@istanbuljs/nyc-config-typescript",
 		"exclude": [
+			"build/cjs/**",
+			"build/esm/**",
+			"build/umd/**",
 			"eg/**",
 			"test/**",
 			"**/*.spec.js",
