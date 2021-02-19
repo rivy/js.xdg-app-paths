@@ -68,11 +68,14 @@ class XDGAppPaths_ {
 		const isolated_ = options.isolated ?? true;
 
 		// derive a suitable application name (ref: <https://stackoverflow.com/a/46110961/43774>)
-		// * `require.main.filename`, should be usually available; fallback to `process.execPath` when necessary
-		// ToDO: add ES6/ESM (.mjs) module compatibility for name generation (lacks `require`; see `yargs` for possibilities using `import.meta.url`)
+		const mainFilename =
+			(typeof require !== 'undefined' ? require?.main?.filename : void 0) ||
+			// HACK: `process._eval` is undocumented; used here (for ESM) as evidence of `node -e ...` differentiating between immediate eval vs file-bound scripts
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
+		const namePriorityList = [options.name, mainFilename];
 		const name_ = path.parse(
-			([options.name, require && require.main && require.main.filename].find((e) => isString(e)) ??
-				'an-anonymous-script') + (suffix ?? '')
+			(namePriorityList.find((e) => isString(e)) ?? 'an-anonymous-script') + (suffix ?? '')
 		).name;
 
 		XDGAppPaths.$name = function $name() {
