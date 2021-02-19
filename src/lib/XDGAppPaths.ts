@@ -53,18 +53,6 @@ function typeOf<T>(t: T): string {
 	return typeof t;
 }
 
-const requireMain =
-	typeof require !== 'undefined' && require !== null && require.main
-		? require.main
-		: { filename: void 0 };
-const requireMainFilename = requireMain.filename;
-const mainFilename =
-	// HACK: additional comparison `require?.main?.filename !== process.execArgv[0]` compensates for ESM scripts run via `ts-node`
-	(requireMainFilename !== process.execArgv[0] ? requireMainFilename : void 0) ||
-	// HACK: `process._eval` is undocumented; used here (again, for ESM) as evidence of `node -e ...` differentiating between immediate eval vs file-bound scripts
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
-
 // eslint-disable-next-line functional/no-class
 class XDGAppPaths_ {
 	constructor(options: Options = {}) {
@@ -80,10 +68,27 @@ class XDGAppPaths_ {
 		const isolated_ = options.isolated ?? true;
 
 		// derive a suitable application name
-		const namePriorityList = [options.name, mainFilename];
+		const requireMain =
+			typeof require !== 'undefined' && require !== null && require.main
+				? require.main
+				: { filename: void 0 };
+		const requireMainFilename = requireMain.filename;
+		const mainFilename =
+			// HACK: additional comparison `require?.main?.filename !== process.execArgv[0]` compensates for ESM scripts run via `ts-node`
+			(requireMainFilename !== process.execArgv[0] ? requireMainFilename : void 0) ||
+			// HACK: `process._eval` is undocumented; used here (again, for ESM) as evidence of `node -e ...` differentiating between immediate eval vs file-bound scripts
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
+		// * 'pkg'-application support (ref: <https://stackoverflow.com/a/46110961>)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const pkgMainFilename = (process as any).pkg ? process.execPath : void 0;
+
+		const namePriorityList = [options.name, pkgMainFilename, mainFilename];
 		const nameFallback = 'an-anonymous-script';
 		const name = path.parse((namePriorityList.find((e) => isString(e)) ?? nameFallback) + suffix)
 			.name;
+
+		// console.warn({ pkg: (process as any).pkg, execPath: process.execPath, namePriorityList, name });
 
 		XDGAppPaths.$name = function $name() {
 			return name;
