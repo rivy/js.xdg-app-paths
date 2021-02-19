@@ -5,6 +5,7 @@
 const path = require('path');
 
 const test = require('ava');
+const spawn = require('cross-spawn');
 
 const module_ = require('../build/tests_/src/mod.cjs.js');
 
@@ -35,6 +36,20 @@ function xdgPathRegex(name) {
 	);
 }
 
+const vNodeJS = process.versions.node.split('.');
+const vNodeJSMajor = +vNodeJS[0];
+const vNodeJSminor = +vNodeJS[1];
+
+// removal of `--experimental-modules` flag gate for ESM
+// ref: [NodeJS-v12.17 changes]<https://github.com/nodejs/node/pull/33197>
+// ref: [NodeJS-v13.2 changes]<https://github.com/nodejs/node/pull/30547>
+const settledSupportForESMs =
+	vNodeJSMajor > 13 ||
+	(vNodeJSMajor === 13 && vNodeJSminor >= 2) ||
+	(vNodeJSMajor === 12 && vNodeJSminor >= 17);
+
+// # Unit tests
+
 test('default', (t) => {
 	const isolated = true;
 	const paths = module_;
@@ -49,6 +64,8 @@ test('default', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -72,6 +89,8 @@ test('alternate constructor (via function())', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -97,6 +116,8 @@ test('alternate constructor (via function(...))', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -120,6 +141,8 @@ test('alternate constructor (via new())', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -145,6 +168,8 @@ test('alternate constructor (via new(...))', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -152,6 +177,62 @@ test('alternate constructor (via new(...))', (t) => {
 			}
 		});
 	});
+});
+
+test('construct without require.main.filename', (t) => {
+	const isolated = true;
+	const name = 'beholder';
+
+	const priorRequireMainFilename = require.main.filename;
+	require.main.filename = void 0;
+
+	// eslint-disable-next-line functional/no-let
+	let paths = new module_(name);
+	const regex = xdgPathRegex(paths.$name());
+
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach((key) => {
+		const value = paths[key];
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach((v) => {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({ isolated }));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({ isolated: !isolated }));
+			}
+		});
+	});
+
+	require.main.filename = null;
+
+	paths = new module_(name);
+
+	t.is(paths.$name(), name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach((key) => {
+		const value = paths[key];
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach((v) => {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({ isolated }));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({ isolated: !isolated }));
+			}
+		});
+	});
+
+	require.main.filename = priorRequireMainFilename;
 });
 
 test('chosen application name', (t) => {
@@ -170,6 +251,8 @@ test('chosen application name', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -194,6 +277,8 @@ test('chosen suffix', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -220,6 +305,8 @@ test('chosen application name + suffix', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -258,6 +345,8 @@ test('correct paths with only XDG_*_HOME set', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -317,6 +406,8 @@ test('correct "isolated" paths with only XDG_*_HOME set', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -425,6 +516,8 @@ test('correct paths with XDG_* set', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^(\$.*)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -490,6 +583,8 @@ test('correct "isolated" paths with XDG_* set', (t) => {
 		values.forEach((v) => {
 			if (!key.match(/^(\$.*)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
@@ -585,3 +680,84 @@ test('correct non-"isolated" paths with XDG_* set', (t) => {
 	t.notDeepEqual(paths.dataDirs(!isolated)[1], envVars.dataDirs);
 	t.notDeepEqual(paths.dataDirs({ isolated: !isolated })[1], envVars.dataDirs);
 });
+
+test('correctly derive anonymous (CJS)', (t) => {
+	const command = 'node';
+	process.env.TEST_MODULE_PATH = './build/tests_/src/mod.cjs.js';
+	const script = '"p=require(process.env.TEST_MODULE_PATH); console.log(p.$name());"';
+	const args = ['-e', script];
+	const options = { shell: true, encoding: 'utf-8' };
+
+	t.log({ script });
+
+	const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+
+	t.log({ error, status, stdout, stderr });
+
+	t.deepEqual({ error, status }, { error: null, status: 0 });
+
+	t.is(stdout.toString().trim(), 'an-anonymous-script');
+});
+
+if (settledSupportForESMs) {
+	test('correctly derive anonymous (ESM/[import CJS])', (t) => {
+		const command = 'node';
+		process.env.TEST_MODULE_PATH = './build/tests_/src/mod.cjs.js';
+		const script =
+			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
+		const args = ['--input-type=module', '-e', script];
+		const options = { shell: true, encoding: 'utf-8' };
+
+		t.log({ script });
+
+		const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+
+		t.log({ error, status, stdout, stderr });
+
+		t.deepEqual({ error, status }, { error: null, status: 0 });
+
+		t.is(stdout.toString().trim(), 'an-anonymous-script');
+	});
+
+	test('correctly derive anonymous (ESM/[esm-wrapper])', (t) => {
+		const command = 'node';
+		process.env.TEST_MODULE_PATH = './build/tests_/src/esm-wrapper/mod.esm.js';
+		const script =
+			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
+		const args = ['--input-type=module', '-e', script];
+		const options = { shell: true, encoding: 'utf-8' };
+
+		t.log({ script });
+
+		const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+
+		t.log({ error, status, stdout, stderr });
+
+		t.deepEqual({ error, status }, { error: null, status: 0 });
+
+		t.is(stdout.toString().trim(), 'an-anonymous-script');
+	});
+
+	test('correctly derive anonymous (ESM)', (t) => {
+		const command = 'node';
+		process.env.TEST_MODULE_PATH = './build/esm/src/mod.esm.js';
+		const script =
+			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
+		const args = [
+			'--input-type=module',
+			'-e',
+			isWinOS ? script : script.replace('$name', '\\$name'),
+		];
+		const options = { shell: true, encoding: 'utf-8' };
+
+		t.log({ script });
+
+		const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+
+		t.log({ error, status, stdout, stderr });
+
+		t.deepEqual({ error, status }, { error: null, status: 0 });
+
+		t.is(stdout.toString().trim(), 'an-anonymous-script');
+	});
+}

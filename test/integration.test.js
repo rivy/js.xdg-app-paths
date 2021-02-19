@@ -9,7 +9,9 @@ const path = require('path');
 const test = require('ava');
 const spawn = require('cross-spawn');
 
-const module_ = require('../build/tests_/src/mod.cjs.js');
+const modulePath = '../build/tests_/src/mod.cjs.js';
+// eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
+const module_ = require(modulePath);
 
 const vNodeJS = process.versions.node.split('.');
 const vNodeJSMajor = +vNodeJS[0];
@@ -23,7 +25,7 @@ const settledSupportForESMs =
 	(vNodeJSMajor === 13 && vNodeJSminor >= 2) ||
 	(vNodeJSMajor === 12 && vNodeJSminor >= 17);
 
-// Integration tests
+// # Integration tests
 
 test('api', (t) => {
 	const paths = module_;
