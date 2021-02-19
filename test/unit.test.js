@@ -771,3 +771,35 @@ if (settledSupportForESMs) {
 		t.is(stdout.toString().trim(), 'an-anonymous-script');
 	});
 }
+
+test('construct with "pkg" packaged application', (t) => {
+	const isolated = true;
+
+	const priorProcessPkg = process.pkg;
+	process.pkg = {};
+
+	const paths = new module_();
+	const regex = xdgPathRegex(paths.$name());
+
+	t.is(paths.$name(), path.parse(process.execPath).name);
+	t.is(paths.$isolated(), isolated);
+
+	Object.keys(paths).forEach((key) => {
+		const value = paths[key];
+		const values = [].concat(value()); // convert value (single value or array) to a flat array
+		t.log(key, ':', value());
+		values.forEach((v) => {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
+				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
+				t.deepEqual(value(), value(isolated));
+				t.deepEqual(value(), value({ isolated }));
+				t.notDeepEqual(value(), value(!isolated));
+				t.notDeepEqual(value(), value({ isolated: !isolated }));
+			}
+		});
+	});
+
+	process.pkg = priorProcessPkg;
+});
