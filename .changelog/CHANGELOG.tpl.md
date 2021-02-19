@@ -1,7 +1,7 @@
 {{- /* <!-- markdownlint-disable --><!-- spellchecker:ignore markdownlint --> */ -}}
 
 {{- define "format-commit" -}}
-* {{ if .Scope }}{{ .Type }}/**{{ .Scope }}**: {{ .Subject }}{{ else }}{{ .Header }}{{ end }} &ac; [`{{ .Hash.Short }}`]({{ commitURL .Hash.Long }})
+* {{ if .Scope }}{{ .Type | smartLowerFirstWord }} *({{ .Scope }})*: {{ .Subject | smartLowerFirstWord }}{{ else }}{{ .Header | smartLowerFirstWord }}{{ end }} &ac; [`{{ .Hash.Short }}`]({{ commitURL .Hash.Long }})
 {{ end -}}
 
 {{- define "format-commit-group" }}
@@ -10,25 +10,43 @@
 {{ range .Commits }}{{ template "format-commit" . -}}{{ end -}}
 {{ end -}}
 
-<!-- markdownlint-disable heading-increment no-duplicate-heading no-inline-html -->
-<!-- spellchecker:ignore () CICD Deno EditorConfig chglog gitattributes maint markdownlint prettierignore rivy typeof -->
+<!-- markdownlint-disable --><!-- spellchecker:ignore markdownlint --><!-- spellchecker:disable -->
 
 # CHANGELOG <br/> [{{ $.Info.Title }}]({{ $.Info.RepositoryURL }})
-{{ if .Unreleased.CommitGroups }}{{/* <a name="unreleased"></a> */}}
+
+<div style="font-size: 0.9em; line-height: 1.1em;">
+
+> This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+> <br/>
+> The changelog format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) using [conventional/semantic commits](https://nitayneeman.com/posts/understanding-semantic-commit-messages-using-git-and-angular).<small><sup>[`@`](https://archive.is/jnup8)</sup></small>
+
+</div>
+
+{{- if .Unreleased.CommitGroups }}
+
+---
+
+{{/* <a name="unreleased"></a> */ -}}
 ## [Unreleased]
 {{ range .Unreleased.CommitGroups }}{{ template "format-commit-group" . }}{{ end -}}
-{{ end -}}
+{{ end }}
+<div id='last-line-of-prefix'></div>
+{{- $first := true }}{{ range .Versions }}
 
-{{ range .Versions }}
 ---
 {{ $output := false -}}
 {{/* <a name="{{ .Tag.Name }}"></a> */}}
 ## {{ if .Tag.Previous }}[{{ .Tag.Name }}]({{ $.Info.RepositoryURL }}/compare/{{ .Tag.Previous.Name }}...{{ .Tag.Name }}){{ else }}{{ .Tag.Name }}{{ end }} <small>({{ datetime "2006-01-02" .Tag.Date }})</small>
+{{ if (index .Commits 0).Body }}
+{{ (index .Commits 0).Body }}
+{{ end }}
+<details{{ if $first }} open{{ $first = false }}{{ end }}><summary><small><em>[{{ .Tag.Name }}; details]</em></small></summary>
 {{ if .CommitGroups -}}
+{{ range .CommitGroups }}{{ if eq .Title "Features" }}{{ $output = true }}{{ template "format-commit-group" . }}{{- end -}}{{- end -}}
 {{ range .CommitGroups }}{{ if eq .Title "Enhancements" }}{{ $output = true }}{{ template "format-commit-group" . }}{{- end -}}{{- end -}}
 {{ range .CommitGroups }}{{ if eq .Title "Changes" }}{{ $output = true }}{{ template "format-commit-group" . }}{{- end -}}{{- end -}}
 {{ range .CommitGroups }}{{ if eq .Title "Fixes" }}{{ $output = true }}{{ template "format-commit-group" . }}{{- end -}}{{- end -}}
-{{ range .CommitGroups }}{{ if not (eq .Title "Changes" "Enhancements" "Fixes") }}{{ $output = true }}{{ template "format-commit-group" . }}{{- end -}}{{- end -}}
+{{ range .CommitGroups }}{{ if not (eq .Title "Features" "Enhancements" "Changes" "Fixes") }}{{ $output = true }}{{ template "format-commit-group" . }}{{- end -}}{{- end -}}
 {{- end -}}
 
 {{ if .RevertCommits }}{{ $output = true }}
@@ -36,28 +54,32 @@
 
 {{ range .RevertCommits -}}
 * {{ .Revert.Header }}
-{{ end }}
+{{ end -}}
 {{ end -}}
 
-{{ if .MergeCommits -}}
+{{ if .MergeCommits }}{{ $output = true }}
 #### Pull Requests
 
 {{ range .MergeCommits -}}
 * {{ .Header }}
-{{ end }}
+{{ end -}}
 {{ end -}}
 
-{{ if .NoteGroups -}}
+{{ if .NoteGroups -}}{{ $output = true }}
 {{ range .NoteGroups -}}
 #### {{ .Title }}
 
 {{ range .Notes }}
 {{ .Body }}
-{{ end }}
+{{ end -}}
 {{ end -}}
 {{ end -}}
 
 {{- if not $output }}
+<br/>
+
 *No changelog for this release.*
-{{ end -}}
+{{ end }}
+</details>
 {{- end -}}
+<br/>
