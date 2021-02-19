@@ -684,8 +684,9 @@ test('correct non-"isolated" paths with XDG_* set', (t) => {
 test('correctly derive anonymous (CJS)', (t) => {
 	const command = 'node';
 	process.env.TEST_MODULE_PATH = './build/tests_/src/mod.cjs.js';
-	const script = '"p=require(process.env.TEST_MODULE_PATH); console.log(p.$name());"';
-	const args = ['-e', script];
+	const script =
+		'"p = require(\'' + process.env.TEST_MODULE_PATH + '\'); console.log(p.$name({}));"';
+	const args = ['-e', isWinOS ? script : script.replace('$name', '\\$name')];
 	const options = { shell: true, encoding: 'utf-8' };
 
 	t.log({ script });
@@ -705,7 +706,11 @@ if (settledSupportForESMs) {
 		process.env.TEST_MODULE_PATH = './build/tests_/src/mod.cjs.js';
 		const script =
 			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
-		const args = ['--input-type=module', '-e', script];
+		const args = [
+			'--input-type=module',
+			'-e',
+			isWinOS ? script : script.replace('$name', '\\$name'),
+		];
 		const options = { shell: true, encoding: 'utf-8' };
 
 		t.log({ script });
@@ -724,7 +729,11 @@ if (settledSupportForESMs) {
 		process.env.TEST_MODULE_PATH = './build/tests_/src/esm-wrapper/mod.esm.js';
 		const script =
 			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
-		const args = ['--input-type=module', '-e', script];
+		const args = [
+			'--input-type=module',
+			'-e',
+			isWinOS ? script : script.replace('$name', '\\$name'),
+		];
 		const options = { shell: true, encoding: 'utf-8' };
 
 		t.log({ script });
