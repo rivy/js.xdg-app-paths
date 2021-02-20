@@ -9,7 +9,7 @@ const path = require('path');
 const test = require('ava');
 const spawn = require('cross-spawn');
 
-const modulePath = '../build/tests_/src/mod.cjs.js';
+const modulePath = '../build/testbed/src/mod.cjs.js';
 // eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
 const module_ = require(modulePath);
 
