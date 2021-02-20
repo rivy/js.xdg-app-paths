@@ -22,6 +22,7 @@ exports.plugins = [
 	['remark-lint-file-extension', false],
 	['remark-lint-heading-increment', false],
 	['remark-lint-list-item-indent', 'mixed'],
+	['remark-lint-maximum-heading-length', false],
 	['remark-lint-maximum-line-length', false],
 	['remark-lint-no-duplicate-headings', false],
 	['remark-lint-unordered-list-marker-style', 'consistent'],
