@@ -1,6 +1,6 @@
 {
 	"name": "xdg-app-paths",
-	"version": "5.5.1",
+	"version": "6.0.0",
 	"description": "Determine (XDG-compatible) paths for storing application files (cache, config, data, etc)",
 	"license": "MIT",
 	"repository": "rivy/js.xdg-app-paths",
