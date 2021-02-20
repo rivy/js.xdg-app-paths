@@ -13,11 +13,25 @@
 
 ---
 
+## [v7.1.0](https://github.com/rivy/js.xdg-app-paths/compare/v7.0.0...v7.1.0) <small>(2021-02-20)</small>
+
+<details open><summary><small><em>[v7.1.0; details]</em></small></summary>
+
+#### Documentation
+
+* docs ~ add Deno examples using remote imports &ac; [`d5fb0a9`](https://github.com/rivy/js.xdg-app-paths/commit/d5fb0a97e6eb5d8dce696f3df5e21bd097396145)
+* docs ~ disable `remark` lint complaint (maximum-heading-length) &ac; [`a521003`](https://github.com/rivy/js.xdg-app-paths/commit/a521003e3aa2c71425d40035a329fbb44ec638a5)
+* docs ~ (README) fix Deno required permissions list &ac; [`add23f7`](https://github.com/rivy/js.xdg-app-paths/commit/add23f7ce6b02f41765ae5a3e324c92191d6a50e)
+
+</details>
+
+---
+
 ## [v7.0.0](https://github.com/rivy/js.xdg-app-paths/compare/v6.0.0...v7.0.0) <small>(2021-02-20)</small>
 
 Add support for [Deno](https://deno.land).
 
-<details open><summary><small><em>[v7.0.0; details]</em></small></summary>
+<details><summary><small><em>[v7.0.0; details]</em></small></summary>
 
 #### Changes
 
