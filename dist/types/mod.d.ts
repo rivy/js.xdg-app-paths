@@ -20,7 +20,7 @@ declare type XDGAppPaths = {
     readonly dataDirs: (dirOptions?: DirOptions | boolean) => readonly string[];
 };
 
-declare const _default: XDGAppPaths;
+declare const default_: XDGAppPaths;
 
-export default _default;
+export default default_;
 export { DirOptions, Options, XDGAppPaths };

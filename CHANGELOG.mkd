@@ -13,6 +13,33 @@
 
 ---
 
+## [v7.0.0](https://github.com/rivy/js.xdg-app-paths/compare/v6.0.0...v7.0.0) <small>(2021-02-20)</small>
+
+Add support for [Deno](https://deno.land).
+
+<details open><summary><small><em>[v7.0.0; details]</em></small></summary>
+
+#### Changes
+
+* add support for Deno &ac; [`09fb1d3`](https://github.com/rivy/js.xdg-app-paths/commit/09fb1d37084d15419c83ae92bad29064cf005199)
+
+#### Documentation
+
+* docs ~ README revisions for Deno &ac; [`2d09289`](https://github.com/rivy/js.xdg-app-paths/commit/2d0928976e901db1d660200eb2a4a7f3e916fd28)
+* docs ~ add Deno example &ac; [`5a64a43`](https://github.com/rivy/js.xdg-app-paths/commit/5a64a4315f77487049630119c4eea51ef2da4045)
+
+#### Maintenance
+
+* maint *(dev)*: add Deno types &ac; [`57c6ba7`](https://github.com/rivy/js.xdg-app-paths/commit/57c6ba71ccc52934eb08c4dadd17149326f7b1c4)
+
+#### Refactoring
+
+* refactor ~ add support (Platform.Adapter) for other platforms (eg, Deno) &ac; [`1c6405a`](https://github.com/rivy/js.xdg-app-paths/commit/1c6405a775d46814a79fbb6b8c918d2a2e97c2e8)
+
+</details>
+
+---
+
 ## [v6.0.0](https://github.com/rivy/js.xdg-app-paths/compare/v5.5.1...v6.0.0) <small>(2021-02-20)</small>
 
 The `XDGAppPaths` project has undergone a full conversion to TypeScript.
@@ -26,7 +53,7 @@ continued support for older non-'exports' aware tooling). And all project export
 are available both directly from the project repository or via various distributors
 (jsdelivr, npmJS, ...).
 
-<details open><summary><small><em>[v6.0.0; details]</em></small></summary>
+<details><summary><small><em>[v6.0.0; details]</em></small></summary>
 
 #### Changes
 
