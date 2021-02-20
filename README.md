@@ -94,9 +94,13 @@ const configDirs = xdgAppPaths.configDirs();
 
 ##### Required Deno permissions
 
-**`--allow-env`** _(allow access to the process environment variables)_
-<br/>
-This module/package requires access to various environment variable to determine platform and user configuration (eg, XDG configuration variables, location of temp and user directories, ...).
+###### `--allow-env` &middot; _allow access to the process environment variables_
+
+This is a transitive requirement from the 'xdg' module; `XDG` requires access to various environment variable to determine platform and user configuration (eg, XDG configuration variables, location of temp and user directories, ...).
+
+###### `--allow-read` &middot; _allow read(-only) access to the file system_
+
+This permission is required to use `Deno.mainModule`, which is, in turn, required to auto-generate the application name used for data isolation.
 
 ## API
 
