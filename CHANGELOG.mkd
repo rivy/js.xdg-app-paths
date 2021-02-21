@@ -13,9 +13,21 @@
 
 ---
 
+## [v7.1.1](https://github.com/rivy/js.xdg-app-paths/compare/v7.1.0...v7.1.1) <small>(2021-02-21)</small>
+
+<details open><summary><small><em>[v7.1.1; details]</em></small></summary>
+
+#### Documentation
+
+* docs ~ README corrections &ac; [`b68009c`](https://github.com/rivy/js.xdg-app-paths/commit/b68009c32e79d42622b6955a6e02d7f9e62c641d)
+
+</details>
+
+---
+
 ## [v7.1.0](https://github.com/rivy/js.xdg-app-paths/compare/v7.0.0...v7.1.0) <small>(2021-02-20)</small>
 
-<details open><summary><small><em>[v7.1.0; details]</em></small></summary>
+<details><summary><small><em>[v7.1.0; details]</em></small></summary>
 
 #### Documentation
 
