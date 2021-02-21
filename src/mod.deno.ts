@@ -11,7 +11,5 @@ import { DirOptions, Options, XDGAppPaths } from '../dist/types/mod.d.ts';
 // @ts-ignore
 import { adapter } from './platform-adapters/deno.deno.ts';
 
-const default_: XDGAppPaths = Adapt(adapter).XDGAppPaths;
-
 export type { DirOptions, Options, XDGAppPaths };
-export default default_;
+export default Adapt(adapter).XDGAppPaths as XDGAppPaths;
