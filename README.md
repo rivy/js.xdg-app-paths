@@ -43,7 +43,7 @@ XDG references
 ```shell
 npm install xdg-app-paths
 # or... `npm install "git:github.com/rivy/js.xdg-app-paths"`
-# or... `npm install "git:github.com/rivy/js.xdg-app-paths#v6.0.0"`
+# or... `npm install "git:github.com/rivy/js.xdg-app-paths#v7.0.0"`
 # or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/dist/xdg-app-paths.tgz"`
 ```
 
@@ -81,13 +81,13 @@ const configDirs = xdgAppPaths.configDirs();
 ```ts
 import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
 //or...
-//import xdg from 'https://deno.land/x/xdg_app_paths@v9.0.0/src/mod.deno.ts';
+//import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v7.0.0/src/mod.deno.ts';
 //or (via CDN, with optional version/version-range/latest/commit support)...
-//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7.0.0/src/mod.deno.ts'; // v7.0.0
-//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7/src/mod.deno.ts'; // v7.x.y
-//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/src/mod.deno.ts'; // latest
-//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@latest/src/mod.deno.ts'; // latest
-//import osPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT/src/mod.deno.ts'; // commit
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7.0.0/src/mod.deno.ts'; // v7.0.0
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7/src/mod.deno.ts'; // v7.x.y
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/src/mod.deno.ts'; // latest
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@latest/src/mod.deno.ts'; // latest
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT/src/mod.deno.ts'; // commit
 const configDirs = xdgAppPaths.configDirs();
 //...
 ```
@@ -96,7 +96,7 @@ const configDirs = xdgAppPaths.configDirs();
 
 ###### `--allow-env` &middot; _allow access to the process environment variables_
 
-This is a transitive requirement from the 'xdg' module; `XDG` requires access to various environment variable to determine platform and user configuration (eg, XDG configuration variables, location of temp and user directories, ...).
+This is a transitive requirement from the 'xdg'/'xdg-portable' module; `XDG` requires access to various environment variable to determine platform and user configuration (eg, XDG configuration variables, location of temp and user directories, ...).
 
 ###### `--allow-read` &middot; _allow read(-only) access to the file system_
 
