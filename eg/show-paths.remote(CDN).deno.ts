@@ -1,3 +1,5 @@
+// deno-fmt-ignore-file ## prefer customized `prettier` formatting
+
 // * `deno` permission requirements
 // --allow-env (transitive from 'xdg-app-paths')
 // --allow-read

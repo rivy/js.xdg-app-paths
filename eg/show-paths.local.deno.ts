@@ -1,3 +1,4 @@
+// deno-fmt-ignore-file ## prefer customized `prettier` formatting
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as path from 'https://deno.land/std@0.87.0/path/mod.ts';

@@ -1,3 +1,5 @@
+// deno-fmt-ignore-file ## prefer customized `prettier` formatting
+
 import test from 'ava';
 
 import mESM from './mod.esm.js';

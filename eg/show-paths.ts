@@ -1,3 +1,5 @@
+// deno-fmt-ignore-file ## prefer customized `prettier` formatting
+
 import path from 'path';
 import { inspect } from 'util';
 

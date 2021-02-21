@@ -1,3 +1,4 @@
+// deno-fmt-ignore-file ## prefer customized `prettier` formatting
 // spell-checker:ignore Deno
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

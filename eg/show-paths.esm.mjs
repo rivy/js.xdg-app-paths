@@ -1,3 +1,4 @@
+// deno-fmt-ignore-file ## prefer customized `prettier` formatting
 // # spell-checker:ignore APPNAME
 /* eslint-env es6, node */
 'use strict';
