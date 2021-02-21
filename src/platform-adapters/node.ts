@@ -1,3 +1,5 @@
+// deno-fmt-ignore-file ## prefer customized `prettier` formatting
+
 import * as path from 'path';
 
 import xdg from 'xdg-portable';
