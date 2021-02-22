@@ -32,35 +32,45 @@ interface XDGAppPaths {
 	/** Create an `XDG` object (`new` is optional). */
 	(options?: Options | string): XDGAppPaths;
 
+	/* eslint-disable functional/no-method-signature */
+
 	/** Returns the directory for non-essential data files.
 	> Deletion of the data contained here might cause an application to slow down.
 	*/
-	readonly cache: (dirOptions?: DirOptions | boolean) => string;
+	cache(dirOptions?: DirOptions | boolean): string;
+
 	/** Returns the directory for config files.
 	> Deletion of the data contained here might require the user to reconfigure an application.
 	*/
-	readonly config: (dirOptions?: DirOptions | boolean) => string;
+	config(dirOptions?: DirOptions | boolean): string;
+
 	/** Returns the directory for data files.
 	> Deletion of the data contained here might force the user to restore from backups.
 	*/
-	readonly data: (dirOptions?: DirOptions | boolean) => string;
+	data(dirOptions?: DirOptions | boolean): string;
+
 	/** Returns the directory for runtime files; may return `undefined`.
 	> Deletion of the data contained here might interfere with a currently executing application but should have no effect on future executions.
 	*/
-	readonly runtime: (dirOptions?: DirOptions | boolean) => string | undefined;
+	runtime(dirOptions?: DirOptions | boolean): string | undefined;
+
 	/** Returns the directory for state files.
 	> Deletion of the data contained here should not materially interfere with execution of an application.
 	*/
-	readonly state: (dirOptions?: DirOptions | boolean) => string;
+	state(dirOptions?: DirOptions | boolean): string;
+
 	/** Returns a priority-sorted list of possible directories for configuration file storage (includes `paths.config()` as the first entry). */
-	readonly configDirs: (dirOptions?: DirOptions | boolean) => readonly string[];
+	configDirs(dirOptions?: DirOptions | boolean): readonly string[];
+
 	/** Returns a priority-sorted list of possible directories for data file storage (includes `paths.data()` as the first entry). */
-	readonly dataDirs: (dirOptions?: DirOptions | boolean) => readonly string[];
+	dataDirs(dirOptions?: DirOptions | boolean): readonly string[];
 
 	/** Application name used for path construction (from supplied configuration or auto-generated). */
-	readonly $name: () => string;
+	$name(): string;
 	/** Default isolation mode used by the particular `XDGAppPaths` instance. */
-	readonly $isolated: () => boolean;
+	$isolated(): boolean;
+
+	/* eslint-enable functional/no-method-signature */
 }
 
 function isBoolean<T>(t: T | boolean): t is boolean {
