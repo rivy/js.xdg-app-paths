@@ -24,8 +24,10 @@ type Options = {
 };
 
 /** `XDGAppPaths` (API) Determine (XDG-compatible) paths for storing application files (cache, config, data, etc) */
-type XDGAppPaths = {
+// eslint-disable-next-line functional/prefer-type-literal
+interface XDGAppPaths {
 	/** Create an `XDG` object (`new` is optional). */
+	// eslint-disable-next-line @typescript-eslint/no-misused-new
 	new (options?: Options | string): XDGAppPaths;
 	/** Create an `XDG` object (`new` is optional). */
 	(options?: Options | string): XDGAppPaths;
@@ -59,7 +61,7 @@ type XDGAppPaths = {
 	readonly $name: () => string;
 	/** Default isolation mode used by the particular `XDGAppPaths` instance. */
 	readonly $isolated: () => boolean;
-};
+}
 
 function isBoolean<T>(t: T | boolean): t is boolean {
 	return typeOf(t) === 'boolean';
