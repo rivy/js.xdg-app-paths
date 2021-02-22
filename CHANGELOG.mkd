@@ -13,9 +13,32 @@
 
 ---
 
+## [v7.2.0](https://github.com/rivy/js.xdg-app-paths/compare/v7.1.1...v7.2.0) <small>(2021-02-21)</small>
+
+<details open><summary><small><em>[v7.2.0; details]</em></small></summary>
+
+#### Documentation
+
+* docs ~ revise `XDGAppPaths` interface/type (show methods not properties) &ac; [`ca428a4`](https://github.com/rivy/js.xdg-app-paths/commit/ca428a496da2601bb27afec8db735d0e22cad5af)
+* docs ~ redefine `XDGAppPaths` as an interface (for better automatic doc generation) &ac; [`fa6717c`](https://github.com/rivy/js.xdg-app-paths/commit/fa6717c5ac20ce6400a424c97cac9843ca123c39)
+* docs ~ add JSDocs descriptions &ac; [`9765b63`](https://github.com/rivy/js.xdg-app-paths/commit/9765b638731739cb864e4899d0b7c91ba97aed45)
+
+#### Maintenance
+
+* maint *(build)*: remove unneeded intermediate 'default' export object &ac; [`6c4d26b`](https://github.com/rivy/js.xdg-app-paths/commit/6c4d26b10c05bb76ac14ee9403df00d5a0a38732)
+* maint *(build)*: fix CJS type rewrite &ac; [`15c007f`](https://github.com/rivy/js.xdg-app-paths/commit/15c007facdb98f9012557cefd8f62bc40c60b320)
+
+#### Refactoring
+
+* refactor ~ replace intermediate default export object to improve `deno docs` results &ac; [`7d5e0d2`](https://github.com/rivy/js.xdg-app-paths/commit/7d5e0d29b908767664c4a36e48b6fd35f9bd3a6c)
+
+</details>
+
+---
+
 ## [v7.1.1](https://github.com/rivy/js.xdg-app-paths/compare/v7.1.0...v7.1.1) <small>(2021-02-21)</small>
 
-<details open><summary><small><em>[v7.1.1; details]</em></small></summary>
+<details><summary><small><em>[v7.1.1; details]</em></small></summary>
 
 #### Documentation
 
