@@ -11,26 +11,35 @@ import { Platform } from '../platform-adapters/_base.js';
 // # ref: <https://wiki.debian.org/XDGBaseDirectorySpecification#state> @@ <http://archive.is/pahId>
 // # ref: <https://ploum.net/207-modify-your-application-to-use-xdg-folders> @@ <https://archive.is/f43Gk>
 
-/** Configuration options supplied to `XDGAppPaths` methods; (optional) */
-type DirOptions = {
+/** Configuration options supplied to `XDGAppPaths` methods */
+// eslint-disable-next-line functional/prefer-type-literal
+interface DirOptions {
+	/** Isolation flag; used to override the default isolation mode, when needed. */
 	readonly isolated?: boolean | null;
-};
+}
 
-/** Configuration options supplied when constructing `XDGAppPaths`; (optional) */
-type Options = {
+/** Configuration options supplied when constructing `XDGAppPaths` */
+// eslint-disable-next-line functional/prefer-type-literal
+interface Options {
+	/** Name of the application; used to generate isolated application paths.
+	> When missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the available process information.
+	*/
 	readonly name?: string | null;
+	/** Suffix which is appended to the application name when generating the application paths. */
 	readonly suffix?: string | null;
+	/** Default isolation flag (used when no isolation flag is supplied for `DirOptions`). */
 	readonly isolated?: boolean | null;
-};
+}
 
-/** `XDGAppPaths` (API) Determine (XDG-compatible) paths for storing application files (cache, config, data, etc) */
+/** `XDGAppPaths` (API) - Determine (XDG-compatible) paths for storing application files (cache, config, data, etc) */
 // eslint-disable-next-line functional/prefer-type-literal
 interface XDGAppPaths {
-	/** Create an `XDG` object (`new` is optional). */
+	/** Create an `XDGAppPaths` object (a preceding `new` is optional). */
+	(options?: Options | string): XDGAppPaths;
+
+	/** Create an `XDGAppPaths` object (`new` is optional). */
 	// eslint-disable-next-line @typescript-eslint/no-misused-new
 	new (options?: Options | string): XDGAppPaths;
-	/** Create an `XDG` object (`new` is optional). */
-	(options?: Options | string): XDGAppPaths;
 
 	/* eslint-disable functional/no-method-signature */
 
@@ -93,14 +102,12 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 	const { meta, path, xdg } = adapter_;
 	// eslint-disable-next-line functional/no-class
 	class XDGAppPaths_ {
-		constructor(options: Options = {}) {
-			function XDGAppPaths(options: Options = {}): XDGAppPaths {
+		constructor(options_: Options | string = {}) {
+			function XDGAppPaths(options: Options | string = {}): XDGAppPaths {
 				return new XDGAppPaths_(options) as XDGAppPaths;
 			}
 
-			if (!isObject(options)) {
-				options = { name: options };
-			}
+			const options = (isObject(options_) ? options_ : { name: options_ }) as Options;
 
 			const suffix = options.suffix ?? '';
 			const isolated_ = options.isolated ?? true;
