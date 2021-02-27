@@ -698,7 +698,7 @@ test('correctly derive anonymous (CJS)', (t) => {
 
 	t.deepEqual({ error, status }, { error: null, status: 0 });
 
-	t.is(stdout.toString().trim(), 'an-anonymous-script');
+	t.is(stdout.toString().trim(), '$eval');
 });
 
 if (settledSupportForESMs) {
@@ -722,7 +722,7 @@ if (settledSupportForESMs) {
 
 		t.deepEqual({ error, status }, { error: null, status: 0 });
 
-		t.is(stdout.toString().trim(), 'an-anonymous-script');
+		t.is(stdout.toString().trim(), '$eval');
 	});
 
 	test('correctly derive anonymous (ESM/[esm-wrapper])', (t) => {
@@ -745,7 +745,7 @@ if (settledSupportForESMs) {
 
 		t.deepEqual({ error, status }, { error: null, status: 0 });
 
-		t.is(stdout.toString().trim(), 'an-anonymous-script');
+		t.is(stdout.toString().trim(), '$eval');
 	});
 
 	test('correctly derive anonymous (ESM)', (t) => {
@@ -768,7 +768,7 @@ if (settledSupportForESMs) {
 
 		t.deepEqual({ error, status }, { error: null, status: 0 });
 
-		t.is(stdout.toString().trim(), 'an-anonymous-script');
+		t.is(stdout.toString().trim(), '$eval');
 	});
 }
 

@@ -118,7 +118,7 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 				meta.pkgMainFilename(),
 				meta.mainFilename(),
 			];
-			const nameFallback = 'an-anonymous-script';
+			const nameFallback = '$eval';
 			const name = path.parse((namePriorityList.find((e) => isString(e)) ?? nameFallback) + suffix)
 				.name;
 
