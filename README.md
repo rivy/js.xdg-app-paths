@@ -3,7 +3,7 @@
 <!-- -## editors ## (emacs/sublime) -*- coding: utf8-nix; tab-width: 4; mode: markdown; indent-tabs-mode: nil; basic-offset: 2; st-word_wrap: 'true' -*- ## (jEdit) :tabSize=4:indentSize=4:mode=markdown: ## (notepad++) vim:tabstop=4:syntax=markdown:expandtab:smarttab:softtabstop=2 ## modeline (see <https://archive.is/djTUD>@@<http://webcitation.org/66W3EhCAP> ) -->
 <!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
 
-<!-- markdownlint-disable heading-increment no-duplicate-heading no-emphasis-as-heading ul-style -->
+<!-- markdownlint-disable heading-increment hr-style no-duplicate-heading no-emphasis-as-heading ul-style -->
 <!-- spell-checker:ignore (abbrev/jargon) CICD NodeJS -->
 <!-- spell-checker:ignore (JS/TS) concat mkdirp readonly typeof -->
 <!-- spell-checker:ignore (markdown) nbsp nodejsv -->
@@ -131,7 +131,7 @@ When importing this module, the object returned is a function object, `XDGAppPat
 
 Upon construction, if not supplied with a specified name (via `Options.name`), `XDGAppPaths` will generate an application name which is used to further generate isolated application directories, where needed. "an-anonymous-script" is used as the fallback value when automatically generating names (ie, for immediate mode scripts such as `node -e "..."`). The generated or supplied name is stored during `XDGAppPaths` construction and subsequently accessible via the `$name()` method.
 
-### Types
+### Interfaces/Types
 
 ```js
 import type { DirOptions, Options, XDGAppPaths } from 'xdg-app-paths'; // TypeScript
@@ -141,31 +141,13 @@ import type { DirOptions, Options, XDGAppPaths } from 'xdg-app-paths'; // TypeSc
 
 #### `XDGAppPaths`
 
-_Primary module-supplied function object_
+_`XDGAppPaths` API; also, the interface/type of the default function object export_
 
-#### `Options`
-
-_Configuration options supplied when constructing `XDGAppPaths`; (optional)_
-
-<small>
-
-> **`Options: string` => `{ name: string }`** <br/> As a shortcut, when `Options` is supplied as a `string`, is interpreted directly as the `name` property (ie, `options = { name: options }`).
->
-> ---
->
-> **`Options: object`** <br/> &bullet; default = `{ name: '', suffix: '', isolated: true }`
->
-> **`Options.name: string`** <br/> &bullet; default = `''` <br/> _Name of your application; used to generate the paths_ <br/> If missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the available process information.
->
-> **`Options.suffix: string`** <br/> &bullet; default = `''` <br/> _Suffix which is appended to the application name when generating the application paths_
->
-> **`Options.isolated: boolean`** <br/> &bullet; default = `true` <br/> _Default isolation flag (used when no isolation flag is supplied for `DirOptions`)_
-
-</small>
+---
 
 #### `DirOptions`
 
-_Configuration options supplied to `XDGAppPaths` methods; (optional)_
+_Configuration options supplied to `XDGAppPaths` methods_
 
 <small>
 
@@ -179,7 +161,27 @@ _Configuration options supplied to `XDGAppPaths` methods; (optional)_
 
 </small>
 
-Types named here are exported individually by name (eg, as "XDGAppPaths").
+#### `Options`
+
+_Configuration options supplied when constructing `XDGAppPaths`_
+
+<small>
+
+> **`Options: string` => `{ name: string }`** <br/> As a shortcut, when `Options` is supplied as a `string`, is interpreted directly as the `name` property (ie, `options = { name: options }`).
+>
+> ---
+>
+> **`Options: object`** <br/> &bullet; default = `{ name: '', suffix: '', isolated: true }`
+>
+> **`Options.name: string`** <br/> &bullet; default = `''` <br/> _Name of the application; used to generate isolated application paths_ <br/> When missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the available process information.
+>
+> **`Options.suffix: string`** <br/> &bullet; default = `''` <br/> _Suffix which is appended to the application name when generating the application paths_
+>
+> **`Options.isolated: boolean`** <br/> &bullet; default = `true` <br/> _Default isolation flag (used when no isolation flag is supplied for `DirOptions`)_
+
+</small>
+
+All interfaces/types listed are exported individually by name (eg, as "XDGAppPaths").
 
 ### Methods
 
