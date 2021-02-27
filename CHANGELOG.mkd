@@ -13,9 +13,27 @@
 
 ---
 
+## [v7.3.0](https://github.com/rivy/js.xdg-app-paths/compare/v7.2.0...v7.3.0) <small>(2021-02-27)</small>
+
+<details open><summary><small><em>[v7.3.0; details]</em></small></summary>
+
+#### Documentation
+
+* docs ~ (README) sync with JSDocs descriptions &ac; [`6ab0c02`](https://github.com/rivy/js.xdg-app-paths/commit/6ab0c027b742032a077aa0de70e92adea778b1f5)
+* docs ~ JSDocs polish &ac; [`0833db2`](https://github.com/rivy/js.xdg-app-paths/commit/0833db2c0f2f02fc1cc8dc848027dbdb27b2a007)
+* docs ~ add `cspell` dictionary word(s) &ac; [`25540e4`](https://github.com/rivy/js.xdg-app-paths/commit/25540e4dcf2c039d2d929aa0595e6c2f1c3fc2a4)
+
+#### Maintenance
+
+* maint *(deps)*: add 'typedoc' (dev; for future use) &ac; [`fd8e7f0`](https://github.com/rivy/js.xdg-app-paths/commit/fd8e7f05c90a84cf208d37ef701b302078598028)
+
+</details>
+
+---
+
 ## [v7.2.0](https://github.com/rivy/js.xdg-app-paths/compare/v7.1.1...v7.2.0) <small>(2021-02-21)</small>
 
-<details open><summary><small><em>[v7.2.0; details]</em></small></summary>
+<details><summary><small><em>[v7.2.0; details]</em></small></summary>
 
 #### Documentation
 
