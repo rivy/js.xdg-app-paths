@@ -129,7 +129,7 @@ const xdgAppPaths = XDGAppPaths(options);
 
 When importing this module, the object returned is a function object, `XDGAppPaths`, augmented with attached methods. Additional `XDGAppPaths` objects may be constructed by direct call of the imported `XDGAppPaths` object (eg, `const x = xdgAppPaths(...)`) or by using `new` (eg, `const x = new xdgAppPaths(...)`).
 
-Upon construction, if not supplied with a specified name (via `Options.name`), `XDGAppPaths` will generate an application name which is used to further generate isolated application directories, where needed. "an-anonymous-script" is used as the fallback value when automatically generating names (ie, for immediate mode scripts such as `node -e "..."`). The generated or supplied name is stored during `XDGAppPaths` construction and subsequently accessible via the `$name()` method.
+Upon construction, if not supplied with a specified name (via `Options.name`), `XDGAppPaths` will generate an application name which is used to further generate isolated application directories, where needed. "$eval" is used as the fallback value when automatically generating names (ie, for immediate mode scripts such as `node -e "..."`). The generated or supplied name is stored during `XDGAppPaths` construction and subsequently accessible via the `$name()` method.
 
 ### Interfaces/Types
 
@@ -173,7 +173,7 @@ _Configuration options supplied when constructing `XDGAppPaths`_
 >
 > **`Options: object`** <br/> &bullet; default = `{ name: '', suffix: '', isolated: true }`
 >
-> **`Options.name: string`** <br/> &bullet; default = `''` <br/> _Name of the application; used to generate isolated application paths_ <br/> When missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the available process information.
+> **`Options.name: string`** <br/> &bullet; default = `''` <br/> _Name of the application; used to generate isolated application paths_ <br/> When missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the process main file name, where determinable. "$eval" is used as a final fallback value when the application name cannot otherwise be determined. Note, Deno reports "$deno$eval" as the main file name when executing `deno eval ...`.
 >
 > **`Options.suffix: string`** <br/> &bullet; default = `''` <br/> _Suffix which is appended to the application name when generating the application paths_
 >
