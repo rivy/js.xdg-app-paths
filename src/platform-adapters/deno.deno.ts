@@ -17,8 +17,14 @@ import { Platform } from './_base.ts';
 // @ts-ignore
 const deno = Deno;
 
+const haveDenoReadPermission =
+	(((deno.permissions?.query({ name: 'read' })?.state) ?? 'granted') !== 'granted');
+
 export const adapter: Platform.Adapter = {
-	meta: { mainFilename: () => deno.mainModule, pkgMainFilename: () => void 0 },
+	meta: {
+		mainFilename: () => haveDenoReadPermission ? deno.mainModule : void 0,
+		pkgMainFilename: () => void 0,
+	},
 	path,
 	process: { platform: deno.build.os },
 	xdg,
