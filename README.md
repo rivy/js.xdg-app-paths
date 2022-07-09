@@ -16,6 +16,8 @@
 
 > Determine ([XDG](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)-compatible) paths for storing application files (cache, config, data, etc)
 
+<!-- dprint-ignore-start -->
+
 [![Build status (GHA)][gha-image]][gha-url]
 [![Build status (Travis-CI)][travis-image]][travis-url]
 [![Build status (AppVeyor)][appveyor-image]][appveyor-url]
@@ -29,6 +31,8 @@
 [![NodeJS version][nodejsv-image]][repository-url]
 [![npmJS Downloads][downloads-image]][downloads-url]
 [![JSDelivr Downloads][jsdelivr-image]][jsdelivr-url]
+
+<!-- dprint-ignore-stop -->
 
 <!--
 XDG references
