@@ -9,7 +9,8 @@
 <!-- spell-checker:ignore (markdown) nbsp nodejsv -->
 <!-- spell-checker:ignore (npm/targets) realclean -->
 <!-- spell-checker:ignore (platform/windows) APPDATA LOCALAPPDATA -->
-<!-- spell-checker:ignore (people) rivy -->
+<!-- spell-checker:ignore (people) Roy Ivy III * rivy ; Sindre Sorhus * sindresorhus -->
+<!-- spell-checker:ignore (utils) dprint -->
 
 # [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
 
