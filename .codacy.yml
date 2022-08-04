@@ -1,5 +1,11 @@
 ---
+# CodeClimate configuration
+# ref: <https://docs.codeclimate.com/docs/advanced-configuration>
+# v2002-07-18 [rivy]
 # note: use "Configuration file" setting in 'REPO/Code patterns/ESLint' and 'REPO/Code patterns/RemarkLint'
+
+# spell-checker:ignore (people) Roy Ivy III * rivy
+
 engines:
   duplication:
     exclude_paths:
