@@ -11,9 +11,13 @@ const test = require('ava');
 const commandExists = require('command-exists');
 const spawn = require('cross-spawn');
 
-const modulePath = '../build/lab/src/mod.cjs.js';
+const modulePath = '../build/lab/src/mod.cjs.js'; // ? change to package.main?
+const packagePath = '../package.json';
+
 // eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
-const module_ = require(modulePath);
+const mod = require(modulePath);
+// eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
+const pkg = require(packagePath);
 
 const vNodeJS = process.versions.node.split('.');
 const vNodeJSMajor = +vNodeJS[0];
@@ -30,7 +34,6 @@ const settledSupportForESMs =
 // # Integration tests
 
 test('api', (t) => {
-	const paths = module_;
 	const api = [
 		'$name',
 		'$isolated',
@@ -43,10 +46,10 @@ test('api', (t) => {
 		'dataDirs',
 	];
 
-	t.is(typeof paths, 'function');
-	t.is(Object.keys(paths).length, api.length);
+	t.is(typeof mod, 'function');
+	t.deepEqual(Object.keys(mod).sort(), api.sort());
 	api.forEach((key) => {
-		t.is(typeof paths[key], 'function');
+		t.is(typeof mod[key], 'function');
 	});
 });
 
