@@ -2,7 +2,7 @@
 /* eslint complexity: ['error', { max: 10 }] */ // set maximum cyclomatic complexity to 10; ref: <https://eslint.org/docs/rules/complexity>
 /* eslint import/order: ["error", {"newlines-between": "always-and-inside-groups"}] */
 /* eslint-disable security/detect-object-injection , security/detect-non-literal-fs-filename */
-// spell-checker:ignore (vars) ESM ESMs vNodeJSMajor vNodeJSminor
+// spell-checker:ignore (names) Deno ; (vars) ESM ESMs vNodeJSMajor vNodeJSminor ; (words) cyclomatic
 'use strict';
 
 const fs = require('fs');
