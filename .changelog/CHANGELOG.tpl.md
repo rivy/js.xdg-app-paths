@@ -10,7 +10,9 @@
 {{ range .Commits }}{{ template "format-commit" . -}}{{ end -}}
 {{ end -}}
 
-<!-- markdownlint-disable --><!-- spellchecker:ignore markdownlint --><!-- spellchecker:disable -->
+<!-- lint disable -->
+<!-- markdownlint-disable -->
+<!-- spellchecker:disable -->
 
 # CHANGELOG <br/> [{{ $.Info.Title }}]({{ $.Info.RepositoryURL }})
 
@@ -70,7 +72,7 @@
 #### {{ .Title }}
 
 {{ range .Notes }}
-{{ .Body }}
+{{- .Body }}
 {{ end -}}
 {{ end -}}
 {{ end -}}
