@@ -321,9 +321,9 @@ console.log(xdgAppPaths.config());
 
 #### ECMAScript modules (ESM; `*.mjs`)
 
-- <small><span title="ESM support added in v6.0">Requires `v6.0`+.</span></small>
+- <small><span title="ESM support added in v6.0">Requires `XDGAppPaths` `v6.0`+.</span></small>
 
-`XDG` fully supports ESM imports.
+`XDGAppPaths` fully supports ESM imports.
 
 ```js
 import xdgAppPaths from 'xdg-app-paths';
@@ -332,14 +332,14 @@ console.log(xdgAppPaths.config());
 
 ### TypeScript (`*.ts`)
 
-- <small><span title="TypeScript support added in v6.0">Requires `v6.0`+.</span></small>
+- <small><span title="TypeScript support added in v6.0">Requires `XDGAppPaths` `v6.0`+.</span></small>
 
-As of `v6.0`+, `XDG` has been converted to a TypeScript-based module.
+As of `v6.0`+, `XDGAppPaths` has been converted to a TypeScript-based module.
 As a consequence, TypeScript type definitions are automatically generated, bundled, and exported by the module.
 
 ### Deno
 
-- <small><span title="Deno support added in v7.0">Requires `v7.0`+.</span></small>
+- <small><span title="Deno support added in v7.0">Requires `XDGAppPaths` `v7.0`+.</span></small>
 
 `XDGAppPaths` also fully supports use by Deno.
 
