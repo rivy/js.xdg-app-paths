@@ -1,8 +1,21 @@
-.history
-.nyc_output
+# v2022-07-23 [rivy]
+# spell-checker:ignore (people) Roy Ivy III * rivy (words) globstar
+
+# NOTE: Git GLOBSTAR syntax [see `git help gitignore`]
+# * ref: [.gitignore] http://git-scm.com/docs/gitignore @@ http://archive.is/Rk6rO
+# * ref: [Generate a 'gitignore'](https://gitignore.io) ; eg, <https://gitignore.io/api/node>
+
+# ignore intermediate build artifacts
 build
+[._@#$]build
+target
+
+# ignore coverage data
 coverage
-dist/.targets
+[._@#$]coverage
+.nyc_output
+
+# ignore JS import/package-related files
 node_modules
 package-lock.json
 yarn.lock
