@@ -50,6 +50,7 @@ transpilation
 truthy
 unbuffered
 unportable
+vendored
 whitespace
 wordlist
 wordlists

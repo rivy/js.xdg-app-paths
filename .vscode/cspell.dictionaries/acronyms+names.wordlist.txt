@@ -4,6 +4,9 @@ CICD * continuous integration/deployment
 CPU
 CPUs
 DevOps
+EOF
+EOL
+EOLN
 FIFO
 FIFOs
 FQDN * fully qualified domain name
@@ -20,7 +23,9 @@ UUID
 * names
 Codacy
 Deno
+Dprint
 EditorConfig
 JSDelivr
 npmJS
+NuShell
 Yargs
