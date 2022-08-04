@@ -7,6 +7,7 @@ import xdg from 'xdg-portable';
 import { Platform } from './_base.js';
 
 export const adapter: Platform.Adapter = {
+	atImportPermissions: { env: true, read: true },
 	meta: {
 		mainFilename: () => {
 			const requireMain =

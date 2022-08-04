@@ -17,12 +17,17 @@ import { Platform } from './_base.ts';
 // @ts-ignore
 const deno = Deno;
 
-const haveDenoReadPermission =
-	(((deno.permissions?.query({ name: 'read' })?.state) ?? 'granted') !== 'granted');
+// Deno general permission(s) at time of import
+// * Deno.Permissions (stabilized in v1.8.0)
+const queryEnv = await deno?.permissions?.query({ name: 'env' });
+const allowEnv = (queryEnv?.state ?? 'granted') === 'granted';
+const queryRead = await deno?.permissions?.query({ name: 'read' });
+const allowRead = (queryRead?.state ?? 'granted') === 'granted';
 
 export const adapter: Platform.Adapter = {
+	atImportPermissions: { env: allowEnv, read: allowRead },
 	meta: {
-		mainFilename: () => haveDenoReadPermission ? deno.mainModule : void 0,
+		mainFilename: allowRead ? () => deno.mainModule : () => void 0,
 		pkgMainFilename: () => void 0,
 	},
 	path,

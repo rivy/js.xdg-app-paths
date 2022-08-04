@@ -9,6 +9,18 @@ export namespace Platform {
 		readonly root: string;
 	};
 	export type Adapter = {
+		readonly atImportPermissions: {
+			/** Is general environment access granted at module import time?
+			- note: used for graceful degradation, but this grant is *required* for unimpaired module functionality
+			- always `true` for non-Deno platforms
+			*/
+			readonly env?: boolean;
+			/** Is general file system read access granted at module import time?
+			- note: used for graceful degradation, but this grant is *required* for unimpaired module functionality
+			- always `true` for non-Deno platforms
+			*/
+			readonly read?: boolean;
+		};
 		readonly meta: {
 			readonly mainFilename: () => string | undefined;
 			readonly pkgMainFilename: () => string | undefined;
