@@ -8,7 +8,3 @@
 *.[bB][aA][tT]    text eol=crlf
 *.[cC][mM][dD]    text eol=crlf
 *.[sS][lL][nN]    text eol=crlf
-
-# assert '.deps-lock' lock files as 'binary' (avoids useless diffs)
-.deps-lock/*.lock         binary
-.deps-lock/*-lock.json    binary
