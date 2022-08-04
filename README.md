@@ -2,12 +2,12 @@
 <!-- deno-fmt-ignore-start -->
 
 <!-- @prettier -->
-<!DOCTYPE markdown><!-- markdownlint-disable first-line-h1 no-inline-html -->
+<!DOCTYPE markdown><!-- markdownlint-disable first-line-heading no-inline-html -->
 <meta charset="utf-8" content="text/markdown" lang="en">
 <!-- -## editors ## (emacs/sublime) -*- coding: utf8-nix; tab-width: 4; mode: markdown; indent-tabs-mode: nil; basic-offset: 2; st-word_wrap: 'true' -*- ## (jEdit) :tabSize=4:indentSize=4:mode=markdown: ## (notepad++) vim:tabstop=4:syntax=markdown:expandtab:smarttab:softtabstop=2 ## modeline (see <https://archive.is/djTUD>@@<http://webcitation.org/66W3EhCAP> ) -->
 <!-- spell-checker:ignore expandtab markdownlint modeline smarttab softtabstop -->
 
-<!-- markdownlint-disable heading-increment hr-style no-duplicate-heading no-emphasis-as-heading ul-style -->
+<!-- markdownlint-disable heading-increment no-duplicate-heading -->
 <!-- spell-checker:ignore (abbrev/jargon) CICD NodeJS -->
 <!-- spell-checker:ignore (JS/TS) concat mkdirp readonly typeof -->
 <!-- spell-checker:ignore (markdown) nbsp nodejsv -->
