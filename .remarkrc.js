@@ -1,4 +1,9 @@
-// spell-checker:ignore frontmatter retext
+// remark configuration (ref: <https://remark.js.org>)
+// ref: <https://github.com/remarkjs/remark/tree/87c50a588466/packages/remark-cli#example-config-files-json-yaml-js>
+// v2022-07-31 [rivy]
+
+// spell-checker:ignore (people) Roy Ivy III * rivy (words) frontmatter retext
+
 exports.plugins = [
 	require('remark-footnotes'),
 	// require('remark-frontmatter'),
@@ -22,6 +27,7 @@ exports.plugins = [
 	['remark-lint-file-extension', false],
 	['remark-lint-heading-increment', false],
 	['remark-lint-list-item-indent', 'mixed'],
+	['remark-lint-list-item-spacing', false],
 	['remark-lint-maximum-heading-length', false],
 	['remark-lint-maximum-line-length', false],
 	['remark-lint-no-duplicate-headings', false],
