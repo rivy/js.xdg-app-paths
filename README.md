@@ -382,18 +382,36 @@ This module was forked from [sindresorhus/env-paths](https://github.com/sindreso
 
 - NodeJS >= 10.14
 - a JavaScript package/project manager ([`npm`](https://www.npmjs.com/get-npm) or [`yarn`](https://yarnpkg.com))
+- [`git`](https://git-scm.com)
 
 > #### optional
 >
 > - [`git-changelog`](https://github.com/rivy-go/git-changelog) (v1.1+) ... enables changelog automation
+> - [`perl`](https://www.perl.org) ... enables automated version updates to **`package.json`** during packaging
 
-### Build/test
+### Quick build/test
 
 ```shell
 npm install-test
 ```
 
-### Project development scripts
+### Contributions/development
+
+#### _Reproducible_ setup (for CI or local development)
+
+```shell
+git clone "https://github.com/rivy/js.xdg-portable"
+cd js.os-paths
+# * note: for WinOS, replace `cp` with `copy`
+# npm
+cp .deps-lock/package-lock.json .
+npm clean-install
+# yarn
+cp .deps-lock/yarn.lock .
+yarn --immutable --immutable-cache --check-cache
+```
+
+#### Project development scripts
 
 ```shell
 > npm run help
@@ -427,6 +445,64 @@ test:types          test for type declaration errors (using `tsd`)
 update              update/prepare for distribution [alias: 'dist']
 update:changelog    update CHANGELOG (using `git changelog ...`)
 update:dist         update distribution content
+```
+
+#### Packaging & Publishing
+
+##### Package
+
+```shell
+#=== * POSIX
+# next VERSION in M.m.r (semver) format
+VERSION=...
+# update to VERSION in package.json
+perl -i -E 'use open IO => q/:raw:utf8/} while(<>) { s/^(\s*\x22version\x22\s*:\s*)\x22(?:\d+(?:[.]\d+)*)?\x22/$1\x22$ENV{VERSION}\x22/ims; print }' package.json
+git-changelog --next-tag "v${VERSION}" > CHANGELOG.mkd
+# create/commit updates and distribution
+npm run retest # optional; note: `[lint] WARN Missing commit tag ...` is ok at this point
+git add package.json CHANGELOG.mkd
+git commit -m "${VERSION}"
+npm run clean && npm run update:dist
+git add dist
+git commit --amend --no-edit
+# tag VERSION commit
+git tag -f "v${VERSION}"
+# (optional) save dependency locks
+mkdir .deps-lock 2> /dev/null
+cp package-lock.json yarn.lock .deps-lock/
+#=== * WinOS
+@rem ::# next VERSION in M.m.r (semver) format
+set VERSION=...
+@rem ::# update to VERSION in package.json
+perl -i -E "use open IO => q/:raw:utf8/; while(<>) { s/^(\s*\x22version\x22\s*:\s*)\x22(?:\d+(?:[.]\d+)*)?\x22/$1\x22$ENV{VERSION}\x22/ims; print }" package.json
+git-changelog --next-tag "v%VERSION%" > CHANGELOG.mkd
+@rem ::# create/commit updates and distribution
+npm run retest &@rem ::# optional; note: `[lint] WARN Missing commit tag ...` is ok at this point
+git add package.json CHANGELOG.mkd
+git commit -m "%VERSION%"
+npm run clean && npm run update:dist
+git add dist
+git commit --amend --no-edit
+@rem ::# tag VERSION commit
+git tag -f "v%VERSION%"
+@rem ::# (optional) save dependency locks
+mkdir .deps-lock 2>NUL
+copy package-lock.json .deps-lock/
+copy yarn.lock .deps-lock/
+```
+
+##### Publish
+
+```shell
+# publish
+# * optional (will be done in 'prePublishOnly' by `npm publish`)
+npm run clean && npm run test && npm run dist && git-changelog > CHANGELOG.mkd
+npm run _:v_tag:exists || echo "[lint] ERROR Missing version matching commit tag" # expect no output and exit code == 0
+git diff-index --quiet HEAD || echo "[lint] ERROR uncommitted changes" # expect no output and exit code == 0
+# *
+npm publish # `npm publish --dry-run` will perform all prepublication actions and stop just before the actual publish push
+# * if no ERRORs *
+git push origin --tags
 ```
 
 ### Contributions
