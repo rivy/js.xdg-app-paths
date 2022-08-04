@@ -3,13 +3,13 @@
 // spell-checker:ignore (names) Deno
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore // deno-type URL import
 import * as path from 'https://deno.land/std@0.87.0/path/mod.ts';
 
 /// <reference path='../vendor/types/deno.d.ts'/>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore // Deno alias to suppress other false-positive TS warnings
 const deno = Deno;
 
 const inspect = deno.inspect;
@@ -17,10 +17,10 @@ const inspect = deno.inspect;
 /* eslint-disable @typescript-eslint/no-explicit-any , functional/immutable-data , no-console , security-node/detect-crlf , security/detect-object-injection */
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore // deno-type import
 import xdgAppPaths from '../src/mod.deno.ts';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore // deno-type import
 import type { DirOptions, XDGAppPaths } from '../src/mod.deno.ts';
 
 function objectEntries(obj: any) {

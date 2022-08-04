@@ -6,19 +6,19 @@
 
 /* eslint-disable @typescript-eslint/ban-ts-comment , @typescript-eslint/no-explicit-any , functional/immutable-data , import/order , no-console , security-node/detect-crlf , security/detect-object-injection */
 
-// @ts-ignore
+// @ts-ignore // deno-type URL import
 import * as path from 'https://deno.land/std@0.87.0/path/mod.ts';
 
 /// <reference path='../vendor/types/deno.d.ts'/>
 
-// @ts-ignore
+// @ts-ignore // Deno alias to suppress other false-positive TS warnings
 const deno = Deno;
 
 const inspect = deno.inspect;
 
-// @ts-ignore
+// @ts-ignore // deno-type URL import
 import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v7.0.0/src/mod.deno.ts';
-// @ts-ignore
+// @ts-ignore // deno-type import
 import type { DirOptions, XDGAppPaths } from '../src/mod.deno.ts';
 
 function objectEntries(obj: any) {
