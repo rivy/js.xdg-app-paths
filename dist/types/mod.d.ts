@@ -6,7 +6,8 @@ interface DirOptions {
 /** Configuration options supplied when constructing `XDGAppPaths` */
 interface Options {
     /** Name of the application; used to generate isolated application paths.
-    > When missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the available process information.
+    > When missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the process main file name, where determinable.
+    > "$eval" is used as a final fallback value when the application name cannot otherwise be determined.
     */
     readonly name?: string | null;
     /** Suffix which is appended to the application name when generating the application paths. */
@@ -52,5 +53,4 @@ interface XDGAppPaths {
 
 declare const _: XDGAppPaths;
 
-export default _;
-export { DirOptions, Options, XDGAppPaths };
+export { DirOptions, Options, XDGAppPaths, _ as default };
