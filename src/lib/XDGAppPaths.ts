@@ -121,8 +121,9 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 				meta.mainFilename(),
 			];
 			const nameFallback = '$eval';
-			const name = path.parse((namePriorityList.find((e) => isString(e)) ?? nameFallback) + suffix)
-				.name;
+			const name = path.parse(
+				(namePriorityList.find((e) => isString(e)) ?? nameFallback) + suffix
+			).name;
 
 			XDGAppPaths.$name = function $name() {
 				return name;
