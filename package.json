@@ -117,7 +117,7 @@
 		"rebuild:cjs": "shx rm -fr build/cjs && tsc -p tsconfig/tsconfig.cjs.json && shx cp -r src/esm-wrapper build/cjs/src && shx mkdir -p build/.targets && shx touch build/.targets/build-cjs.succeeded",
 		"rebuild:esm": "shx rm -fr build/esm && tsc -p tsconfig/tsconfig.esm.json && shx cp src/esm-wrapper/package.json build/esm/src && shx mkdir -p build/.targets && shx touch build/.targets/build-esm.succeeded",
 		"rebuild:umd": "shx rm -fr build/umd && tsc -p tsconfig/tsconfig.umd.json && shx mkdir -p build/.targets && shx touch build/.targets/build-umd.succeeded",
-		"rebuild:lab": "shx rm -fr build/lab && tsc -p tsconfig/tsconfig.lab.json && shx mkdir -p build/.targets && shx touch build/.targets/build-lab.succeeded",
+		"rebuild:lab": "shx rm -fr build/lab && tsc -p tsconfig/tsconfig.lab.json && shx cp -r src/esm-wrapper build/lab/src && shx mkdir -p build/.targets && shx touch build/.targets/build-lab.succeeded",
 		"rebuild:types": "shx rm -fr build/types && tsc -p tsconfig/tsconfig.types.json && shx mkdir -p build/.targets && shx touch build/.targets/build-types.succeeded",
 		"# retest # clean and (re-)test project": "",
 		"retest": "run-s clean test",
