@@ -19,6 +19,22 @@ const mod = require(modulePath);
 // eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
 const pkg = require(packagePath);
 
+const haveDeno = commandExists.sync('deno');
+const denoVersion =
+	/* `-T` (interpret as TypeScript; available v1.0+); used for older `deno` versions (< v1.16.2) which cache eval compilation incorrectly; ref: <https://github.com/denoland/deno/issues/9733> */
+	((
+		spawn.sync('deno', ['eval', '-T', '"console.log(Deno.version.deno)"'], {
+			encoding: 'utf-8',
+			shell: true,
+		}).stdout || ''
+	).match(/(?<=^|\s)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */) || [
+		'0.0.0',
+	])[0];
+
+function versionCompare(a, b) {
+	return a.localeCompare(b, /* locales */ void 0, { numeric: true });
+}
+
 const vNodeJS = process.versions.node.split('.');
 const vNodeJSMajor = +vNodeJS[0];
 const vNodeJSminor = +vNodeJS[1];
@@ -52,6 +68,35 @@ test('api', (t) => {
 		t.is(typeof mod[key], 'function');
 	});
 });
+
+// ensure *no-panic* static load for Deno
+if (!process.env.npm_config_test_dist) {
+	test.skip('module load test (Deno)...skipped (enable with `npm test --test-dist`)', () => void 0);
+} else {
+	const minDenoVersion = '1.19.0';
+	if (!haveDeno) {
+		test.skip('module load tests (Deno)...skipped (`deno` not found)', () => void 0);
+	} else if (versionCompare(denoVersion, minDenoVersion) < 0) {
+		test.skip(`module load tests (Deno)...skipped (using Deno v${denoVersion} [v${minDenoVersion}+ needed for use of \`--no-prompt\`])`, () =>
+			void 0);
+	} else {
+		test('module loads without panic (no permissions and `--no-prompt`; Deno)', (t) => {
+			const denoModulePath = pkg.exports['.'].deno;
+
+			const command = 'deno';
+			const args = ['run', '--no-prompt', denoModulePath];
+			const options = { shell: true, encoding: 'utf-8' };
+
+			const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+
+			if (!(error === null && status === 0)) {
+				t.log({ denoModulePath, error, status, stdout, stderr });
+			}
+
+			t.deepEqual({ error, status }, { error: null, status: 0 });
+		});
+	}
+}
 
 test('correctly derive script name (JavaScript)', (t) => {
 	const fixtureDirPath = 'test/fixtures';
