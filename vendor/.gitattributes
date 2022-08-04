@@ -1,0 +1,4 @@
+# treat third-party code/tools directory as binary by default
+# * note: use `git diff --text ...` to override and show differences as text
+*   binary
+.gitattributes !binary
