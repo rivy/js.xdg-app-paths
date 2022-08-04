@@ -48,8 +48,8 @@ function flattenToValues(obj) {
 	return values;
 }
 
-if (!process.env.NPM_CONFIG_TEST_DIST) {
-	test('skipped (enable with `--test-dist`)', (t) => t.pass());
+if (!process.env.npm_config_test_dist) {
+	test.skip('skipped (enable with `npm test --test-dist`)', () => void 0);
 } else {
 	const testID$CJStoESM = 'CJS/ESM equivalence';
 	if (vNodeJSMajor < 12) {
@@ -58,7 +58,7 @@ if (!process.env.NPM_CONFIG_TEST_DIST) {
 		test(testID$CJStoESM, async (t) => {
 			// eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
 			const mCJS = require(packageCJSPath);
-			const mESM = (await import('file:/' + packageESMPath)).default;
+			const mESM = (await import('file://' + packageESMPath)).default;
 
 			t.deepEqual(mCJS, mESM);
 

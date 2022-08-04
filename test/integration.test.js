@@ -113,8 +113,10 @@ test('correctly derive script name (TypeScript)', (t) => {
 		});
 });
 
-// test examples using '--test-dist'
-if (process.env.NPM_CONFIG_TEST_DIST) {
+// test examples when using `--test-dist` (ie, with version changes or prior to distribution)
+if (!process.env.npm_config_test_dist) {
+	test.skip('examples are executable...skipped (enable with `npm test --test-dist`)', () => void 0);
+} else {
 	if (!commandExists.sync('deno')) {
 		test.skip('`deno` not found; Deno examples not tested', (t) => {
 			t.pass();
