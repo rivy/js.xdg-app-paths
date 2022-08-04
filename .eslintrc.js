@@ -1,8 +1,21 @@
+// ESLint configuration
+// ref: <https://eslint.org/docs/latest/user-guide/configuring/configuration-files>
+// v2022-07-31 [rivy]
+
 // spell-checker:ignore (names) rivy ; (options) iife
+
 module.exports = {
 	root: true,
 	env: { es6: true },
-	ignorePatterns: ['.eslintrc.js', '.nyc_output', 'build', 'coverage', 'dist', 'node_modules'],
+	ignorePatterns: [
+		'.eslintrc.js',
+		'.nyc_output',
+		'build',
+		'coverage',
+		'dist',
+		'node_modules',
+		'vendor',
+	],
 	parser: '@typescript-eslint/parser',
 	// avoid `parserOptions` ~ [2020-10-29]/rivy ~ use is causing issues for eslint evaluation of files outside of `src` (see https://github.com/typescript-eslint/typescript-eslint/issues/1723)
 	// parserOptions: { ecmaVersion: 6, project: ['./tsconfig.json', './tsconfig.eslint.json'] },
@@ -42,4 +55,6 @@ module.exports = {
 			},
 		},
 	],
+	// globals: { BigInt: true, console: true, WebAssembly: true },
+	// globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
 };
