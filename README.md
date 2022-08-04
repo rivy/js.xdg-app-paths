@@ -97,16 +97,6 @@ const configDirs = xdgAppPaths.configDirs();
 //...
 ```
 
-##### Required Deno permissions
-
-###### `--allow-env` &middot; _allow access to the process environment variables_
-
-This is a transitive requirement from the 'xdg'/'xdg-portable' module; `XDG` requires access to various environment variable to determine platform and user configuration (eg, XDG configuration variables, location of temp and user directories, ...).
-
-###### `--allow-read` &middot; _allow read(-only) access to the file system_
-
-This permission is required to use `Deno.mainModule`, which is, in turn, required to auto-generate the application name used for data isolation.
-
 ## API
 
 ### Construction/Initialization
@@ -338,6 +328,23 @@ As of `v6.0`+, `XDGAppPaths` has been converted to a TypeScript-based module.
 As a consequence, TypeScript type definitions are automatically generated, bundled, and exported by the module.
 
 ### Deno
+
+> #### Requirements
+>
+> Deno >= v1.8.0[^deno-version-req]
+
+<!--{blockquote: .--info style="font-size:75%;"}-->
+
+[^deno-version-req]: The `Deno.permissions` API (stabilized in Deno v1.8.0) is required to avoid needless panics or prompts by Deno during static imports of this module/package. Note: Deno v1.3.0+ may be used if the run flag `--unstable` is also used.
+
+> #### Required Permissions
+>
+> - `--allow-env` &middot; _allow access to the process environment variables_<br>
+>   This is a transitive requirement from the 'xdg'/'xdg-portable' module; `XDG` requires access to various environment variable to determine platform and user configuration (eg, XDG configuration variables, location of temp and user directories, ...).
+> - `--allow-read` &middot; _allow read(-only) access to the file system_<br>
+>   This permission is required to use `Deno.mainModule`, which is, in turn, required to auto-generate the application name used for data isolation.
+
+<!--{blockquote: .--info style="font-size:75%;"}-->
 
 - <small><span title="Deno support added in v7.0">Requires `XDGAppPaths` `v7.0`+.</span></small>
 
