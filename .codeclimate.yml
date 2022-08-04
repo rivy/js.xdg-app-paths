@@ -1,6 +1,9 @@
+# v2002-07-18 [rivy]
 # JavaScript/TypeScript
-# ref: https://docs.codeclimate.com/docs/advanced-configuration
-# spell-checker:ignore () EditorConfig MarkdownLint ShellCheck StyleLint
+# CodeClimate configuration; ref: https://docs.codeclimate.com/docs/advanced-configuration
+
+# spell-checker:ignore (names) EditorConfig MarkdownLint ShellCheck StyleLint (people) Roy Ivy III * rivy
+
 version: '2' # required to adjust maintainability checks
 checks:
   argument-count:
