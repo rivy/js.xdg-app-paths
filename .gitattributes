@@ -1,5 +1,10 @@
+# v2022.07.30 [rivy]
+# spell-checker:ignore (people) Roy Ivy III * rivy (words) deps EOLs MSVC
+
+# default; use LF EOLs for text files
 * text=auto eol=lf
 
-*.[Bb][Aa][Tt] text eol=crlf
-*.[Cm][Mm][Dd] text eol=crlf
-*.[Ss][Ll][Nn] text eol=crlf
+# CRLF required; force required CRLF EOLs for WinOS BAT/CMD and MSVC SLN files
+*.[bB][aA][tT]    text eol=crlf
+*.[cC][mM][dD]    text eol=crlf
+*.[sS][lL][nN]    text eol=crlf
