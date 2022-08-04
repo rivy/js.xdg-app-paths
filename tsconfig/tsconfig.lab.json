@@ -1,7 +1,7 @@
 {
 	"extends": "../tsconfig.json",
 	"compilerOptions": {
-		"outDir": "../build/testbed",
+		"outDir": "../build/lab",
 		"rootDir": "..",
 		"declaration": true, // generate side-by-side type declarations
 		"module": "CommonJS",

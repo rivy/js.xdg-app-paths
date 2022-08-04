@@ -8,7 +8,7 @@ const path = require('path');
 const test = require('ava');
 const spawn = require('cross-spawn');
 
-const module_ = require('../build/testbed/src/mod.cjs.js');
+const module_ = require('../build/lab/src/mod.cjs.js');
 
 const isWinOS = /^win/i.test(process.platform);
 
@@ -684,7 +684,7 @@ test('correct non-"isolated" paths with XDG_* set', (t) => {
 
 test('correctly derive anonymous (CJS)', (t) => {
 	const command = 'node';
-	process.env.TEST_MODULE_PATH = './build/testbed/src/mod.cjs.js';
+	process.env.TEST_MODULE_PATH = './build/lab/src/mod.cjs.js';
 	const script =
 		'"p = require(\'' + process.env.TEST_MODULE_PATH + '\'); console.log(p.$name({}));"';
 	const args = ['-e', isWinOS ? script : script.replace('$name', '\\$name')];
@@ -704,7 +704,7 @@ test('correctly derive anonymous (CJS)', (t) => {
 if (settledSupportForESMs) {
 	test('correctly derive anonymous (ESM/[import CJS])', (t) => {
 		const command = 'node';
-		process.env.TEST_MODULE_PATH = './build/testbed/src/mod.cjs.js';
+		process.env.TEST_MODULE_PATH = './build/lab/src/mod.cjs.js';
 		const script =
 			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
 		const args = [
@@ -727,7 +727,7 @@ if (settledSupportForESMs) {
 
 	test('correctly derive anonymous (ESM/[esm-wrapper])', (t) => {
 		const command = 'node';
-		process.env.TEST_MODULE_PATH = './build/testbed/src/esm-wrapper/mod.esm.js';
+		process.env.TEST_MODULE_PATH = './build/lab/src/esm-wrapper/mod.esm.js';
 		const script =
 			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
 		const args = [
