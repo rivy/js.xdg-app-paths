@@ -168,10 +168,12 @@ test('correctly derive script name (TypeScript)', (t) => {
 if (!process.env.npm_config_test_dist) {
 	test.skip('examples are executable...skipped (enable with `npm test --test-dist`)', () => void 0);
 } else {
-	if (!commandExists.sync('deno')) {
-		test.skip('`deno` not found; Deno examples not tested', (t) => {
-			t.pass();
-		});
+	const minDenoVersion = '1.19.0';
+	if (!haveDeno) {
+		test.skip('examples are executable (Deno)...skipped (`deno` not found)', () => void 0);
+	} else if (versionCompare(denoVersion, minDenoVersion) < 0) {
+		test.skip(`module load tests (Deno)...skipped (using Deno v${denoVersion} [v${minDenoVersion}+ needed for use of \`--no-prompt\`])`, () =>
+			void 0);
 	} else {
 		test('examples are executable without error (Deno)', (t) => {
 			// t.timeout(30000); // 30s timeout
