@@ -179,13 +179,13 @@ if (!process.env.npm_config_test_dist) {
 			// t.timeout(30000); // 30s timeout
 
 			const egDirPath = 'eg';
-			const extension_regexps = [/.*[.]deno[.]ts$/i];
+			const extensionRxs = [/.*[.]deno[.]ts$/i];
 
 			const files = fs.readdirSync(egDirPath);
 
 			files
 				.filter((file) => {
-					return extension_regexps.find((re) => path.basename(file).match(re));
+					return extensionRxs.find((re) => path.basename(file).match(re));
 				})
 				.forEach((file) => {
 					const command = 'deno';
