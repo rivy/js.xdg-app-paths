@@ -1,5 +1,7 @@
-/* eslint-disable security/detect-object-injection , security/detect-non-literal-fs-filename */
 /* eslint-env es6, node */
+/* eslint complexity: ['error', { max: 10 }] */ // set maximum cyclomatic complexity to 10; ref: <https://eslint.org/docs/rules/complexity>
+/* eslint import/order: ["error", {"newlines-between": "always-and-inside-groups"}] */
+/* eslint-disable security/detect-object-injection , security/detect-non-literal-fs-filename */
 // spell-checker:ignore (vars) ESM ESMs vNodeJSMajor vNodeJSminor
 'use strict';
 
