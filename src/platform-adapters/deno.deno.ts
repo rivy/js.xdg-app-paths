@@ -2,19 +2,19 @@
 // spell-checker:ignore Deno
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore // deno-type URL import
 import * as path from 'https://deno.land/std@0.81.0/path/mod.ts';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore // deno-type URL import
 import xdg from 'https://deno.land/x/xdg@v9.1.0/src/mod.deno.ts';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-// @ts-ignore
+// @ts-ignore // deno-type import
 import { Platform } from './_base.ts';
 
 // create a local reference to refer to `Deno` (for better linting without need for multiple `// @ts-ignore` directives)
-// @ts-ignore
+// @ts-ignore // Deno alias to suppress other false-positive TS warnings
 const deno = Deno;
 
 // Deno general permission(s) at time of import
