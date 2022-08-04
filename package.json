@@ -97,7 +97,7 @@
 		"# lint:commits # check for commit flaws (using `commitlint` and `cspell`)": "",
 		"lint:commits": "run-s --silent _:v_tag:missing || run-p --silent \"_:lint:commits.new:*\"",
 		"# lint:editorconfig # check for EditorConfig format flaws (using `editorconfig-checker`)": "",
-		"lint:editorconfig": "editorconfig-checker -disable-max-line-length -exclude \"(build|dist|vendor)/.*\"",
+		"lint:editorconfig": "editorconfig-checker -config .ecrc.JS.json",
 		"# lint:lint # check for code 'lint' (using `eslint`)": "",
 		"lint:lint": "eslint .",
 		"# lint:markdown # check for markdown errors (using `remark`)": "",
