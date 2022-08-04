@@ -1,20 +1,28 @@
 # Prettier "ignore" list
+# v2022-07-30 [rivy]
+# * note: glob patterns support use of `?`, `*`, `**`, and `[...]`, but *not* `{...}`
 
-# * otherwise managed files
-.vscode
-package.json
+# spell-checker:ignore (people) Roy Ivy III * rivy
 
 # * build/coverage/dev artifacts
-.history
+[._@#$]build
+[._@#$]coverage
 .nyc_output
 build
 coverage
 CHANGELOG
 CHANGELOG.*
 dist
+target
 
 # * format-sensitive files
+.changelog/*.tpl
 .changelog/*.tpl.*
 
 # * third-party code
-node_modules
+**/node_modules
+**/*-lock.json
+.history
+.vscode
+package.json
+vendor
