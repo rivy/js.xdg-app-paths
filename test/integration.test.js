@@ -3,6 +3,7 @@
 /* eslint import/order: ["error", {"newlines-between": "always-and-inside-groups"}] */
 /* eslint-disable security/detect-object-injection , security/detect-non-literal-fs-filename */
 // spell-checker:ignore (names) Deno ; (vars) ESM ESMs vNodeJSMajor vNodeJSminor ; (words) cyclomatic
+
 'use strict';
 
 const fs = require('fs');
@@ -49,7 +50,7 @@ const settledSupportForESMs =
 	(vNodeJSMajor === 13 && vNodeJSminor >= 2) ||
 	(vNodeJSMajor === 12 && vNodeJSminor >= 17);
 
-// # Integration tests
+// Integration tests
 
 test('api', (t) => {
 	const api = [
@@ -172,7 +173,7 @@ if (!process.env.npm_config_test_dist) {
 	if (!haveDeno) {
 		test.skip('examples are executable (Deno)...skipped (`deno` not found)', () => void 0);
 	} else if (versionCompare(denoVersion, minDenoVersion) < 0) {
-		test.skip(`module load tests (Deno)...skipped (using Deno v${denoVersion} [v${minDenoVersion}+ needed for stable \`Deno.permission\`])`, () =>
+		test.skip(`examples are executable (Deno)...skipped (using Deno v${denoVersion} [v${minDenoVersion}+ needed for use of stable permissions API])`, () =>
 			void 0);
 	} else {
 		test('examples are executable without error (Deno)', (t) => {
