@@ -4018,10 +4018,12 @@ ora@^5.2.0:
     strip-ansi "^6.0.0"
     wcwidth "^1.0.1"
 
-os-paths@^6.2.0:
-  version "6.9.0"
-  resolved "https://registry.yarnpkg.com/os-paths/-/os-paths-6.9.0.tgz#c6ab6a0a6bac700acaa415fdceb2a4c309af78fe"
-  integrity sha512-b6fbX4phQ0zydXASUr4GNAIWGtG1LzUoHdQxUpgkpYz/WszdpVGlRKkMIaLhZnRymDz4lPQfX9cx0qvDfYPmPg==
+os-paths@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/os-paths/-/os-paths-7.0.0.tgz#8d73cb082e029b148c3d358e07fab97d704f8399"
+  integrity sha512-YL9gbV3cm4epufKXK+o0ACy1GKmRL0aYPMcRjGkRUFB5ko1t8he9Tmp0GkrvvHau7sKG2vP/KsGFY3pL+hpa+g==
+  optionalDependencies:
+    fsevents "*"
 
 p-cancelable@^1.0.0:
   version "1.1.0"
@@ -6467,12 +6469,14 @@ xdg-basedir@^4.0.0:
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
 
-xdg-portable@^9.0.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/xdg-portable/-/xdg-portable-9.4.0.tgz#cbbcffd4c9faf2f3b1c6cba04b799f885e20f31e"
-  integrity sha512-L6M5PMpxOJeT5FGnI5TjrN2jPT/rdwu+/aEjO9gbY7wLe4qq+v9oPYJpqqlaL6qNc6zE/Usmq0dvkA793nfBqw==
+xdg-portable@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/xdg-portable/-/xdg-portable-10.0.0.tgz#36c930a96c7d8b4d7f836e3ebfae18e7a0b17b20"
+  integrity sha512-epDEzRom91HOcza0Cmj5qSeP/bRj0vYJY/MSGQVoDcoVgpHXSmohFuUO4Kj3HWZ7UKev3M+v7eI6mEqiZnm1SA==
   dependencies:
-    os-paths "^6.2.0"
+    os-paths "^7.0.0"
+  optionalDependencies:
+    fsevents "*"
 
 xtend@^4.0.0:
   version "4.0.2"
