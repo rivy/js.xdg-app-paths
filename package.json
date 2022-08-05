@@ -172,7 +172,7 @@
 		"version": "run-s --silent _:version:update:changelog && run-s lint:spell && run-s --silent update:dist && git add CHANGELOG.mkd dist"
 	},
 	"dependencies": {
-		"xdg-portable": "^9.0.0"
+		"xdg-portable": "^10.0.0"
 	},
 	"devDependencies:#": "* for testing, Node-v6 requires ava < v2 and nyc < v15",
 	"devDependencies": {
