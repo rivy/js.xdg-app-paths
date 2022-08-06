@@ -49,6 +49,12 @@ console.log(objectEntries(xdgAppPaths));
 console.log('appPaths.log(false):', (xdgAppPaths as XDGAppPathsWithLog).log(false));
 console.log('appPaths.log(true):', (xdgAppPaths as XDGAppPathsWithLog).log(true));
 
+const queryEnv = await Deno?.permissions?.query({ name: 'env' });
+if (queryEnv?.state !== 'granted') {
+	console.warn('ERROR: environment permissions are required (re-run with `--allow-env`)');
+	Deno.exit(1);
+}
+
 deno.env.delete('XDG_CONFIG_HOME');
 // eslint-disable-next-line functional/no-let
 let p = xdgAppPaths('dross');
