@@ -13,9 +13,7 @@
 		"../src/**/*.cjs.ts",
 		"../src/**/*.deno.ts",
 		"../src/**/*.spec.*",
-		"../src/**/*_spec.*",
 		"../src/**/*.test.*",
-		"../src/**/*_test.*",
 		"../test/**",
 		"../node_modules/**"
 	]
