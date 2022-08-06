@@ -15,9 +15,34 @@
 
 ---
 
+## [v8.1.0](https://github.com/rivy/js.xdg-app-paths/compare/v8.0.2...v8.1.0) <small>(2022-08-06)</small>
+
+<details open><summary><small><em>[v8.1.0; details]</em></small></summary>
+
+#### Dependency Updates
+
+* update Deno deps (up-to std[@0](https://github.com/0).150.0) &ac; [`e7f8729`](https://github.com/rivy/js.xdg-app-paths/commit/e7f87297583e156bc403a496e5b7049e47e223c4)
+* update *(deps)*: (up-to XDG-v10.2.0) * uses std[@0](https://github.com/0).150.0 &ac; [`cbc9e45`](https://github.com/rivy/js.xdg-app-paths/commit/cbc9e45cc9cd8e26c446d8cc862cf57d9662af73)
+
+#### Documentation
+
+* docs ~ (eg) add Deno permissions gates &ac; [`ff46640`](https://github.com/rivy/js.xdg-app-paths/commit/ff46640dc6ab716c53fb4107a50c329b95acc299)
+* docs ~ (eg) update Deno (up-to std[@0](https://github.com/0).150.0) &ac; [`42c348f`](https://github.com/rivy/js.xdg-app-paths/commit/42c348f1797238d076c0687f8372b2b83b6a83f0)
+* docs ~ (README) improve Packaging/Publishing instructions &ac; [`920867d`](https://github.com/rivy/js.xdg-app-paths/commit/920867d2235661c8174ade5002c95abc6c303176)
+
+#### Maintenance
+
+* maint *(dev)*: (package) refactor 'prerelease' and 'prepublishOnly' for clarity &ac; [`554458c`](https://github.com/rivy/js.xdg-app-paths/commit/554458cb393d18d52b4c8ca70260f1ccbed64fad)
+* maint *(dev)*: revise/update TypeScript 'tsconfig' files &ac; [`df9443f`](https://github.com/rivy/js.xdg-app-paths/commit/df9443f2dd12df4346912dd98d5ed97248ae9a22)
+* maint *(dev)*: add/restore *.test.* and *.spec.* to ignore-list for `nyc` coverage calculations &ac; [`a8c1003`](https://github.com/rivy/js.xdg-app-paths/commit/a8c10033c953021c177416bff0b73af5d4f32af3)
+
+</details>
+
+---
+
 ## [v8.0.2](https://github.com/rivy/js.xdg-app-paths/compare/v8.0.1...v8.0.2) <small>(2022-08-06)</small>
 
-<details open><summary><small><em>[v8.0.2; details]</em></small></summary>
+<details><summary><small><em>[v8.0.2; details]</em></small></summary>
 
 #### Dependency Updates
 
