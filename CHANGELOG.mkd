@@ -15,9 +15,30 @@
 
 ---
 
+## [v8.0.2](https://github.com/rivy/js.xdg-app-paths/compare/v8.0.1...v8.0.2) <small>(2022-08-06)</small>
+
+<details open><summary><small><em>[v8.0.2; details]</em></small></summary>
+
+#### Dependency Updates
+
+* update *(deps)*: (up-to XDG-v10.0.0); *no-panic*/*no-prompt* import (for Deno platform-adapter) &ac; [`b88e427`](https://github.com/rivy/js.xdg-app-paths/commit/b88e42744d8c77d92119b1dd275d7cae1267e1b4)
+
+#### Maintenance
+
+* maint *(dev)*: narrow/reduce ignore-list for `nyc` coverage calculations &ac; [`7a43c9e`](https://github.com/rivy/js.xdg-app-paths/commit/7a43c9e971182bd78b3d43acc5934d7fd8b5a7bc)
+
+#### Test Improvements
+
+* tests ~ return to *.test.* test file name (re-enables automatic `ava` testing) &ac; [`40898b7`](https://github.com/rivy/js.xdg-app-paths/commit/40898b735644de12bca796489c0ad3fc25778035)
+* tests ~ restore 100% test coverage &ac; [`d646f00`](https://github.com/rivy/js.xdg-app-paths/commit/d646f008f34e2b29dbe9fbe90ee00da4aea5c001)
+
+</details>
+
+---
+
 ## [v8.0.1](https://github.com/rivy/js.xdg-app-paths/compare/v8.0.0...v8.0.1) <small>(2022-08-05)</small>
 
-<details open><summary><small><em>[v8.0.1; details]</em></small></summary>
+<details><summary><small><em>[v8.0.1; details]</em></small></summary>
 
 #### Documentation
 
