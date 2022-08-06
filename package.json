@@ -251,7 +251,9 @@
 			"build/umd/**",
 			"dist/**",
 			"eg/**",
-			"test/**"
+			"test/**",
+			"**/*.test.*",
+			"**/*.spec.*"
 		],
 		"reporter": [
 			"html",
