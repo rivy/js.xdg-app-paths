@@ -107,7 +107,7 @@
 		"# lint:style # check for format imperfections (using `prettier`)": "",
 		"lint:style": "prettier . --check --loglevel warn",
 		"# prerelease # clean, rebuild, and fully test (useful prior to publish/release)": "",
-		"prerelease": "run-s clean verify",
+		"prerelease": "run-s clean update verify",
 		"# realclean # remove all generated files": "",
 		"realclean": "run-s clean && rimraf coverage .nyc_output",
 		"# rebuild # clean and (re-)build project": "",
@@ -166,7 +166,7 @@
 		"_:version:spell:changelog_update": "run-s --silent _:exists:git-changelog && git changelog -u | cspell stdin --config \".vscode/cspell.json\" || shx echo \"[lint] WARN CHANGELOG update `cspell` exception\" 1>&2",
 		"_:version:update:changelog": "run-s --silent _:exists:git-changelog && node -e \"v=require('./package.json').version; result=require('child_process').spawnSync('git changelog --next-tag-now --next-tag v'+v,{shell:true,encoding:'utf-8'}); if (result.status != 0) {console.error('ERR! '+result.stderr); process.exit(1);} else {require('fs').writeFileSync('CHANGELOG.mkd',result.stdout);};\" || shx echo \"[version] WARN CHANGELOG not updated\" 1>&2",
 		"## npm lifecycle scripts ##": "",
-		"prepublishOnly": "npm run clean && cross-env npm_config_test_dist=true npm run test && run-s --silent update _:vcs-strictly-clean-err",
+		"prepublishOnly": "run-s clean update && cross-env npm_config_test_dist=true npm run test && run-s --silent update _:vcs-strictly-clean-err",
 		"## npm-version scripts ##": "",
 		"preversion": "run-s --silent _:version:spell:changelog_update && cross-env npm_config_test_dist=true npm run test",
 		"version": "run-s --silent _:version:update:changelog && run-s lint:spell && run-s --silent update:dist && git add CHANGELOG.mkd dist"
