@@ -86,10 +86,10 @@ const configDirs = xdgAppPaths.configDirs();
 ```ts
 import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
 //or...
-//import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v7.0.0/src/mod.deno.ts';
+//import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.0.0/src/mod.deno.ts';
 //or (via CDN, with optional version/version-range/latest/commit support)...
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7.0.0/src/mod.deno.ts'; // v7.0.0
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@7/src/mod.deno.ts'; // v7.x.y
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@8.0.0/src/mod.deno.ts'; // v8.0.0
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@8/src/mod.deno.ts'; // v8.x.y
 //import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/src/mod.deno.ts'; // latest
 //import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@latest/src/mod.deno.ts'; // latest
 //import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT/src/mod.deno.ts'; // commit
