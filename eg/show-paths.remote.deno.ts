@@ -7,7 +7,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment , @typescript-eslint/no-explicit-any , functional/immutable-data , import/order , no-console , security-node/detect-crlf , security/detect-object-injection */
 
 // @ts-ignore // deno-type URL import
-import * as path from 'https://deno.land/std@0.87.0/path/mod.ts';
+import * as path from 'https://deno.land/std@0.150.0/path/mod.ts';
 
 /// <reference path='../vendor/types/deno.d.ts'/>
 
