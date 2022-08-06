@@ -15,9 +15,21 @@
 
 ---
 
+## [v8.1.1](https://github.com/rivy/js.xdg-app-paths/compare/v8.1.0...v8.1.1) <small>(2022-08-06)</small>
+
+<details open><summary><small><em>[v8.1.1; details]</em></small></summary>
+
+#### Documentation
+
+* docs ~ (eg) update os-paths import versions &ac; [`0460f8b`](https://github.com/rivy/js.xdg-app-paths/commit/0460f8bfb8c167edd350a5357cae97b149e78c11)
+
+</details>
+
+---
+
 ## [v8.1.0](https://github.com/rivy/js.xdg-app-paths/compare/v8.0.2...v8.1.0) <small>(2022-08-06)</small>
 
-<details open><summary><small><em>[v8.1.0; details]</em></small></summary>
+<details><summary><small><em>[v8.1.0; details]</em></small></summary>
 
 #### Dependency Updates
 
