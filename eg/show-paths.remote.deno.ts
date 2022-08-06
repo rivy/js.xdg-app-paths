@@ -17,7 +17,7 @@ const deno = Deno;
 const inspect = deno.inspect;
 
 // @ts-ignore // deno-type URL import
-import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v7.0.0/src/mod.deno.ts';
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.1.0/src/mod.deno.ts';
 // @ts-ignore // deno-type import
 import type { DirOptions, XDGAppPaths } from '../src/mod.deno.ts';
 
