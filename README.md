@@ -444,7 +444,8 @@ lint:style          check for format imperfections (using `prettier`)
 prerelease          clean, rebuild, and fully test (useful prior to publish/release)
 realclean           remove all generated files
 rebuild             clean and (re-)build project
-rebuild:all         clean and fully reconstruct project distribution
+refresh             clean and rebuild/regenerate all project artifacts
+refresh:dist        clean, rebuild, and regenerate project distribution
 retest              clean and (re-)test project
 reset:hard          remove *all* generated files and reinstall dependencies
 show:deps           show package dependencies
