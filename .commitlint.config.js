@@ -1,6 +1,6 @@
 // CommitLint configuration
 // ref: <https://commitlint.js.org/#/reference-configuration>
-// v2022-07-30 [rivy]
+// v2022-08-09 [rivy]
 
 // spell-checker:ignore (names) commitLint (people) Roy Ivy III * rivy (words) maint
 
@@ -17,25 +17,32 @@ const commitTags = [
 	'Fix',
 	'Fixed',
 	'Fixes',
+	'FORK',
 	'Maint',
-	'Merge',
 	'Perf',
 	'Refactor',
-	'Revert',
 	'Style',
 	'Test',
 	'Tests',
 	'Update',
 	'Updated',
 	'Upkeep',
+	'VERSION',
 	'WIP',
+	// * git automated messages
+	'Automatic',
+	'Auto-merged',
+	'Merge',
+	'Merged',
+	'Revert',
 ];
 
 module.exports = {
 	extends: ['@commitlint/config-conventional'],
 	parserPreset: {
 		parserOpts: {
-			headerPattern: /^(\w+)!?(?:\s*(?:[/(]([\w,/]+)[)]?))?!?\s*[~:]?\s*(.*)$/,
+			// headerPattern ~ tested at <https://regex101.com/r/ez7wQS/1>
+			headerPattern: /^(\s*\w[\w-]*)(?:\s*(?:[/(]([\w,/]+)[)]?))?!?\s*[~:]?\s*(.*)$/,
 			headerCorrespondence: ['type', 'scope', 'subject'],
 		},
 	},
@@ -48,6 +55,10 @@ module.exports = {
 			},
 		},
 	],
+	// ref: [Commit messages starting with fixup! do not trigger any errors](https://github.com/conventional-changelog/commitlint/issues/3206)
+	// ref: [tests for default ignores](https://github.com/conventional-changelog/commitlint/blob/914782aad70d353b/%40commitlint/is-ignored/src/defaults.ts#L20-L26)
+	defaultIgnores: false,
+	ignores: [(msg) => msg.match(/^\d+([.]\d+)*/)],
 	rules: {
 		// '@local/DEBUG': [1, 'always'],
 		'body-max-line-length': [0],
