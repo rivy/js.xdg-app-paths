@@ -6,7 +6,7 @@
 import * as path from 'https://deno.land/std@0.150.0/path/mod.ts';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore // deno-type URL import
-import xdg from 'https://deno.land/x/xdg@v10.2.0/src/mod.deno.ts';
+import xdg from 'https://deno.land/x/xdg@v10.5.0/src/mod.deno.ts';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
