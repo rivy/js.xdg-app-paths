@@ -1,7 +1,7 @@
 /* eslint-env es6, node */
 /* eslint complexity: ['error', { max: 10 }] */ // set maximum cyclomatic complexity to 10; ref: <https://eslint.org/docs/rules/complexity>
 /* eslint import/order: ["error", {"newlines-between": "always-and-inside-groups"}] */
-/* eslint-disable security/detect-object-injection , security/detect-non-literal-fs-filename */
+
 // spell-checker:ignore (names) Deno ; (vars) ESM ESMs vNodeJSMajor vNodeJSminor ; (words) cyclomatic
 
 'use strict';
@@ -68,6 +68,7 @@ test('api', (t) => {
 	t.is(typeof mod, 'function');
 	t.deepEqual(Object.keys(mod).sort(), api.sort());
 	api.forEach((key) => {
+		// eslint-disable-next-line security/detect-object-injection
 		t.is(typeof mod[key], 'function');
 	});
 });
@@ -105,6 +106,7 @@ test('correctly derive script name (JavaScript)', (t) => {
 	const fixtureDirPath = 'test/fixtures';
 	const extensions = ['.js', '.cjs', '.mjs'];
 
+	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const files = fs.readdirSync(fixtureDirPath);
 
 	files
@@ -135,6 +137,7 @@ test('correctly derive script name (TypeScript)', (t) => {
 	const fixtureDirPath = 'test/fixtures';
 	const extensions = ['.js', '.cjs', '.mjs', '.ts'];
 
+	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const files = fs.readdirSync(fixtureDirPath);
 
 	files
@@ -182,6 +185,7 @@ if (!process.env.npm_config_test_dist) {
 			const egDirPath = 'eg';
 			const extensionRxs = [/.*[.]deno[.]ts$/i];
 
+			// eslint-disable-next-line security/detect-non-literal-fs-filename
 			const files = fs.readdirSync(egDirPath);
 
 			files
@@ -216,6 +220,7 @@ if (!process.env.npm_config_test_dist) {
 		const egDirPath = 'eg';
 		const extensions = ['.js', '.cjs', '.mjs'];
 
+		// eslint-disable-next-line security/detect-non-literal-fs-filename
 		const files = fs.readdirSync(egDirPath);
 
 		files
@@ -251,6 +256,7 @@ if (!process.env.npm_config_test_dist) {
 		const egDirPath = 'eg';
 		const extensions = ['.js', '.cjs', '.mjs', '.ts'];
 
+		// eslint-disable-next-line security/detect-non-literal-fs-filename
 		const files = fs.readdirSync(egDirPath);
 
 		files
