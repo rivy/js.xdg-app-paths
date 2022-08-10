@@ -3,7 +3,9 @@ os:
   - linux
   - osx
 node_js:
-  # - '14' # #maint: [2021-02-19; rivy] `npm install` suddenly fails to correctly install 'npm-run-all'; disabled awaiting TravisCI fix
+  - '18'
+  - '16'
+  - '14' # #maint: [2021-02-19; rivy] `npm install` suddenly fails to correctly install 'npm-run-all'; disabled awaiting TravisCI fix
   - '12'
   - '10'
 after_success:
