@@ -475,14 +475,16 @@ git commit -m "${VERSION}"
 npm run clean && npm run update:dist
 git add dist
 git commit --amend --no-edit
-# tag VERSION commit
-git tag -f "v${VERSION}"
 @rem ::# (optional) update/save dependency locks
 npm install --package-lock
 rm yarn.lock && yarn import
 mkdir .deps-lock 2> /dev/null
 cp package-lock.json .deps-lock/
 cp yarn.lock .deps-lock/
+git add .deps-lock
+git commit --amend --no-edit
+# tag VERSION commit
+git tag -f "v${VERSION}"
 # (optional) prerelease checkup
 npm run prerelease
 #=== * WinOS
@@ -497,14 +499,16 @@ git commit -m "%VERSION%"
 npm run clean && npm run update:dist
 git add dist
 git commit --amend --no-edit
-@rem ::# tag VERSION commit
-git tag -f "v%VERSION%"
 @rem ::# (optional) update/save dependency locks
 npm install --package-lock
-del yarn.lock && yarn import
+del yarn.lock 2>NUL && yarn import
 mkdir .deps-lock 2>NUL
 copy /y package-lock.json .deps-lock
 copy /y yarn.lock .deps-lock
+git add .deps-lock
+git commit --amend --no-edit
+@rem ::# tag VERSION commit
+git tag -f "v%VERSION%"
 @rem ::# (optional) prerelease checkup
 npm run prerelease
 ```
