@@ -450,7 +450,7 @@ retest              clean and (re-)test project
 reset:hard          remove *all* generated files and reinstall dependencies
 show:deps           show package dependencies
 test                test package
-test:code           test package code
+test:code           test package code (use `--test-code=...` to pass options to testing harness)
 test:types          test for type declaration errors (using `tsd`)
 update              update/prepare for distribution [alias: 'dist']
 update:changelog    update CHANGELOG (using `git changelog ...`)
