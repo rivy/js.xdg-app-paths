@@ -149,4 +149,15 @@ if (!process.env.npm_config_test_dist) {
 			t.true(included);
 		});
 	});
+
+	test('package version has matching Git/VCS version tag', (t) => {
+		t.log({ version: pkg.version });
+
+		// eslint-disable-next-line security/detect-child-process
+		const result = require('child_process').spawnSync('git rev-list refs/tags/v' + pkg.version, {
+			shell: true,
+			encoding: 'utf-8',
+		});
+		t.is(result.status, 0);
+	});
 }

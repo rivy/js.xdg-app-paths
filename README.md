@@ -514,8 +514,7 @@ npm run prerelease
 ```shell
 # publish
 # * optional (will be done in 'prePublishOnly' by `npm publish`)
-npm run clean && npm run test && npm run dist && git-changelog > CHANGELOG.mkd
-npm run _:v_tag:exists || echo "[lint] ERROR Missing version matching commit tag" # expect no output and exit code == 0
+npm run clean && npm run test && npm run dist && git-changelog > CHANGELOG.mkd #expect exit code == 0
 git diff-index --quiet HEAD || echo "[lint] ERROR uncommitted changes" # expect no output and exit code == 0
 # *
 npm publish # `npm publish --dry-run` will perform all prepublication actions and stop just before the actual publish push
