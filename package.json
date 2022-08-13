@@ -147,6 +147,7 @@
 		"+:max-node-8": "is-node-not-modern 10",
 		"+:min-node-10": "is-node-modern 10",
 		"## _:... == sub-scripts ('hidden'; generally should be run 'silently' using `run-s/run-p --silent ...`": "",
+		"_:debug:env": "node -e \"console.log({env: process.env})\"",
 		"_:exists:git-changelog": "node -e \"if (!require('command-exists').sync('git-changelog')){process.exit(1);};\" || ( shx echo \"WARN `git-changelog` missing (try `go get -u github.com/rivy-go/git-changelog/cmd/git-changelog`)\" & exit 1 )",
 		"_:help": "< package.json node -e \"s = {p:'',e:'npm'}; if (new String(process.env.npm_execpath).match(/yarn.js$/)) { s = {p:'\\n',e:'yarn'}; }; console.log('%susage: \\`%s run TARGET\\` or \\`npx run-s TARGET [TARGET..]\\`\\n\\nTARGETs:\\n', s.p, s.e); re = /^.*?\\x22(?:\\W+\\s*)([^#\\x22]+)\\s+#+\\s+([^#\\x22]+?)(\\s+#+)?\\x22.*$/; require('readline').createInterface({ input: process.stdin, output: process.stdout, terminal: false }).on('line', function(line){ if (match = re.exec(line)) { console.log('%s %s', match[1].padEnd(19), match[2]); } });\"",
 		"_:lint:commits:all:spell": "node -e \"result=require('child_process').spawnSync('git log --color=never | cspell stdin --no-summary --config \".vscode/cspell.json\"',{shell:true,encoding:'utf-8'}); if (result.status != 0) {console.error('[cspell] ERR! Unknown words in commit(s)\\n'+result.stdout+'\\n'+result.stderr); process.exit(1);} else {console.log(result.stdout);};\"",
