@@ -4,6 +4,9 @@
 
 // spell-checker:ignore (names) commitLint (people) Roy Ivy III * rivy (words) maint
 
+const isNPMTestDist = !!process.env['npm_config_test_dist'];
+const relaxedReview = !isNPMTestDist;
+
 const commitTags = [
 	'Add',
 	'Added',
@@ -58,7 +61,12 @@ module.exports = {
 	// ref: [Commit messages starting with fixup! do not trigger any errors](https://github.com/conventional-changelog/commitlint/issues/3206)
 	// ref: [tests for default ignores](https://github.com/conventional-changelog/commitlint/blob/914782aad70d353b/%40commitlint/is-ignored/src/defaults.ts#L20-L26)
 	defaultIgnores: false,
-	ignores: [(msg) => msg.match(/^\d+([.]\d+)*/)],
+	ignores: [
+		(msg) => msg.match(/^\s*\d+([.]\d+)*/) /* version commit */,
+		relaxedReview
+			? (msg) => msg.match(/^\s*(fixup|squash)!/) /* fixup! or squash! commit */
+			: undefined,
+	].filter((v) => v != null),
 	rules: {
 		// '@local/DEBUG': [1, 'always'],
 		'body-max-line-length': [0],
