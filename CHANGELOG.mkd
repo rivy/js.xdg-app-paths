@@ -15,9 +15,47 @@
 
 ---
 
+## [v8.2.0](https://github.com/rivy/js.xdg-app-paths/compare/v8.1.1...v8.2.0) <small>(2022-08-13)</small>
+
+<details open><summary><small><em>[v8.2.0; details]</em></small></summary>
+
+#### Dependency Updates
+
+* update Deno deps (*down-to* std[@0](https://github.com/0).134.0; *pin*); avoid permission prompt(s) &ac; [`0b81528`](https://github.com/rivy/js.xdg-app-paths/commit/0b815284bb79358bd347e2faf85479046a748c68)
+* update *(deps)*: (up-to XDG-v10.5.0); uses std[@0](https://github.com/0).134.0 &ac; [`e59d677`](https://github.com/rivy/js.xdg-app-paths/commit/e59d677ffdd802184886e2809af6f1d4976efdd6)
+
+#### Documentation
+
+* docs ~ (README) revise Package/Publish notes (removing tag/version check) &ac; [`f22ce18`](https://github.com/rivy/js.xdg-app-paths/commit/f22ce186aaeab853380c987599558e009115c21b)
+
+#### Maintenance
+
+* maint *(CICD)*: (GHA) add platform label to coverage uploads (via `--flags=...`) &ac; [`dbe1a7c`](https://github.com/rivy/js.xdg-app-paths/commit/dbe1a7c07e2674b16c5fd1bef9d8578a2e7089c4)
+* maint *(CICD)*: (GHA) expand NodeJS test versions &ac; [`0a8cccb`](https://github.com/rivy/js.xdg-app-paths/commit/0a8cccb37fc9b20a067f064c9df7a8f71243bda6)
+* maint *(CICD)*: (TravisCI) expand NodeJS test versions &ac; [`105ecfe`](https://github.com/rivy/js.xdg-app-paths/commit/105ecfe92892a1910f9432c719656084b7f817d8)
+* maint *(build)*: add `refresh` (aka `rebuild:all`) and `refresh:dist` run target &ac; [`bf4b446`](https://github.com/rivy/js.xdg-app-paths/commit/bf4b44617660ef9d510e6b46cbd7e3b4492885c1)
+* maint *(build)*: (package) add '_:debug:env' run target &ac; [`774c3d3`](https://github.com/rivy/js.xdg-app-paths/commit/774c3d3fe921d9dc52bd4e78835da22cd68b907e)
+* maint *(build)*: (package) revise 'cov:send' to support user-defined options &ac; [`a6fb3b8`](https://github.com/rivy/js.xdg-app-paths/commit/a6fb3b8aceab0af1db5b2c9d9f25f179e74d05f6)
+* maint *(build)*: (package) commit linters now check more deeply/robustly into past commits &ac; [`445ae2b`](https://github.com/rivy/js.xdg-app-paths/commit/445ae2b837921e657050451f4867bc943a51400f)
+* maint *(build)*: (package) revise help generation to match HELP_TEXT more narrowly; add commentary &ac; [`afe7e5b`](https://github.com/rivy/js.xdg-app-paths/commit/afe7e5bed2833a38c686fded4bd0ccfde6222407)
+* maint *(build)*: (package) revise and surface availability of test harness options to user &ac; [`c4080c1`](https://github.com/rivy/js.xdg-app-paths/commit/c4080c13952fe354ca75363644bb7c7246b60b9c)
+* maint *(dev)*: (CommitLint) allow fixup!/squash! commits iff not prerelease &ac; [`1f3a1a2`](https://github.com/rivy/js.xdg-app-paths/commit/1f3a1a223a195b42d7d081913f1bf4a58d1aa6de)
+* maint *(dev)*: revise `cspell` to allow local exceptions &ac; [`6a30e83`](https://github.com/rivy/js.xdg-app-paths/commit/6a30e83434ec0eb9f139c31f306a7102250e6d17)
+* maint *(dev)*: add CodeCov config (reports will be solely informational/no-fail) &ac; [`0bc475d`](https://github.com/rivy/js.xdg-app-paths/commit/0bc475d49213a2aa47c6c11dd28ef17910bfca5f)
+* maint *(dev)*: (CommitLint) update (improves commit lints, capturing more flawed commits) &ac; [`ba1bf28`](https://github.com/rivy/js.xdg-app-paths/commit/ba1bf283b726c35969c40328a8cc0939a5041fde)
+
+#### Test Improvements
+
+* tests ~ revise ESLint directives (local preferred over global) &ac; [`56deca1`](https://github.com/rivy/js.xdg-app-paths/commit/56deca18d54450fbf91533cb228d7684484c27f0)
+* test *(refactor)*: move version consistency checks from package lint to distribution test &ac; [`1ddba6c`](https://github.com/rivy/js.xdg-app-paths/commit/1ddba6c6537b115061d73ef7cb83e8103316dae9)
+
+</details>
+
+---
+
 ## [v8.1.1](https://github.com/rivy/js.xdg-app-paths/compare/v8.1.0...v8.1.1) <small>(2022-08-06)</small>
 
-<details open><summary><small><em>[v8.1.1; details]</em></small></summary>
+<details><summary><small><em>[v8.1.1; details]</em></small></summary>
 
 #### Documentation
 
