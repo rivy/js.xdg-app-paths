@@ -405,8 +405,8 @@ npm install-test
 #### _Reproducible_ setup (for CI or local development)
 
 ```shell
-git clone "https://github.com/rivy/js.xdg-portable"
-cd js.os-paths
+git clone "https://github.com/rivy/js.xdg-app-paths"
+cd js.xdg-app-paths
 # * note: for WinOS, replace `cp` with `copy`
 # npm
 cp .deps-lock/package-lock.json .
