@@ -1,8 +1,10 @@
 // remark configuration (ref: <https://remark.js.org>)
 // ref: <https://github.com/remarkjs/remark/tree/87c50a588466/packages/remark-cli#example-config-files-json-yaml-js>
-// v2022-07-31 [rivy]
+// v2022-08-20 [rivy]
 
 // spell-checker:ignore (people) Roy Ivy III * rivy (words) frontmatter retext
+
+/* @prettier */ // note: (dprint) {.dprint.json}.prettier.associations should contain the name of this file
 
 exports.plugins = [
 	require('remark-footnotes'),
