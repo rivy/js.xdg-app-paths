@@ -25,6 +25,8 @@ mergeable
 multibyte
 nonportable
 peekable
+polyfill
+ponyfill
 precompiled
 precompute
 preload

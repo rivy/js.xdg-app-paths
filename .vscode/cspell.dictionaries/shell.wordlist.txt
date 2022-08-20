@@ -21,6 +21,8 @@ gitignore
 typeof
 * `npm`
 preversion
+* `prettier`
+prettierignore
 * utilities
 chglog
 commitlint
