@@ -1,11 +1,17 @@
 // CommitLint configuration
 // ref: <https://commitlint.js.org/#/reference-configuration>
-// v2022-08-09 [rivy]
+// v2022-08-20 [rivy]
 
 // spell-checker:ignore (names) commitLint (people) Roy Ivy III * rivy (words) maint
 
+/* @prettier */ // note: (dprint) {.dprint.json}.prettier.associations should contain the name of this file
+
 const isNPMTestDist = !!process.env['npm_config_test_dist'];
-const relaxedReview = !isNPMTestDist;
+const isTestDist = !!process.env['test_dist'];
+const isTestRelease = !!process.env['test_release'];
+
+/** Relax linting rules/strictures (for development; *not* when submitting for distribution/release). */
+const relaxedReview = !(isNPMTestDist || isTestDist || isTestRelease);
 
 const commitTags = [
 	'Add',
@@ -15,6 +21,7 @@ const commitTags = [
 	'Change',
 	'Changed',
 	'Chore',
+	'Deps',
 	'Docs',
 	'Feat',
 	'Fix',
@@ -30,14 +37,14 @@ const commitTags = [
 	'Update',
 	'Updated',
 	'Upkeep',
-	'VERSION',
-	'WIP',
 	// * git automated messages
 	'Automatic',
 	'Auto-merged',
 	'Merge',
 	'Merged',
 	'Revert',
+	// * ok for relaxed review (ie, development), otherwise *not ok*
+	...(relaxedReview ? ['VERSION', 'WIP', 'X'] : []),
 ];
 
 module.exports = {
@@ -73,8 +80,10 @@ module.exports = {
 		// ## maint [2020-01-07; rivy] ~ 'footer-leading-blank' disabled until <https://github.com/conventional-changelog/commitlint/issues/896> is fixed
 		// ## ... refs: <https://github.com/conventional-changelog/commitlint/issues/896#issuecomment-671865868> , <https://github.com/rook/rook/pull/6499#issuecomment-717267089>
 		'footer-leading-blank': [0],
-		'scope-case': [2, 'always', ['lower-case', 'upper-case']],
+		'header-max-length': [1, 'always', 90],
+		'scope-case': [2, 'always', ['camel-case', 'lower-case', 'pascal-case', 'upper-case']],
 		'subject-case': [0],
+		'subject-empty': [relaxedReview ? 1 : 2, 'never'],
 		'type-case': [2, 'always', ['lower-case', 'sentence-case']],
 		'type-enum': [2, 'always', [...commitTags.map((v) => v.toLowerCase()), ...commitTags]],
 	},
