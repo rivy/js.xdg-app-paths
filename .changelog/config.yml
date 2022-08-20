@@ -1,6 +1,6 @@
 # `git-changelog` configuration
 # ref: <https://github.com/rivy-go/git-changelog#configuration>
-# v2022-07-18
+# v2022-08-20
 
 # spell-checker: ignore bugfix maint
 
@@ -8,7 +8,7 @@ info:
   title: xdg-app-paths
   repository_url: https://github.com/rivy/js.xdg-app-paths
 style: github
-template: CHANGELOG.tpl.md
+template: CHANGELOG.tpl#mkd
 options:
   commits:
     filters:
@@ -22,6 +22,7 @@ options:
         - refactor
         - test
         - update
+        # - version
     type_maps:
       # basic types (enables type match case-insensitivity)
       change: change
@@ -40,6 +41,7 @@ options:
       build: maint
       changed: change
       chore: maint
+      deps: update
       fixed: fix
       fixes: fix
       tests: test
@@ -58,6 +60,7 @@ options:
       refactor: Refactoring
       test: Test Improvements
       update: Dependency Updates
+      # version: Version Changes
   header:
     pattern: "^(\\w+)([!])\\s*[~:]?\\s(.*)$|^(\\w+)\\s*\\/(\\S+)\\s*[~:]?\\s(.*)$|^(\\w+)(?:\\s*\\(([^)]+)\\))?\\s*[~:]?\\s(.*)$"
     pattern_maps:

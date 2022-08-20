@@ -1,4 +1,5 @@
 {{- /* <!-- markdownlint-disable --><!-- spellchecker:ignore markdownlint --> */ -}}
+{{- /* # v2022-08-20 */ -}}
 
 {{- define "format-commit" -}}
 * {{ if .Scope }}{{ .Type | smartLowerFirstWord }} *({{ .Scope }})*: {{ .Subject | smartLowerFirstWord }}{{ else }}{{ .Header | smartLowerFirstWord }}{{ end }} &ac; [`{{ .Hash.Short }}`]({{ commitURL .Hash.Long }})
@@ -10,6 +11,7 @@
 {{ range .Commits }}{{ template "format-commit" . -}}{{ end -}}
 {{ end -}}
 
+<!-- deno-fmt-ignore-file -->
 <!-- lint disable -->
 <!-- markdownlint-disable -->
 <!-- spellchecker:disable -->
