@@ -44,11 +44,14 @@ XDG references
 
 ## Installation (CJS/ESM/TypeScript)
 
+<!-- ref: [JSDelivr ~ GitHub](https://www.jsdelivr.com/documentation#id-github) @@ <https://archive.is/c8s9Y> -->
+
 ```shell
 npm install xdg-app-paths
 # or... `npm install "git:github.com/rivy/js.xdg-app-paths"`
-# or... `npm install "git:github.com/rivy/js.xdg-app-paths#v7.0.0"`
-# or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/dist/xdg-app-paths.tgz"`
+# or... `npm install "git:github.com/rivy/js.xdg-app-paths#v8.2.0"`
+# or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.2.0/dist/xdg-app-paths.tgz"`
+# or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT_SHA/dist/xdg-app-paths.tgz"`
 ```
 
 ## Usage
@@ -82,16 +85,13 @@ const configDirs = xdgAppPaths.configDirs();
 
 #### Deno
 
+<!-- ref: [JSDelivr ~ GitHub](https://www.jsdelivr.com/documentation#id-github) @@ <https://archive.is/c8s9Y> -->
+
 ```ts
-import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
-//or...
-//import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.0.0/src/mod.deno.ts';
-//or (via CDN, with optional version/version-range/latest/commit support)...
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@8.0.0/src/mod.deno.ts'; // v8.0.0
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@8/src/mod.deno.ts'; // v8.x.y
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths/src/mod.deno.ts'; // latest
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@latest/src/mod.deno.ts'; // latest
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT/src/mod.deno.ts'; // commit
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.2.0/src/mod.deno.ts';
+//or (via CDN, [ie, JSDelivr with GitHub version/version-range, commit, 'latest' support])...
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.2.0/src/mod.deno.ts';
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT_SHA/src/mod.deno.ts';
 const configDirs = xdgAppPaths.configDirs();
 //...
 ```
