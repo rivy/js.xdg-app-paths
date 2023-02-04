@@ -167,7 +167,7 @@ _Configuration options supplied when constructing `XDGAppPaths`_
 >
 > **`Options: object`** <br/> &bullet; default = `{ name: '', suffix: '', isolated: true }`
 >
-> **`Options.name: string`** <br/> &bullet; default = `''` <br/> _Name of the application; used to generate isolated application paths_ <br/> When missing (`undefined`), `null`, or empty (`''`), it is generated automatically from the process main file name, where determinable. "$eval" is used as a final fallback value when the application name cannot otherwise be determined. Note, Deno reports "$deno$eval" as the main file name when executing `deno eval ...`.
+> **`Options.name: string`** <br/> &bullet; default = `''` <br/> _Name of the application; used to generate isolated application paths_ <br/> When missing (`undefined`, `null`, or empty (`''`)), it is generated automatically from the process main file name, where determinable. `'$eval'` is used as a final fallback value when the application name cannot otherwise be determined. Note, Deno reports `'$deno$eval'` as the main file name when executing `deno eval ...`.
 >
 > **`Options.suffix: string`** <br/> &bullet; default = `''` <br/> _Suffix which is appended to the application name when generating the application paths_
 >
