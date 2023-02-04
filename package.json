@@ -79,7 +79,7 @@
 		"# coverage # calculate and display (or send) code coverage [alias: 'cov']": "",
 		"coverage": "run-s --silent +:max-node-8 && shx echo \"[coverage] WARN Code coverage skipped [for NodeJS < v10]\" 1>&2 || run-s \"+:coverage\"",
 		"cov": "run-s coverage",
-		"cov:html": "nyc report --reporter=html",
+		"cov:html": "nyc report --reporter=html --report-dir=.coverage",
 		"#* cov:send # use `--cov-send=...` to pass options to coverage uploader": "",
 		"cov:send": "shx mkdir -p .coverage && nyc report --reporter=text-lcov > \".coverage/@coverage.lcov\" && cross-env-shell codecov --disable=gcov --file=\".coverage/@coverage.lcov\" $npm_config_cov_send",
 		"cov:text": "nyc report",
