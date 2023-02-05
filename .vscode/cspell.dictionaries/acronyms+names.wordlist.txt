@@ -1,6 +1,6 @@
-* acronyms
-AST * abstract syntax tree
-CICD * continuous integration/deployment
+# * abbreviations / acronyms
+AST # abstract syntax tree
+CICD # continuous integration/deployment
 CPU
 CPUs
 DevOps
@@ -9,23 +9,56 @@ EOL
 EOLN
 FIFO
 FIFOs
-FQDN * fully qualified domain name
-GID * group ID
+FOSS # free open source software
+FQDN # fully qualified domain name
+GID # group ID
 GIDs
+GNUEABI
+GNUEABIhf
 MSVC
+MSRV # minimum supported rust version
+OSS # open source software
 POSIX
 POSIXLY
-RNG * random number generator
+RISC
+RISCV
+RNG # random number generator
 RNGs
-UID * user ID
-UIDs * universally unique identifier
-UUID
-* names
+UID # user ID
+UIDs
+UUID # universally unique identifier
+WASI
+WASM
+aarch
+flac
+lzma
+
+# * names
+BusyBox
 Codacy
+Cygwin
 Deno
 Dprint
 EditorConfig
+FreeBSD
+Gmail
+Irix
 JSDelivr
+MS-DOS
+MSDOS
+MacOS
+MinGW
+Minix
+NetBSD
+Novell
 npmJS
 NuShell
+OpenBSD
+POSIX
+PowerPC
+SELinux
+SkyPack
+Solaris
+SysV
+Xenix
 Yargs
