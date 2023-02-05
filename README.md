@@ -433,6 +433,7 @@ fix:lint            fix ESLint issues
 fix:style           fix Prettier formatting issues
 help                display help
 lint                check for package code 'lint'
+lint:audit          check for `npm audit` violations in project code
 lint:commits        check for commit flaws (using `commitlint` and `cspell`)
 lint:editorconfig   check for EditorConfig format flaws (using `editorconfig-checker`)
 lint:lint           check for code 'lint' (using `eslint`)

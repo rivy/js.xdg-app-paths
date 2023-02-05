@@ -95,6 +95,8 @@
 		"help": "run-s --silent _:help",
 		"# lint # check for package code 'lint'": "",
 		"lint": "run-s --silent +:max-node-8 && shx echo \"[lint] WARN Lint checks skipped [for NodeJS < v10]\" 1>&2 || run-p --print-name \"lint:*\"",
+		"# lint:audit # check for `npm audit` violations in project code": "",
+		"lint:audit": "run-s --silent -- npm audit --omit dev",
 		"# lint:commits # check for commit flaws (using `commitlint` and `cspell`)": "",
 		"lint:commits": "run-p --silent \"_:lint:commits:new:*\"",
 		"# lint:editorconfig # check for EditorConfig format flaws (using `editorconfig-checker`)": "",
