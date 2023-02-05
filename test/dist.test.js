@@ -15,7 +15,7 @@ const vNodeJSMajor = +vNodeJS[0];
 
 const packagePath = '../package.json';
 
-// eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
+// eslint-disable-next-line security-node/detect-non-literal-require-calls
 const pkg = require(packagePath);
 
 const packageCJSPath = path.resolve(__dirname, packagePath, '..', pkg.exports['.'].require);
@@ -153,7 +153,6 @@ if (!process.env.npm_config_test_dist) {
 	test('package version has matching Git/VCS version tag', (t) => {
 		t.log({ version: pkg.version });
 
-		// eslint-disable-next-line security/detect-child-process
 		const result = require('child_process').spawnSync('git rev-list refs/tags/v' + pkg.version, {
 			shell: true,
 			encoding: 'utf-8',

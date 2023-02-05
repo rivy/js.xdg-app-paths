@@ -5,7 +5,7 @@
 
 const path = require('path');
 
-/* eslint-disable no-console , security-node/detect-crlf , security-node/detect-non-literal-require-calls , security/detect-non-literal-require , security/detect-object-injection */
+/* eslint-disable no-console , security-node/detect-crlf , security-node/detect-non-literal-require-calls , security/detect-object-injection */
 
 const xdgAppPathsModulePath = '../dist/cjs/mod.cjs.js';
 
@@ -75,4 +75,4 @@ p = require(xdgAppPathsModulePath)({ name: 'fluffy', isolated: false });
 console.log({ p });
 console.log(showObjectEntries(p));
 
-/* eslint-enable no-console , security-node/detect-crlf , security-node/detect-non-literal-require-calls , security/detect-non-literal-require , security/detect-object-injection */
+/* eslint-enable no-console , security-node/detect-crlf , security-node/detect-non-literal-require-calls , security/detect-object-injection */
