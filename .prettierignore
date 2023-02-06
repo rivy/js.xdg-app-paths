@@ -1,5 +1,5 @@
 # Prettier "ignore" list
-# v2022-07-30 [rivy]
+# v2023-02-05 [rivy]
 # * note: glob patterns support use of `?`, `*`, `**`, and `[...]`, but *not* `{...}`
 
 # spell-checker:ignore (people) Roy Ivy III * rivy
@@ -24,5 +24,6 @@ target
 **/*-lock.json
 .history
 .vscode
+.yarn
 package.json
 vendor

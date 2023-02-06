@@ -1,9 +1,9 @@
 {
 	"#": "EditorConfig-checker Config (for JS projects)",
 	"#ref": "<https://github.com/editorconfig-checker/editorconfig-checker#configuration>",
-	"#version": "v2022-07-30 [rivy]",
+	"#version": "v2023-02-05 [rivy]",
 	"#x-spell": "/* spell-checker:ignore (people) Roy Ivy III * rivy */",
-	"Exclude": ["([._@#$]?build|[._@#$]?coverage|dist|target|vendor)/.*"],
+	"Exclude": ["([._@#$]?build|[._@#$]?coverage|dist|target|vendor|[.]yarn)/.*"],
 	"SpacesAfterTabs": true,
 	"Disable": { "MaxLineLength": true }
 }

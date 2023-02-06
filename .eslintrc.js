@@ -1,6 +1,6 @@
 // ESLint configuration
 // ref: <https://eslint.org/docs/latest/user-guide/configuring/configuration-files>
-// v2022-08-20 [rivy]
+// v2023-02-05 [rivy]
 
 // spell-checker:ignore (names) rivy ; (options) iife
 
@@ -17,6 +17,7 @@ module.exports = {
 		'[._@#$]coverage',
 		'.eslintrc.js',
 		'.nyc_output',
+		'.yarn',
 		'build',
 		'coverage',
 		'dist',
@@ -37,6 +38,7 @@ module.exports = {
 		'plugin:security-node/recommended',
 		...(usePrettier ? ['prettier', 'prettier/@typescript-eslint'] : []),
 	],
+	reportUnusedDisableDirectives: true,
 	rules: {
 		// ref: https://eslint.org/docs/rules
 		'@typescript-eslint/explicit-module-boundary-types': 'off',

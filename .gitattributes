@@ -1,4 +1,4 @@
-# v2022.07.30 [rivy]
+# v2023.02.05 [rivy]
 # spell-checker:ignore (people) Roy Ivy III * rivy (words) deps EOLs MSVC
 
 # default; use LF EOLs for text files
@@ -8,3 +8,7 @@
 *.[bB][aA][tT]    text eol=crlf
 *.[cC][mM][dD]    text eol=crlf
 *.[sS][lL][nN]    text eol=crlf
+
+# binaries; force binary interpretation (for diff sanity and avoidance of CRLF/LF issues)
+# * `yarn` config files; ref: <https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored> @@ <https://archive.is/Sc1Ab>
+.yarn/**/*  binary

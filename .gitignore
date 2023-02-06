@@ -1,4 +1,4 @@
-# v2022-08-20 [rivy]
+# v2023-02-04 [rivy]
 # spell-checker:ignore (people) Roy Ivy III * rivy (words) globstar
 
 # NOTE: Git GLOBSTAR syntax [see `git help gitignore`]
@@ -22,3 +22,15 @@ yarn.lock
 # * allow packaging of lock files into '.deps-lock'
 !.deps-lock/package-lock.json
 !.deps-lock/yarn.lock
+
+# ignore `yarn`-related files (allows use of "modern" v2+ `yarn`)
+# * ref: <https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored> @@ <https://archive.is/Sc1Ab>
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+# * use `.yarnrc.yml` for `yarn` config
+.yarnrc
