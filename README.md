@@ -304,7 +304,7 @@ const xdgAppPaths = require('xdg-app-paths/cjs');
 console.log(xdgAppPaths.config());
 ```
 
-> Note: for CJS, `require('xdg-app-paths')` is supported for backward-compatibility and will execute correctly at run-time. However, `require('xdg-app-paths')` links to the default package type declarations which, though _correct_ for ESM or TypeScript, are _incorrect_ for CJS. This, then, leads to incorrect analysis of CJS files by static analysis tools such as TypeScript and Intellisense.
+> Note: for CJS, `require('xdg-app-paths')` is supported for backward-compatibility and will execute correctly at run-time. However, `require('xdg-app-paths')` links to the default package type declarations which, though _correct_ for Deno/ESM/TypeScript, are _incorrect_ for CJS. This, then, leads to incorrect analysis of CJS files by static analysis tools such as TypeScript and Intellisense.
 >
 > Using `require('xdg-app-paths/cjs')` is preferred as it associates the proper CJS type declarations and provides correct information to static analysis tools.
 
