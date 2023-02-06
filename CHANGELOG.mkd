@@ -1,3 +1,4 @@
+<!-- deno-fmt-ignore-file -->
 <!-- lint disable -->
 <!-- markdownlint-disable -->
 <!-- spellchecker:disable -->
@@ -15,9 +16,62 @@
 
 ---
 
+## [v8.3.0](https://github.com/rivy/js.xdg-app-paths/compare/v8.2.0...v8.3.0) <small>(2023-02-06)</small>
+
+<details open><summary><small><em>[v8.3.0; details]</em></small></summary>
+
+#### Fixes
+
+* bugfix ~ (package) work-around for `npm publish` bug (see GH:npm/cli[#6137](https://github.com/rivy/js.xdg-app-paths/issues/6137)) &ac; [`6ffa1d4`](https://github.com/rivy/js.xdg-app-paths/commit/6ffa1d47f445bb5c35c463523124861ace90c9b6)
+
+#### Dependency Updates
+
+* update *(deps)*: (up-to XDG-v10.6.0); latest &ac; [`48b7319`](https://github.com/rivy/js.xdg-app-paths/commit/48b7319054a11539535aa30e0231b5e0d17b7eae)
+
+#### Documentation
+
+* docs ~ (README) commentary polish &ac; [`231753a`](https://github.com/rivy/js.xdg-app-paths/commit/231753aa39a3c797f8a0b5d5d65284466c112134)
+* docs ~ (README) revise setup/build/test instructions &ac; [`294ba7f`](https://github.com/rivy/js.xdg-app-paths/commit/294ba7ffa698b1421be9f8cd37333ecd2459944d)
+* docs ~ fix updated ESLint complaints (eslint-comments/no-unused-disable) &ac; [`1ec73ce`](https://github.com/rivy/js.xdg-app-paths/commit/1ec73ceb6f826dc20baac5efd34ebb303b453e5b)
+* docs ~ add `cspell` dictionary word(s) &ac; [`1953225`](https://github.com/rivy/js.xdg-app-paths/commit/195322579614b95eda1ae63da5a08eead47c501f)
+* docs ~ (README) update download/install URLs and commentary &ac; [`d6bc6a6`](https://github.com/rivy/js.xdg-app-paths/commit/d6bc6a696a608a07ccca95a647baf59ca2f879b0)
+* docs ~ (README) fix/polish discussion commentary &ac; [`f5b7bd5`](https://github.com/rivy/js.xdg-app-paths/commit/f5b7bd5d13468ac12245411add1b4693f58228d8)
+* docs ~ (README) fix formatting errors &ac; [`566002c`](https://github.com/rivy/js.xdg-app-paths/commit/566002c1b03c986985e0db5e085880c6ceda03bc)
+* docs ~ (README) fix GHA workflow badge &ac; [`0f636e3`](https://github.com/rivy/js.xdg-app-paths/commit/0f636e3c71eedc5b6740953249602b792317a7cd)
+* docs ~ (README) fix reproducible install instructions &ac; [`7880836`](https://github.com/rivy/js.xdg-app-paths/commit/7880836bedf1336fc3a782025a0bc29b9069b803)
+* docs ~ (README) remove references to TravisCI &ac; [`1998740`](https://github.com/rivy/js.xdg-app-paths/commit/1998740dc20474b327dd9f0d1e0c5a3800bb3f6f)
+* docs ~ add `cspell` dictionary word(s) &ac; [`9081e91`](https://github.com/rivy/js.xdg-app-paths/commit/9081e91157121b613a00306778b4357d4599c7c0)
+
+#### Maintenance
+
+* maint *(CICD)*: (TravisCI) *remove* TravisCI (TravisCI no longer supports FOSS) &ac; [`8cca2b0`](https://github.com/rivy/js.xdg-app-paths/commit/8cca2b0ba6147c121a4b2ebb3fa92a791197837c)
+* maint *(build)*: (package) add color to 'help' output &ac; [`bb9e206`](https://github.com/rivy/js.xdg-app-paths/commit/bb9e2065e272d8c85b3259b194d9fbe189f00890)
+* maint *(build)*: prepare support for 'modern' v2+ `yarn` &ac; [`6004d2c`](https://github.com/rivy/js.xdg-app-paths/commit/6004d2cf8da4992a8276363578e5c8ed93e81673)
+* maint *(build)*: (package) fix coverage view/send branch logic &ac; [`b77ad7a`](https://github.com/rivy/js.xdg-app-paths/commit/b77ad7acbedaf94b702f21217f8561d9ec43f23b)
+* maint *(build)*: add `bmp` configuration &ac; [`7ab1c7e`](https://github.com/rivy/js.xdg-app-paths/commit/7ab1c7e0a62ef81058f397e17c54947b50e8d28b)
+* maint *(build)*: (package) move coverage data storage to less visible location &ac; [`53ba291`](https://github.com/rivy/js.xdg-app-paths/commit/53ba291244dcb6f236ea1e67324d7c5a58f911a2)
+* maint *(build)*: (package) add `npm audit` linter &ac; [`43badbd`](https://github.com/rivy/js.xdg-app-paths/commit/43badbd084e8ebbe0822312014cebd3498e9c004)
+* maint *(build)*: (package) enable handling of scoped package names &ac; [`c7862ac`](https://github.com/rivy/js.xdg-app-paths/commit/c7862acc93c2fe321ec5c5485be94332c547a7e9)
+* maint *(build)*: (package) remove 'rimraf' (use `shx rm -fr ...`) &ac; [`c7476b1`](https://github.com/rivy/js.xdg-app-paths/commit/c7476b1685fab4bb1be3ea80c1040e55f5c7719a)
+* maint *(build)*: (package) fix coverage HTML output target &ac; [`fa60bde`](https://github.com/rivy/js.xdg-app-paths/commit/fa60bde855635be041a112834332c60d68212589)
+* maint *(build)*: (package) add final NL for non-WinOS output equivalence &ac; [`4ee0d3e`](https://github.com/rivy/js.xdg-app-paths/commit/4ee0d3e76cfc6d89041c1a4a7dfd22ac52eb4a16)
+* maint *(deps)*: update deps locks (NodeJS v10.23.1, npm v7.24.2, yarn v1.22.19) &ac; [`569c185`](https://github.com/rivy/js.xdg-app-paths/commit/569c1851ae96617d4342ef281458bf70acffa2b0)
+* maint *(dev)*: (deps) revise/loosen `eslint` related deps &ac; [`a3e15fa`](https://github.com/rivy/js.xdg-app-paths/commit/a3e15fa5a50ea5087903f2984ab34aaec254b93a)
+* maint *(dev)*: revise various configs for 'modern' v2+ `yarn` use &ac; [`47e7591`](https://github.com/rivy/js.xdg-app-paths/commit/47e759164a4258e95f25941c2ea7cfbe8c54af15)
+* maint *(dev)*: (markdown-lint/Remark) update config; adds dual use (Deno or NodeJS projects) &ac; [`2b22938`](https://github.com/rivy/js.xdg-app-paths/commit/2b2293869f2a70c693618565eecab75d03d5d79d)
+* maint *(dev)*: (Prettier) update config; adds dual use (Deno or NodeJS projects) &ac; [`6bdb066`](https://github.com/rivy/js.xdg-app-paths/commit/6bdb066b6b3286f61331d3801d353aec7bc23246)
+* maint *(dev)*: (gitignore) update config notes &ac; [`c70aa5a`](https://github.com/rivy/js.xdg-app-paths/commit/c70aa5a2874eefb1575b2a5089718530ed54403d)
+* maint *(dev)*: (ESLint) update config; merge Deno and JS configs &ac; [`9ddfaee`](https://github.com/rivy/js.xdg-app-paths/commit/9ddfaee484fa8fbedb25fe2cb9f265afaecd0595)
+* maint *(dev)*: (CommitLint) update config; add relaxed linting for development &ac; [`7712fcf`](https://github.com/rivy/js.xdg-app-paths/commit/7712fcf4deec348fbba3800d63f79d7a7fecb801)
+* maint *(dev)*: (git-changelog) configuration and template updates &ac; [`4f82518`](https://github.com/rivy/js.xdg-app-paths/commit/4f82518ca77133bb1bc068742a5a03c9f0a1aa81)
+
+</details>
+
+---
+
 ## [v8.2.0](https://github.com/rivy/js.xdg-app-paths/compare/v8.1.1...v8.2.0) <small>(2022-08-13)</small>
 
-<details open><summary><small><em>[v8.2.0; details]</em></small></summary>
+<details><summary><small><em>[v8.2.0; details]</em></small></summary>
 
 #### Dependency Updates
 

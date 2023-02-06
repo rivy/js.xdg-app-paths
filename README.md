@@ -49,8 +49,8 @@ XDG references
 ```shell
 npm install xdg-app-paths
 # or... `npm install "git:github.com/rivy/js.xdg-app-paths"`
-# or... `npm install "git:github.com/rivy/js.xdg-app-paths#v8.2.0"`
-# or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.2.0/dist/xdg-app-paths.tgz"`
+# or... `npm install "git:github.com/rivy/js.xdg-app-paths#v8.3.0"`
+# or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.3.0/dist/xdg-app-paths.tgz"`
 # or... `npm install "https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT_SHA/dist/xdg-app-paths.tgz"`
 ```
 
@@ -88,9 +88,9 @@ const configDirs = xdgAppPaths.configDirs();
 <!-- ref: [JSDelivr ~ GitHub](https://www.jsdelivr.com/documentation#id-github) @@ <https://archive.is/c8s9Y> -->
 
 ```ts
-import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.2.0/src/mod.deno.ts';
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.ts';
 //or (via CDN, [ie, JSDelivr with GitHub version/version-range, commit, 'latest' support])...
-//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.2.0/src/mod.deno.ts';
+//import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.3.0/src/mod.deno.ts';
 //import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT_SHA/src/mod.deno.ts';
 const configDirs = xdgAppPaths.configDirs();
 //...

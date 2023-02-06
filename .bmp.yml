@@ -1,4 +1,4 @@
-version: 8.2.0
+version: 8.3.0
 commit: '%.%.%'
 files:
   package.json: '"version": "%.%.%"'
