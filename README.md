@@ -14,7 +14,7 @@
 <!-- spell-checker:ignore (npm/targets) realclean -->
 <!-- spell-checker:ignore (platform/windows) APPDATA LOCALAPPDATA -->
 <!-- spell-checker:ignore (people) Roy Ivy III * rivy ; Sindre Sorhus * sindresorhus -->
-<!-- spell-checker:ignore (utils) dprint -->
+<!-- spell-checker:ignore (utils) dprint uutils -->
 
 # [xdg-app-paths](https://github.com/rivy/js.xdg-app-paths)
 
@@ -391,8 +391,8 @@ This module was forked from [sindresorhus/env-paths](https://github.com/sindreso
 
 > #### optional
 >
+> - [`bmp`](https://deno.land/x/bmp@v0.0.6) (v0.0.6+) ... synchronizes version strings within the project
 > - [`git-changelog`](https://github.com/rivy-go/git-changelog) (v1.1+) ... enables changelog automation
-> - [`perl`](https://www.perl.org) ... enables automated version updates to **`package.json`** during packaging
 
 ### Quick build/test
 
@@ -407,7 +407,7 @@ npm install-test
 ```shell
 git clone "https://github.com/rivy/js.xdg-app-paths"
 cd js.xdg-app-paths
-# * note: for WinOS, replace `cp` with `copy`
+# * note: for WinOS, replace `cp` with `copy` (or use [uutils](https://github.com/uutils/coreutils))
 # npm
 cp .deps-lock/package-lock.json .
 npm clean-install
@@ -463,20 +463,20 @@ verify              fully (and verbosely) test package
 
 ```shell
 #=== * POSIX
-# next VERSION in M.m.r (semver) format
-VERSION=...
-# update to VERSION in package.json
-perl -i -E 'use open IO => q/:raw:utf8/} while(<>) { s/^(\s*\x22version\x22\s*:\s*)\x22(?:\d+(?:[.]\d+)*)?\x22/$1\x22$ENV{VERSION}\x22/ims; print }' package.json
+# update project VERSION strings (package.json,...)
+# * `bmp --[major|minor|patch]`; next VERSION in M.m.r (semver) format
+bmp --minor
+VERSION=$(cat VERSION)
 git-changelog --next-tag "v${VERSION}" > CHANGELOG.mkd
 # create/commit updates and distribution
-git add package.json CHANGELOG.mkd
+git add package.json CHANGELOG.mkd README.md VERSION .bmp.yml
 git commit -m "${VERSION}"
-npm run clean && npm run update:dist
-git add dist
-git commit --amend --no-edit
-@rem ::# (optional) update/save dependency locks
+npm run clean && npm run update:dist && git add dist && git commit --amend --no-edit
+# (optional) update/save dependency locks
+# * note: `yarn import` of 'package-lock.json' (when available) is faster but may not work for later versions of 'package-lock.json'
+rm -f package-lock.json yarn.lock
 npm install --package-lock
-rm yarn.lock && yarn import
+yarn install
 mkdir .deps-lock 2> /dev/null
 cp package-lock.json .deps-lock/
 cp yarn.lock .deps-lock/
@@ -487,28 +487,28 @@ git tag -f "v${VERSION}"
 # (optional) prerelease checkup
 npm run prerelease
 #=== * WinOS
-@rem ::# next VERSION in M.m.r (semver) format
-set VERSION=...
-@rem ::# update to VERSION in package.json
-perl -i -E "use open IO => q/:raw:utf8/; while(<>) { s/^(\s*\x22version\x22\s*:\s*)\x22(?:\d+(?:[.]\d+)*)?\x22/$1\x22$ENV{VERSION}\x22/ims; print }" package.json
+@rem # update project VERSION strings (package.json,...)
+@rem # * `bmp --[major|minor|patch]`; next VERSION in M.m.r (semver) format
+bmp --minor
+for /f %G in (VERSION) do @set "VERSION=%G"
 git-changelog --next-tag "v%VERSION%" > CHANGELOG.mkd
-@rem ::# create/commit updates and distribution
-git add package.json CHANGELOG.mkd
+@rem # create/commit updates and distribution
+git add package.json CHANGELOG.mkd README.md VERSION .bmp.yml
 git commit -m "%VERSION%"
-npm run clean && npm run update:dist
-git add dist
-git commit --amend --no-edit
-@rem ::# (optional) update/save dependency locks
+npm run clean && npm run update:dist && git add dist && git commit --amend --no-edit
+@rem # (optional) update/save dependency locks
+@rem # * note: `yarn import` of 'package-lock.json' (when available) is faster but may not work for later versions of 'package-lock.json'
+del package-lock.json yarn.lock 2>NUL
 npm install --package-lock
-del yarn.lock 2>NUL && yarn import
+yarn install
 mkdir .deps-lock 2>NUL
-copy /y package-lock.json .deps-lock
-copy /y yarn.lock .deps-lock
+copy /y package-lock.json .deps-lock >NUL
+copy /y yarn.lock .deps-lock >NUL
 git add .deps-lock
 git commit --amend --no-edit
-@rem ::# tag VERSION commit
+@rem # tag VERSION commit
 git tag -f "v%VERSION%"
-@rem ::# (optional) prerelease checkup
+@rem # (optional) prerelease checkup
 npm run prerelease
 ```
 
