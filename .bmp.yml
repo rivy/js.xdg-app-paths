@@ -1,0 +1,9 @@
+version: 8.2.0
+commit: '%.%.%'
+files:
+  package.json: '"version": "%.%.%"'
+  README.md:
+    - 'git:github.com/rivy/js.xdg-app-paths#v%.%.%'
+    - 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v%.%.%'
+    - 'https://deno.land/x/xdg_app_paths@v%.%.%'
+  VERSION: '%.%.%'
