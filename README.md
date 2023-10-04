@@ -42,6 +42,14 @@ XDG references
 # ref: <https://ploum.net/207-modify-your-application-to-use-xdg-folders> @@ <https://archive.is/f43Gk>
 -->
 
+<!-- spell-checker:ignore (CSS) monospace rgba -->
+<style>
+blockquote.--posix { background: rgba(70, 130, 180, 0.2); border-left: 2em solid steelblue; font-size: 85%; margin-left: 0em; padding-top:0; padding-left: 0.5em; padding-bottom:0; }
+blockquote.--posix:before { content: "$_"; font-family: monospace, monospace; font-weight: bold; margin-left: -2.5em; text-align: center; }
+blockquote.--winos { background: rgba(70, 130, 180, 0.2); border-left: 2em solid steelblue; font-size: 85%; margin-left: 0em; padding-top:0; padding-left: 0.5em; padding-bottom:0; }
+blockquote.--winos:before { content: ">_"; font-family: monospace, monospace; font-weight: bold; margin-left: -2.5em; text-align: center; }
+</style>
+
 ## Installation (CJS/ESM/TypeScript)
 
 <!-- ref: [JSDelivr ~ GitHub](https://www.jsdelivr.com/documentation#id-github) @@ <https://archive.is/c8s9Y> -->
@@ -293,7 +301,7 @@ cachePath.customers = path.join(cacheDir, 'customers.json');
 
 <!--{blockquote: .--info style="font-size:75%;"}-->
 
-[^*]: With the conversion to a TypeScript-based project, due to tooling constraints, building and testing are more difficult and more limited on Node platforms earlier than NodeJS-v10. However, the generated CommonJS/UMD project code is fully tested (for NodeJS-v10+) and continues to be compatible with NodeJS-v4+.
+[^*]: With the conversion to a TypeScript-based project, due to tooling constraints, building and testing are more difficult and more limited on Node platforms earlier than NodeJS-v12. However, the generated CommonJS/UMD project code is fully tested (for NodeJS-v12+) and continues to be compatible with NodeJS-v4+.
 
 #### CommonJS modules (CJS; `*.js` and `*.cjs`)
 
@@ -385,7 +393,7 @@ This module was forked from [sindresorhus/env-paths](https://github.com/sindreso
 
 ### Build requirements
 
-- NodeJS >= 10.14
+- NodeJS-v12+
 - a JavaScript package/project manager ([`npm`](https://www.npmjs.com/get-npm) or [`yarn`](https://yarnpkg.com))
 - [`git`](https://git-scm.com)
 
@@ -404,10 +412,15 @@ npm install-test
 
 #### _Reproducible_ setup (for CI or local development)
 
+<br/>
+
+> POSIX
+
+<!--{blockquote: .--posix}-->
+
 ```shell
 git clone "https://github.com/rivy/js.xdg-app-paths"
 cd js.xdg-app-paths
-# * note: for WinOS, replace `cp` with `copy` (or use [uutils](https://github.com/uutils/coreutils))
 # npm
 cp .deps-lock/package-lock.json .
 npm clean-install
@@ -416,12 +429,27 @@ cp .deps-lock/yarn.lock .
 yarn --immutable --immutable-cache --check-cache
 ```
 
+> WinOS
+
+<!--{blockquote: .--winos}-->
+
+```shell
+git clone "https://github.com/rivy/js.xdg-app-paths"
+cd js.xdg-app-paths
+@rem # npm
+copy /y .deps-lock\\package-lock.json . >NUL
+npm clean-install
+@rem # yarn
+copy /y .deps-lock\\yarn.lock . >NUL
+yarn --immutable --immutable-cache --check-cache
+```
+
 #### Project development scripts
 
 ```shell
-> npm run help
+# npm run help
 ...
-usage: `npm run TARGET` or `npx run-s TARGET [TARGET..]`
+Usage: `npm run TARGET` or `npx run-s TARGET [TARGET..]`
 
 TARGETs:
 
@@ -461,8 +489,13 @@ verify              fully (and verbosely) test package
 
 ##### Package
 
+<br/>
+
+> POSIX
+
+<!--{blockquote: .--posix}-->
+
 ```shell
-#=== * POSIX
 # update project VERSION strings (package.json,...)
 # * `bmp --[major|minor|patch]`; next VERSION in M.m.r (semver) format
 bmp --minor
@@ -486,7 +519,13 @@ git commit --amend --no-edit
 git tag -f "v${VERSION}"
 # (optional) prerelease checkup
 npm run prerelease
-#=== * WinOS
+```
+
+> WinOS
+
+<!--{blockquote: .--winos}-->
+
+```shell
 @rem # update project VERSION strings (package.json,...)
 @rem # * `bmp --[major|minor|patch]`; next VERSION in M.m.r (semver) format
 bmp --minor
@@ -514,14 +553,33 @@ npm run prerelease
 
 ##### Publish
 
+<br/>
+
+> POSIX
+
+<!--{blockquote: .--posix}-->
+
 ```shell
-# publish
-# * optional (will be done in 'prePublishOnly' by `npm publish`)
-npm run clean && npm run test && npm run dist && git-changelog > CHANGELOG.mkd #expect exit code == 0
+# optional (will be done in 'prePublishOnly' by `npm publish`)
+npm run clean && npm run test && npm run dist && git-changelog > CHANGELOG.mkd # expect exit code == 0
 git diff-index --quiet HEAD || echo "[lint] ERROR uncommitted changes" # expect no output and exit code == 0
-# *
-npm publish # `npm publish --dry-run` will perform all prepublication actions and stop just before the actual publish push
-# * if published to NPMjs with no ERRORs; push to deno.land with tag push
+#
+npm publish # note: `npm publish --dry-run` will perform all prepublication actions and stop just before the actual publish push
+# if published to NPMjs with no ERRORs; push to deno.land with tag push
+git push origin --tags
+```
+
+> WinOS
+
+<!--{blockquote: .--winos}-->
+
+```shell
+@rem # optional (will be done in 'prePublishOnly' by `npm publish`)
+npm run clean && npm run test && npm run dist && git-changelog > CHANGELOG.mkd &&@rem # expect exit code == 0
+git diff-index --quiet HEAD || echo "[lint] ERROR uncommitted changes" &&@rem # expect no output and exit code == 0
+@rem #
+npm publish &&@rem # note: `npm publish --dry-run` will perform all prepublication actions and stop just before the actual publish push
+@rem # if published to NPMjs with no ERRORs; push to deno.land with tag push
 git push origin --tags
 ```
 
