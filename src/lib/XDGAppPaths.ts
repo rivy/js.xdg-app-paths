@@ -1,7 +1,7 @@
 // deno-fmt-ignore-file ## prefer customized `prettier` formatting
 // # spell-checker:ignore APPDATA LOCALAPPDATA MacOS tempdir
 /* eslint-env es6, node */
-'use strict';
+// 'use strict';
 
 import { Platform } from '../platform-adapters/_base.js';
 
@@ -133,8 +133,8 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 			};
 
 			function isIsolated(dirOptions?: DirOptions | boolean): boolean {
-				dirOptions = dirOptions ?? { isolated: isolated_ };
-				const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated ?? isolated_;
+				const dirOptions_ = dirOptions ?? { isolated: isolated_ };
+				const isolated = isBoolean(dirOptions_) ? dirOptions_ : dirOptions_.isolated ?? isolated_;
 				return isolated;
 			}
 
@@ -176,6 +176,7 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 					.map((s) => path.join(s, finalPathSegment(dirOptions))) as readonly string[];
 			};
 
+			// biome-ignore lint/correctness/noConstructorReturn: return class as a callable Function object
 			return XDGAppPaths as XDGAppPaths;
 		}
 	}
