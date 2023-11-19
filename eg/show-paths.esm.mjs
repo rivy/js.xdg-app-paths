@@ -1,7 +1,7 @@
 // deno-fmt-ignore-file ## prefer customized `prettier` formatting
 // # spell-checker:ignore APPNAME
 /* eslint-env es6, node */
-'use strict';
+// 'use strict';
 
 import path from 'path';
 import { inspect } from 'util';
@@ -11,13 +11,10 @@ import { inspect } from 'util';
 import xdgAppPaths from '../dist/cjs/esm-wrapper/mod.esm.js';
 
 function objectEntries(obj) {
-	const map = {};
-	Object.keys(obj).forEach((key) => {
+	return Object.keys(obj).map((key) => {
 		const value = obj[key];
-		const val = typeof value === 'function' ? value() : value;
-		map[key] = val;
+		return typeof value === 'function' ? value() : value;
 	});
-	return map;
 }
 
 // Extend appPaths with a "log" location function
@@ -28,27 +25,30 @@ xdgAppPaths.log = function (dirOptions = null) {
 		return typeof x;
 	}
 
-	if (typeOf(dirOptions) === 'boolean') {
-		dirOptions = { isolated: dirOptions };
-	}
+	const dirOptions_ = (() => {
+		if (typeOf(dirOptions) === 'boolean') {
+			return { isolated: dirOptions };
+		}
+		if (
+			typeOf(dirOptions) !== 'object' ||
+			dirOptions == null ||
+			typeOf(dirOptions.isolated) !== 'boolean'
+		) {
+			return { isolated: self.$isolated() };
+		}
+	})();
 
-	if (
-		typeOf(dirOptions) !== 'object' ||
-		dirOptions === null ||
-		typeOf(dirOptions.isolated) !== 'boolean'
-	) {
-		dirOptions = { isolated: self.$isolated() };
-	}
-
-	return path.join(self.state(dirOptions), (dirOptions.isolated ? '' : self.$name() + '-') + 'log');
+	return path.join(
+		self.state(dirOptions_),
+		`${dirOptions_.isolated ? '' : `${self.$name()}-`} + 'log'`,
+	);
 };
 
 function showObjectEntries(obj) {
-	var strings = [];
-	Object.keys(obj).forEach((key) => {
+	const strings = Object.keys(obj).map((key) => {
 		const value = obj[key];
 		const val = typeof value === 'function' ? value() : value;
-		strings.push(key + ' = ' + val);
+		return `${key} = ${val}`;
 	});
 	return strings.join('\n');
 }
@@ -60,7 +60,7 @@ console.log('appPaths.log():', xdgAppPaths.log());
 console.log('appPaths.log(false):', xdgAppPaths.log(false));
 console.log('appPaths.log(true):', xdgAppPaths.log(true));
 
-delete process.env.XDG_CONFIG_HOME;
+process.env.XDG_CONFIG_HOME = void 0;
 // eslint-disable-next-line functional/no-let
 let p = xdgAppPaths('dross');
 

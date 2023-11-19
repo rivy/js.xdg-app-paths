@@ -26,11 +26,13 @@ test('CJS <=> ESM', (t) => {
 	t.is(typeof mCJS, typeof mESM);
 	t.is(Object.keys(mCJS).length, api.length);
 	t.is(Object.keys(mCJS).length, Object.keys(mESM).length);
-	api.forEach((key) => {
-		/* eslint-disable @typescript-eslint/no-explicit-any , security/detect-object-injection */
+	// avoid Array.prototype.forEach() to satisfy linter; also ref: [Avoid forEach()](https://aeflash.com/2014-11/avoid-foreach.html) @@ <https://archive.is/QcsDm>
+	api.reduce((_, key) => {
+		/* eslint-disable security/detect-object-injection */
 		t.is(typeof mCJS[key], 'function');
-		t.is(typeof mCJS[key], typeof (mESM as any)[key]);
-		t.deepEqual(mCJS[key](), (mESM as any)[key]());
-		/* eslint-enable @typescript-eslint/no-explicit-any , security/detect-object-injection */
-	});
+		t.is(typeof mCJS[key], typeof (mESM as unknown as { readonly [key: string]: unknown })[key]);
+		t.deepEqual(mCJS[key](), (mESM as typeof mCJS)[key]());
+		/* eslint-enable security/detect-object-injection */
+		return null;
+	}, null);
 });

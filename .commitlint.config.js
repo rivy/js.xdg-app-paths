@@ -6,9 +6,9 @@
 
 /* @prettier */ // note: (dprint) {.dprint.json}.prettier.associations should contain the name of this file
 
-const isNPMTestDist = !!process.env['npm_config_test_dist'];
-const isTestDist = !!process.env['test_dist'];
-const isTestRelease = !!process.env['test_release'];
+const isNPMTestDist = !!process.env.npm_config_test_dist;
+const isTestDist = !!process.env.test_dist;
+const isTestRelease = !!process.env.test_release;
 
 /** Relax linting rules/strictures (for development; *not* when submitting for distribution/release). */
 const relaxedReview = !(isNPMTestDist || isTestDist || isTestRelease);
