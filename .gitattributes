@@ -1,5 +1,9 @@
-# v2023.02.05 [rivy]
-# spell-checker:ignore (people) Roy Ivy III * rivy (words) deps EOLs MSVC
+# git attributes config file
+# v2023.11.21 [rivy]
+# spell-checker:ignore () deps EOLs globstar MSVC (people) Roy Ivy III * rivy
+
+# NOTE: Git GLOBSTAR syntax [see `git help gitignore`]
+# * ref: [.gitignore] http://git-scm.com/docs/gitignore @@ http://archive.is/Rk6rO
 
 # default; use LF EOLs for text files
 * text=auto eol=lf
@@ -9,6 +13,17 @@
 *.[cC][mM][dD]    text eol=crlf
 *.[sS][lL][nN]    text eol=crlf
 
-# binaries; force binary interpretation (for diff sanity and avoidance of CRLF/LF issues)
-# * `yarn` config files; ref: <https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored> @@ <https://archive.is/Sc1Ab>
-.yarn/**/*  binary
+# binaries; force binary interpretation (limits worthless wall-of-text diffs and avoids CRLF/LF conversion issues)
+# - note: use `git diff --text ...` or `git log --text ...` to override and show differences as text
+# * build/dist artifacts
+build/**/*        binary
+dist/**/*         binary
+# * dep locks (eg, `package-lock.json`, `yarn.lock`)
+.deps-lock/**/*   binary
+# * vendor
+vendor/**/*       binary
+# * `yarn` config files
+.yarn/**/*        binary
+
+## local-start
+## local-end
