@@ -150,6 +150,39 @@ if (!process.env.npm_config_test_dist) {
 		});
 	});
 
+	test("package 'files' all exist", (t) => {
+		const files_ = pkg.files;
+		t.log({ files: files_ });
+		files_.forEach((p) => {
+			const path_ = path.resolve(__dirname, packagePath, '..', p);
+			// eslint-disable-next-line security/detect-non-literal-fs-filename
+			const exists = fs.existsSync(path_);
+			if (!exists) {
+				t.log({ path_, exists });
+			}
+			t.true(exists);
+		});
+	});
+
+	test("package 'audit' has no warnings", (t) => {
+		// spell-checker:ignore () execpath
+		t.log({ version: pkg.version, exec: process.env.npm_execpath });
+		const exec = (() => {
+			// npm => `npm audit --omit=dev`
+			// yarn => `yarn audit --groups dependencies`
+			const runner = new String(process.env.npm_execpath);
+			if (runner.match(/yarn[^\\/]*[.][cm]?js$/)) return 'yarn audit --groups dependencies';
+			return 'npm audit --omit=dev';
+		})();
+
+		const result = require('child_process').spawnSync(exec, {
+			shell: true,
+			encoding: 'utf-8',
+		});
+		t.log({ stdout: result.stdout });
+		t.is(result.status, 0);
+	});
+
 	test('package version has matching Git/VCS version tag', (t) => {
 		t.log({ version: pkg.version });
 
