@@ -8,12 +8,15 @@ branches:
 
 environment:
   matrix:
-    - nodejs_version: '14'
-    - nodejs_version: '12'
-    - nodejs_version: '10'
-    # - nodejs_version: '8'
-    # - nodejs_version: '6'
-    # - nodejs_version: "4"
+    - nodejs_version: '20' ## life: 2023-04-18 [to 2026-04-30]
+    - nodejs_version: '18' ## life: 2022-04-19 [to 2025-04-30]
+    - nodejs_version: '16' ## life: 2021-04-20 to 2023-09-11
+    - nodejs_version: '14' ## life: 2020-04-21 to 2023-04-30
+    - nodejs_version: '12' ## life: 2019-04-23 to 2022-04-30
+    # - nodejs_version: '10' ## life: 2018-04-24 to 2021-04-30
+    # - nodejs_version: '8' ## life: 2017-05-20 to 2019-12-19
+    # - nodejs_version: '6' ## life: 2016-04-26 to 2019-04-30
+    # - nodejs_version: '4' ## life: 2015-09-09 to 2018-04-30
 
 # platform:
 #   - x86
