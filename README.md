@@ -115,9 +115,9 @@ import XDGAppPaths from 'xdg-app-paths';
 const xdgAppPaths = XDGAppPaths(options);
 
 // Deno
-import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.ts';
 // or ...
-import XDGAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
+import XDGAppPaths from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.ts';
 const xdgAppPaths = XDGAppPaths(options);
 ```
 
@@ -130,7 +130,7 @@ Upon construction, if not supplied with a specified name (via `Options.name`), `
 ```js
 import type { DirOptions, Options, XDGAppPaths } from 'xdg-app-paths'; // TypeScript
 //or...
-//import type { DirOptions, Options, XDGAppPaths } from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts'; // Deno
+//import type { DirOptions, Options, XDGAppPaths } from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.ts'; // Deno
 ```
 
 #### `XDGAppPaths`
@@ -350,7 +350,7 @@ As a consequence, TypeScript type definitions are automatically generated, bundl
 `XDGAppPaths` also fully supports use by Deno.
 
 ```js deno
-import xdgAppPaths from 'https://deno.land/x/xdg_app_paths/src/mod.deno.ts';
+import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.ts';
 console.log(xdgAppPaths.config());
 ```
 
