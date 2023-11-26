@@ -1,6 +1,6 @@
 name: CI
 
-# v2022-07-13 [rivy]
+# v2023-11-25 [rivy]
 # spell-checker:ignore (names) MacOS deps ; (people) Roy Ivy III * rivy
 
 on: [push]
@@ -13,12 +13,18 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        node-version: [10.x, 12.x, 14.x, 16.x, 18.x]
+        ## node-version: '20' ## life: 2023-04-18 [to 2026-04-30]
+        ## node-version: '18' ## life: 2022-04-19 [to 2025-04-30]
+        ## node-version: '16' ## life: 2021-04-20 to 2023-09-11
+        ## node-version: '14' ## life: 2020-04-21 to 2023-04-30
+        ## node-version: '12' ## life: 2019-04-23 to 2022-04-30
+        ## node-version: '10' ## life: 2018-04-24 to 2021-04-30
+        node-version: [12.x, 14.x, 16.x, 18.x, 20.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
