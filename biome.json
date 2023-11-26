@@ -24,7 +24,10 @@
 		"enabled": true,
 		"ignore": [".vscode", "node_modules", "vendor"],
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"complexity": {
+				"noForEach": "off"
+			}
 		}
 	},
 	"organizeImports": {
