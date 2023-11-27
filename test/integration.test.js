@@ -4,8 +4,6 @@
 
 // spell-checker:ignore (names) Deno ; (vars) ESM ESMs vNodeJSMajor vNodeJSminor ; (words) cyclomatic
 
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const util = require('util');

@@ -1,5 +1,4 @@
 /* eslint-env es6, node */
-'use strict';
 
 /* note: dynamic imports are used because 'dist' may not exist */
 
