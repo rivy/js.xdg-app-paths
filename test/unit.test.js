@@ -33,7 +33,7 @@ function xdgPathRegex(name) {
 			'(' +
 			// for windows, `name` may be embedded within the generated paths (instead of always trailing as in MacOS/*nix)
 			(isWinOS ? regexpEscape(path.sep) + '|' : '') +
-			'$)'
+			'$)',
 	);
 }
 
