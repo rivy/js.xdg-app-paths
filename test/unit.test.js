@@ -323,8 +323,8 @@ test('correct paths with only XDG_*_HOME set', (t) => {
 		data: 'XDG_DATA_HOME',
 		state: 'XDG_STATE_HOME',
 	};
-	delete process.env.XDG_CONFIG_DIRS;
-	delete process.env.XDG_DATA_DIRS;
+	process.env.XDG_CONFIG_DIRS = ''; // or `delete process.env.XDG_CONFIG_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
+	process.env.XDG_DATA_DIRS = ''; // or `delete process.env.XDG_DATA_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
 	Object.keys(envVars).forEach((key) => {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
@@ -384,8 +384,8 @@ test('correct "isolated" paths with only XDG_*_HOME set', (t) => {
 		data: 'XDG_DATA_HOME',
 		state: 'XDG_STATE_HOME',
 	};
-	delete process.env.XDG_CONFIG_DIRS;
-	delete process.env.XDG_DATA_DIRS;
+	process.env.XDG_CONFIG_DIRS = ''; // or `delete process.env.XDG_CONFIG_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
+	process.env.XDG_DATA_DIRS = ''; // or `delete process.env.XDG_DATA_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
 	for (const key of Object.keys(envVars)) {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
@@ -445,8 +445,8 @@ test('correct non-"isolated" paths with only XDG_*_HOME set', (t) => {
 		data: 'XDG_DATA_HOME',
 		state: 'XDG_STATE_HOME',
 	};
-	delete process.env.XDG_CONFIG_DIRS;
-	delete process.env.XDG_DATA_DIRS;
+	process.env.XDG_CONFIG_DIRS = ''; // or `delete process.env.XDG_CONFIG_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
+	process.env.XDG_DATA_DIRS = ''; // or `delete process.env.XDG_DATA_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
 	Object.keys(envVars).forEach((key) => {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
