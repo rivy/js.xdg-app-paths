@@ -25,13 +25,14 @@ function typeOf(value) {
 
 function xdgPathRegex(name) {
 	return new RegExp(
+		// biome-ignore lint/style/useTemplate: # better clarity with comment
 		'(^|' +
 			regexpEscape(path.sep) +
 			')' +
 			regexpEscape(name) +
 			'(' +
 			// for windows, `name` may be embedded within the generated paths (instead of always trailing as in MacOS/*nix)
-			(isWinOS ? regexpEscape(path.sep) + '|' : '') +
+			(isWinOS ? `${regexpEscape(path.sep)}|` : '') +
 			'$)',
 	);
 }
@@ -684,8 +685,7 @@ test('correct non-"isolated" paths with XDG_* set', (t) => {
 test('correctly derive anonymous (CJS)', (t) => {
 	const command = 'node';
 	process.env.TEST_MODULE_PATH = './build/lab/src/mod.cjs.js';
-	const script =
-		'"p = require(\'' + process.env.TEST_MODULE_PATH + '\'); console.log(p.$name({}));"';
+	const script = `"p = require('${process.env.TEST_MODULE_PATH}'); console.log(p.$name({}));"`;
 	const args = ['-e', isWinOS ? script : script.replace('$name', '\\$name')];
 	const options = { shell: true, encoding: 'utf-8' };
 
@@ -704,8 +704,7 @@ if (settledSupportForESMs) {
 	test('correctly derive anonymous (ESM/[import CJS])', (t) => {
 		const command = 'node';
 		process.env.TEST_MODULE_PATH = './build/lab/src/mod.cjs.js';
-		const script =
-			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
+		const script = `"import p from '${process.env.TEST_MODULE_PATH}'; console.log(p.$name({}));"`;
 		const args = [
 			'--input-type=module',
 			'-e',
@@ -727,8 +726,7 @@ if (settledSupportForESMs) {
 	test('correctly derive anonymous (ESM/[esm-wrapper])', (t) => {
 		const command = 'node';
 		process.env.TEST_MODULE_PATH = './build/lab/src/esm-wrapper/mod.esm.js';
-		const script =
-			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
+		const script = `"import p from '${process.env.TEST_MODULE_PATH}'; console.log(p.$name({}));"`;
 		const args = [
 			'--input-type=module',
 			'-e',
@@ -750,8 +748,7 @@ if (settledSupportForESMs) {
 	test('correctly derive anonymous (ESM)', (t) => {
 		const command = 'node';
 		process.env.TEST_MODULE_PATH = './build/esm/src/mod.esm.js';
-		const script =
-			'"import p from \'' + process.env.TEST_MODULE_PATH + '\'; console.log(p.$name({}));"';
+		const script = `"import p from '${process.env.TEST_MODULE_PATH}'; console.log(p.$name({}));"`;
 		const args = [
 			'--input-type=module',
 			'-e',
