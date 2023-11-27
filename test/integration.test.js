@@ -200,7 +200,7 @@ if (!process.env.npm_config_test_dist) {
 					if (error === null && status === 0) {
 						t.log(
 							util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
-							`(exit_status=${status})`
+							`(exit_status=${status})`,
 						);
 					} else {
 						t.log({ script, error, status, stdout, stderr });
@@ -235,7 +235,7 @@ if (!process.env.npm_config_test_dist) {
 					if (error === null && status === 0) {
 						t.log(
 							util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
-							`(exit_status=${status})`
+							`(exit_status=${status})`,
 						);
 					} else {
 						t.log({ script, error, status, stdout, stderr });
@@ -279,7 +279,7 @@ if (!process.env.npm_config_test_dist) {
 					if (error === null && status === 0) {
 						t.log(
 							util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
-							`(exit_status=${status})`
+							`(exit_status=${status})`,
 						);
 					} else {
 						t.log({ script, basename, name, extension, nameExtension });

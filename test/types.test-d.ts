@@ -10,7 +10,7 @@ expectType<typeof xdgAppPaths>(xdgAppPaths('MyApp'));
 expectType<typeof xdgAppPaths>(xdgAppPaths({ name: 'MyApp', suffix: '-nodejs', isolated: false }));
 expectType<typeof xdgAppPaths>(new xdgAppPaths('MyApp'));
 expectType<typeof xdgAppPaths>(
-	new xdgAppPaths({ name: 'MyApp', suffix: '-nodejs', isolated: false })
+	new xdgAppPaths({ name: 'MyApp', suffix: '-nodejs', isolated: false }),
 );
 
 const paths = xdgAppPaths('MyApp');
