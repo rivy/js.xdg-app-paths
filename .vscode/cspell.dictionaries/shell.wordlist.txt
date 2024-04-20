@@ -54,7 +54,9 @@ notdir
 patsubst
 
 # * `npm`
+chokidar
 corepack
+fsevents
 preversion
 
 # * `prettier`
