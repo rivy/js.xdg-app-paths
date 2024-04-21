@@ -65,10 +65,10 @@ test('api', (t) => {
 
 	t.is(typeof mod, 'function');
 	t.deepEqual(Object.keys(mod).sort(), api.sort());
-	api.forEach((key) => {
+	for (const key of api) {
 		// eslint-disable-next-line security/detect-object-injection
 		t.is(typeof mod[key], 'function');
-	});
+	}
 });
 
 // ensure *no-panic* static load for Deno
@@ -105,29 +105,26 @@ test('correctly derive script name (JavaScript)', (t) => {
 	const extensions = ['.js', '.cjs', '.mjs'];
 
 	const files = fs.readdirSync(fixtureDirPath);
+	for (const file of files.filter((file) => {
+		return extensions.includes(path.extname(file));
+	})) {
+		if (settledSupportForESMs || path.extname(file) === '.js') {
+			const command = 'node';
+			const script = path.join(fixtureDirPath, file);
+			const args = [script];
+			const options = { shell: true, encoding: 'utf-8' };
 
-	files
-		.filter((file) => {
-			return extensions.includes(path.extname(file));
-		})
-		.forEach((file) => {
-			if (settledSupportForESMs || path.extname(file) === '.js') {
-				const command = 'node';
-				const script = path.join(fixtureDirPath, file);
-				const args = [script];
-				const options = { shell: true, encoding: 'utf-8' };
+			t.log({ script });
 
-				t.log({ script });
+			const { error, status, stdout, stderr } = spawn.sync(command, args, options);
 
-				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+			t.log({ error, status, stdout, stderr });
 
-				t.log({ error, status, stdout, stderr });
+			t.deepEqual({ error, status }, { error: null, status: 0 });
 
-				t.deepEqual({ error, status }, { error: null, status: 0 });
-
-				t.is(stdout.toString().trim(), path.parse(script).name);
-			}
-		});
+			t.is(stdout.toString().trim(), path.parse(script).name);
+		}
+	}
 });
 
 test('correctly derive script name (TypeScript)', (t) => {
@@ -136,32 +133,30 @@ test('correctly derive script name (TypeScript)', (t) => {
 
 	const files = fs.readdirSync(fixtureDirPath);
 
-	files
-		.filter((file) => {
-			const extension = path.extname(file);
-			const name = path.basename(file, extension);
-			const nameExtension = path.extname(name);
-			const isDenoTS = extension === '.ts' && nameExtension === '.deno';
-			return extensions.includes(extension) && !isDenoTS;
-		})
-		.forEach((file) => {
-			if (settledSupportForESMs || path.extname(file) === '.js' || path.extname(file) === '.ts') {
-				const command = 'node';
-				const script = path.join(fixtureDirPath, file);
-				const args = ['node_modules/ts-node/dist/bin.js', script];
-				const options = { shell: true, encoding: 'utf8' };
+	for (const file of files.filter((file) => {
+		const extension = path.extname(file);
+		const name = path.basename(file, extension);
+		const nameExtension = path.extname(name);
+		const isDenoTS = extension === '.ts' && nameExtension === '.deno';
+		return extensions.includes(extension) && !isDenoTS;
+	})) {
+		if (settledSupportForESMs || path.extname(file) === '.js' || path.extname(file) === '.ts') {
+			const command = 'node';
+			const script = path.join(fixtureDirPath, file);
+			const args = ['node_modules/ts-node/dist/bin.js', script];
+			const options = { shell: true, encoding: 'utf8' };
 
-				t.log({ script });
+			t.log({ script });
 
-				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+			const { error, status, stdout, stderr } = spawn.sync(command, args, options);
 
-				t.log({ error, status, stdout, stderr });
+			t.log({ error, status, stdout, stderr });
 
-				t.deepEqual({ error, status }, { error: null, status: 0 });
+			t.deepEqual({ error, status }, { error: null, status: 0 });
 
-				t.is(stdout.toString().trim(), path.parse(script).name);
-			}
-		});
+			t.is(stdout.toString().trim(), path.parse(script).name);
+		}
+	}
 });
 
 // test examples when using `--test-dist` (ie, with version changes or prior to distribution)
@@ -183,29 +178,27 @@ if (!process.env.npm_config_test_dist) {
 
 			const files = fs.readdirSync(egDirPath);
 
-			files
-				.filter((file) => {
-					return extensionRxs.find((re) => path.basename(file).match(re));
-				})
-				.forEach((file) => {
-					const command = 'deno';
-					const script = path.join(egDirPath, file);
-					const args = ['run', '--allow-all', script];
-					const options = { shell: true, encoding: 'utf-8' };
+			for (const file of files.filter((file) => {
+				return extensionRxs.find((re) => path.basename(file).match(re));
+			})) {
+				const command = 'deno';
+				const script = path.join(egDirPath, file);
+				const args = ['run', '--allow-all', script];
+				const options = { shell: true, encoding: 'utf-8' };
 
-					const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
 
-					if (error === null && status === 0) {
-						t.log(
-							util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
-							`(exit_status=${status})`,
-						);
-					} else {
-						t.log({ script, error, status, stdout, stderr });
-					}
+				if (error === null && status === 0) {
+					t.log(
+						util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
+						`(exit_status=${status})`,
+					);
+				} else {
+					t.log({ script, error, status, stdout, stderr });
+				}
 
-					t.deepEqual({ error, status }, { error: null, status: 0 });
-				});
+				t.deepEqual({ error, status }, { error: null, status: 0 });
+			}
 		});
 	}
 
@@ -217,31 +210,29 @@ if (!process.env.npm_config_test_dist) {
 
 		const files = fs.readdirSync(egDirPath);
 
-		files
-			.filter((file) => {
-				return extensions.includes(path.extname(file));
-			})
-			.forEach((file) => {
-				if (settledSupportForESMs || path.extname(file) === '.js') {
-					const command = 'node';
-					const script = path.join(egDirPath, file);
-					const args = [script];
-					const options = { shell: true, encoding: 'utf-8' };
+		for (const file of files.filter((file) => {
+			return extensions.includes(path.extname(file));
+		})) {
+			if (settledSupportForESMs || path.extname(file) === '.js') {
+				const command = 'node';
+				const script = path.join(egDirPath, file);
+				const args = [script];
+				const options = { shell: true, encoding: 'utf-8' };
 
-					const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
 
-					if (error === null && status === 0) {
-						t.log(
-							util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
-							`(exit_status=${status})`,
-						);
-					} else {
-						t.log({ script, error, status, stdout, stderr });
-					}
-
-					t.deepEqual({ error, status }, { error: null, status: 0 });
+				if (error === null && status === 0) {
+					t.log(
+						util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
+						`(exit_status=${status})`,
+					);
+				} else {
+					t.log({ script, error, status, stdout, stderr });
 				}
-			});
+
+				t.deepEqual({ error, status }, { error: null, status: 0 });
+			}
+		}
 	});
 
 	test('examples are executable without error (TypeScript)', (t) => {
@@ -252,40 +243,38 @@ if (!process.env.npm_config_test_dist) {
 
 		const files = fs.readdirSync(egDirPath);
 
-		files
-			.filter((file) => {
+		for (const file of files.filter((file) => {
+			const extension = path.extname(file);
+			const name = path.basename(file, extension);
+			const nameExtension = path.extname(name);
+			const isDenoTS = extension === '.ts' && nameExtension === '.deno';
+			return extensions.includes(extension) && !isDenoTS;
+		})) {
+			if (settledSupportForESMs || path.extname(file) === '.js' || path.extname(file) === '.ts') {
+				const command = 'node';
+				const script = path.join(egDirPath, file);
+				const args = ['node_modules/ts-node/dist/bin.js', script];
+				const options = { shell: true, encoding: 'utf8' };
+
+				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+
+				const basename = path.basename(file);
 				const extension = path.extname(file);
 				const name = path.basename(file, extension);
 				const nameExtension = path.extname(name);
-				const isDenoTS = extension === '.ts' && nameExtension === '.deno';
-				return extensions.includes(extension) && !isDenoTS;
-			})
-			.forEach((file) => {
-				if (settledSupportForESMs || path.extname(file) === '.js' || path.extname(file) === '.ts') {
-					const command = 'node';
-					const script = path.join(egDirPath, file);
-					const args = ['node_modules/ts-node/dist/bin.js', script];
-					const options = { shell: true, encoding: 'utf8' };
 
-					const { error, status, stdout, stderr } = spawn.sync(command, args, options);
-
-					const basename = path.basename(file);
-					const extension = path.extname(file);
-					const name = path.basename(file, extension);
-					const nameExtension = path.extname(name);
-
-					if (error === null && status === 0) {
-						t.log(
-							util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
-							`(exit_status=${status})`,
-						);
-					} else {
-						t.log({ script, basename, name, extension, nameExtension });
-						t.log({ script, error, status, stdout, stderr });
-					}
-
-					t.deepEqual({ error, status }, { error: null, status: 0 });
+				if (error === null && status === 0) {
+					t.log(
+						util.inspect(script, /* showHidden */ void 0, /* depth */ void 0, /* color */ true),
+						`(exit_status=${status})`,
+					);
+				} else {
+					t.log({ script, basename, name, extension, nameExtension });
+					t.log({ script, error, status, stdout, stderr });
 				}
-			});
+
+				t.deepEqual({ error, status }, { error: null, status: 0 });
+			}
+		}
 	});
 }

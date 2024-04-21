@@ -39,10 +39,10 @@ function isObject(obj) {
 function flattenToValues(obj) {
 	const values = [];
 	if (isObject(obj) || Array.isArray(obj)) {
-		Object.keys(obj).forEach((key) => {
+		for (const key of Object.keys(obj)) {
 			// eslint-disable-next-line security/detect-object-injection
 			values.push(...flattenToValues(obj[key]));
-		});
+		}
 	} else values.push(obj);
 	return values;
 }
@@ -65,13 +65,13 @@ if (!process.env.npm_config_test_dist) {
 			t.is(typeof mCJS, typeof mESM);
 			t.is(Object.keys(mCJS).length, packageAPI.length);
 			t.is(Object.keys(mCJS).length, Object.keys(mESM).length);
-			packageAPI.forEach((key) => {
+			for (const key of packageAPI) {
 				/* eslint-disable security/detect-object-injection */
 				t.is(typeof mCJS[key], 'function');
 				t.is(typeof mCJS[key], typeof mESM[key]);
 				t.deepEqual(mCJS[key](), mESM[key]());
 				/* eslint-enable security/detect-object-injection */
-			});
+			}
 		});
 	}
 
@@ -111,7 +111,7 @@ if (!process.env.npm_config_test_dist) {
 		const exports_ = pkg.exports;
 		const paths = flattenToValues(exports_);
 		t.log({ exportsPaths: paths });
-		paths.forEach((p) => {
+		for (const p of paths) {
 			const path_ = path.resolve(__dirname, packagePath, '..', p);
 			// eslint-disable-next-line security/detect-non-literal-fs-filename
 			const exists = fs.existsSync(path_);
@@ -119,7 +119,7 @@ if (!process.env.npm_config_test_dist) {
 				t.log({ path_, exists });
 			}
 			t.true(exists);
-		});
+		}
 	});
 
 	test("package 'exports' sub-paths support older tools", (t) => {
@@ -129,7 +129,7 @@ if (!process.env.npm_config_test_dist) {
 		const subPaths = Object.keys(exports_);
 		t.log({ subPaths });
 		// test for sub-path file/directory existence
-		subPaths.forEach((p) => {
+		for (const p of subPaths) {
 			const path_ = path.resolve(__dirname, packagePath, '..', p);
 			// eslint-disable-next-line security/detect-non-literal-fs-filename
 			const exists = fs.existsSync(path_);
@@ -137,22 +137,22 @@ if (!process.env.npm_config_test_dist) {
 				t.log({ exists, path_ });
 			}
 			t.true(exists);
-		});
+		}
 		const files = pkg.files;
 		// test that sub-path file/directory is included in 'files'
-		subPaths.forEach((p) => {
+		for (const p of subPaths) {
 			const included = p === '.' || files.includes(p.replace(/^.\//, ''));
 			if (!included) {
 				t.log({ included, p, files });
 			}
 			t.true(included);
-		});
+		}
 	});
 
 	test("package 'files' all exist", (t) => {
 		const files_ = pkg.files;
 		t.log({ files: files_ });
-		files_.forEach((p) => {
+		for (const p of files_) {
 			const path_ = path.resolve(__dirname, packagePath, '..', p);
 			// eslint-disable-next-line security/detect-non-literal-fs-filename
 			const exists = fs.existsSync(path_);
@@ -160,7 +160,7 @@ if (!process.env.npm_config_test_dist) {
 				t.log({ path_, exists });
 			}
 			t.true(exists);
-		});
+		}
 	});
 
 	test("package 'audit' has no warnings", (t) => {

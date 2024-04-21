@@ -58,11 +58,11 @@ test('default', (t) => {
 
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -72,8 +72,8 @@ test('default', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('alternate constructor (via function())', (t) => {
@@ -83,11 +83,11 @@ test('alternate constructor (via function())', (t) => {
 
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -97,8 +97,8 @@ test('alternate constructor (via function())', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('alternate constructor (via function(...))', (t) => {
@@ -110,11 +110,11 @@ test('alternate constructor (via function(...))', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -124,8 +124,8 @@ test('alternate constructor (via function(...))', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('alternate constructor (via new())', (t) => {
@@ -135,11 +135,11 @@ test('alternate constructor (via new())', (t) => {
 
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -149,8 +149,8 @@ test('alternate constructor (via new())', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('alternate constructor (via new(...))', (t) => {
@@ -162,11 +162,11 @@ test('alternate constructor (via new(...))', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -176,8 +176,8 @@ test('alternate constructor (via new(...))', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('construct without require.main.filename', (t) => {
@@ -194,11 +194,11 @@ test('construct without require.main.filename', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -208,8 +208,8 @@ test('construct without require.main.filename', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 
 	require.main.filename = null;
 
@@ -218,20 +218,22 @@ test('construct without require.main.filename', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
+				t.deepEqual(value(), value({}));
+				t.deepEqual(value(), value({ isolated: null }));
 				t.deepEqual(value(), value(isolated));
 				t.deepEqual(value(), value({ isolated }));
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 
 	require.main.filename = priorRequireMainFilename;
 });
@@ -245,11 +247,11 @@ test('chosen application name', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -259,8 +261,8 @@ test('chosen application name', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('chosen suffix', (t) => {
@@ -271,11 +273,11 @@ test('chosen suffix', (t) => {
 
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -285,8 +287,8 @@ test('chosen suffix', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('chosen application name + suffix', (t) => {
@@ -299,11 +301,11 @@ test('chosen application name + suffix', (t) => {
 	t.is(paths.$name(), name + suffix);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -313,8 +315,8 @@ test('chosen application name + suffix', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 });
 
 test('correct paths with only XDG_*_HOME set', (t) => {
@@ -326,10 +328,10 @@ test('correct paths with only XDG_*_HOME set', (t) => {
 	};
 	process.env.XDG_CONFIG_DIRS = ''; // or `delete process.env.XDG_CONFIG_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
 	process.env.XDG_DATA_DIRS = ''; // or `delete process.env.XDG_DATA_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
-	Object.keys(envVars).forEach((key) => {
+	for (const key of Object.keys(envVars)) {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
-	});
+	}
 
 	const isolated = true;
 	const name = 'excalibur';
@@ -339,11 +341,11 @@ test('correct paths with only XDG_*_HOME set', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -353,13 +355,13 @@ test('correct paths with only XDG_*_HOME set', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 
-	Object.keys(envVars).forEach((env) => {
+	for (const env of Object.keys(envVars)) {
 		const expectedPath = path.join(process.env[envVars[env]], name);
 		t.is(paths[env](), expectedPath);
-	});
+	}
 
 	const configDirs = paths.configDirs();
 	t.is(configDirs.length, 1);
@@ -400,11 +402,11 @@ test('correct "isolated" paths with only XDG_*_HOME set', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -414,13 +416,13 @@ test('correct "isolated" paths with only XDG_*_HOME set', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 
-	Object.keys(envVars).forEach((env) => {
+	for (const env of Object.keys(envVars)) {
 		const expectedPath = path.join(process.env[envVars[env]], name);
 		t.is(paths[env](), expectedPath);
-	});
+	}
 
 	const configDirs = paths.configDirs();
 	t.is(configDirs.length, 1);
@@ -448,27 +450,27 @@ test('correct non-"isolated" paths with only XDG_*_HOME set', (t) => {
 	};
 	process.env.XDG_CONFIG_DIRS = ''; // or `delete process.env.XDG_CONFIG_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
 	process.env.XDG_DATA_DIRS = ''; // or `delete process.env.XDG_DATA_DIRS` ## note: `process.env.X = void 0` sets X to the *string* value *'undefined'*
-	Object.keys(envVars).forEach((key) => {
+	for (const key of Object.keys(envVars)) {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
-	});
+	}
 
 	const name = 'gremlins';
 	const isolated = false;
 	const paths = module_({ name, isolated });
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		t.log(key, ':', value());
-	});
+	}
 
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(envVars).forEach((env) => {
+	for (const env of Object.keys(envVars)) {
 		const expectedPath = process.env[envVars[env]];
 		t.is(paths[env](), expectedPath);
-	});
+	}
 
 	const configDirs = paths.configDirs();
 	t.is(configDirs.length, 1);
@@ -497,10 +499,10 @@ test('correct paths with XDG_* set', (t) => {
 		configDirs: 'XDG_CONFIG_DIRS',
 		dataDirs: 'XDG_DATA_DIRS',
 	};
-	Object.keys(envVars).forEach((key) => {
+	for (const key of Object.keys(envVars)) {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
-	});
+	}
 
 	const isolated = true;
 	const name = 'howling';
@@ -510,12 +512,12 @@ test('correct paths with XDG_* set', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
-			if (!key.match(/^(\$.*)$/) && isDefined(v)) {
+		for (const v of values) {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
 				t.deepEqual(value(), value({ isolated: null }));
@@ -524,8 +526,8 @@ test('correct paths with XDG_* set', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 
 	const configDirs = paths.configDirs();
 	t.is(configDirs.length, 2);
@@ -564,10 +566,10 @@ test('correct "isolated" paths with XDG_* set', (t) => {
 		configDirs: 'XDG_CONFIG_DIRS',
 		dataDirs: 'XDG_DATA_DIRS',
 	};
-	Object.keys(envVars).forEach((key) => {
+	for (const key of Object.keys(envVars)) {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
-	});
+	}
 
 	const name = 'ignoble';
 	const isolated = true;
@@ -577,12 +579,12 @@ test('correct "isolated" paths with XDG_* set', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
-			if (!key.match(/^(\$.*)$/) && isDefined(v)) {
+		for (const v of values) {
+			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
 				t.deepEqual(value(), value({ isolated: null }));
@@ -591,8 +593,8 @@ test('correct "isolated" paths with XDG_* set', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 
 	const configDirs = paths.configDirs();
 	t.is(configDirs.length, 2);
@@ -631,10 +633,10 @@ test('correct non-"isolated" paths with XDG_* set', (t) => {
 		configDirs: 'XDG_CONFIG_DIRS',
 		dataDirs: 'XDG_DATA_DIRS',
 	};
-	Object.keys(envVars).forEach((key) => {
+	for (const key of Object.keys(envVars)) {
 		const env = envVars[key];
 		process.env[env] = path.join('.', env);
-	});
+	}
 
 	const name = 'jackals';
 	const isolated = false;
@@ -643,17 +645,17 @@ test('correct non-"isolated" paths with XDG_* set', (t) => {
 	t.is(paths.$name(), name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		t.log(key, ':', value());
-	});
+	}
 
-	Object.keys(envVars).forEach((env) => {
+	for (const env of Object.keys(envVars)) {
 		const expectedPath = process.env[envVars[env]];
 		if (!env.endsWith('Dirs')) {
 			t.is(paths[env](), expectedPath);
 		}
-	});
+	}
 
 	const configDirs = paths.configDirs();
 	t.is(configDirs.length, 2);
@@ -780,11 +782,11 @@ test('construct with "pkg" packaged application', (t) => {
 	t.is(paths.$name(), path.parse(process.execPath).name);
 	t.is(paths.$isolated(), isolated);
 
-	Object.keys(paths).forEach((key) => {
+	for (const key of Object.keys(paths)) {
 		const value = paths[key];
 		const values = [].concat(value()); // convert value (single value or array) to a flat array
 		t.log(key, ':', value());
-		values.forEach((v) => {
+		for (const v of values) {
 			if (!key.match(/^((\$.*)|runtime)$/) && isDefined(v)) {
 				t.regex(v, regex, `${key}:${v}`);
 				t.deepEqual(value(), value({}));
@@ -794,8 +796,8 @@ test('construct with "pkg" packaged application', (t) => {
 				t.notDeepEqual(value(), value(!isolated));
 				t.notDeepEqual(value(), value({ isolated: !isolated }));
 			}
-		});
-	});
+		}
+	}
 
 	process.pkg = priorProcessPkg;
 });
