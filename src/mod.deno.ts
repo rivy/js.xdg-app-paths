@@ -6,7 +6,7 @@
 import { Adapt } from '../dist/esm/lib/XDGAppPaths.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { DirOptions, Options, XDGAppPaths } from '../dist/types/mod.d.ts';
+import type { DirOptions, Options, XDGAppPaths } from '../dist/types/mod.d.ts';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
