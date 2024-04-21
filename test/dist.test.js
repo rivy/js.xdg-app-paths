@@ -52,12 +52,12 @@ if (!process.env.npm_config_test_dist) {
 } else {
 	const testID$CJStoESM = 'CJS/ESM equivalence';
 	if (vNodeJSMajor < 12) {
-		test.skip(testID$CJStoESM + ' (requires Node-v12+)', () => void 0);
+		test.skip(`${testID$CJStoESM} (requires Node-v12+)`, () => void 0);
 	} else {
 		test(testID$CJStoESM, async (t) => {
 			// eslint-disable-next-line security/detect-non-literal-require , security-node/detect-non-literal-require-calls
 			const mCJS = require(packageCJSPath);
-			const mESM = (await import('file://' + packageESMPath)).default;
+			const mESM = (await import(`file://${packageESMPath}`)).default;
 
 			t.deepEqual(mCJS, mESM);
 
@@ -185,7 +185,7 @@ if (!process.env.npm_config_test_dist) {
 	test('package version has matching Git/VCS version tag', (t) => {
 		t.log({ version: pkg.version });
 
-		const result = require('child_process').spawnSync('git rev-list refs/tags/v' + pkg.version, {
+		const result = require('child_process').spawnSync(`git rev-list refs/tags/v${pkg.version}`, {
 			shell: true,
 			encoding: 'utf-8',
 		});
