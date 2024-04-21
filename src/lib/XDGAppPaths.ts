@@ -1,5 +1,5 @@
 // deno-fmt-ignore-file ## prefer customized `prettier` formatting
-// # spell-checker:ignore APPDATA LOCALAPPDATA MacOS tempdir
+// # spell-checker:ignore APPDATA LOCALAPPDATA MacOS tempdir (biome) Instantiator
 /* eslint-env es6, node */
 // 'use strict';
 
@@ -40,7 +40,7 @@ interface XDGAppPaths {
 	(options?: Options | string): XDGAppPaths;
 
 	/** Create an `XDGAppPaths` object (`new` is optional). */
-	// eslint-disable-next-line @typescript-eslint/no-misused-new
+	// biome-ignore lint/suspicious/noMisleadingInstantiator : ## eslint-disable-next-line @typescript-eslint/no-misused-new
 	new (options?: Options | string): XDGAppPaths;
 
 	/* eslint-disable functional/no-method-signature */
