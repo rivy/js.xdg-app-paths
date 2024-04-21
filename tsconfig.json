@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"incremental": false,
-		"target": "es3",
+		"target": "ES5",
 		"outDir": "build/cjs",
 		// "rootDir": "src", // interferes with `tsd`; see <https://github.com/SamVerschueren/tsd/issues/80> ; disabling builds exactly the same files/structure except placing *.tsbuildinfo files into the respective subdirectories
 		"moduleResolution": "node",
