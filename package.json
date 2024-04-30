@@ -177,6 +177,10 @@
 		"_:version:update:changelog": "run-s --silent _:exists:git-changelog && node -e \"v=require('./package.json').version; result=require('child_process').spawnSync('git changelog --next-tag-now --next-tag v'+v,{shell:true,encoding:'utf-8'}); if (result.status != 0) {console.error('ERR! '+result.stderr); process.exit(1);} else {m='fs';require(m).writeFileSync('CHANGELOG.mkd',result.stdout);};\" || shx echo \"[version] WARN CHANGELOG not updated\" 1>&2",
 		"## npm lifecycle scripts ##": "",
 		"prepublishOnly": "run-s clean update && cross-env npm_config_test_dist=true npm run test && run-s --silent update _:vcs-strictly-clean-err",
+		"postinstall": "run-s postinstall:tools:codecov postinstall:tools:coreutils postinstall:tools:upx",
+		"postinstall:tools:codecov": "shx mkdir -p .tool-cache && exec-if-updated --target .tool-cache/codecov-cli.exe --source package.json \"curl -#L https://github.com/codecov/codecov-cli/releases/download/v0.5.2/codecovcli_windows.exe > .tool-cache/codecov-cli.exe\"",
+		"postinstall:tools:coreutils": "shx mkdir -p .tool-cache/.dl && exec-if-updated --target .tool-cache/coreutils.exe --source package.json \"curl -#L https://github.com/uutils/coreutils/releases/download/0.0.23/coreutils-0.0.23-x86_64-pc-windows-gnu.zip > .tool-cache/.dl/coreutils.zip && cross-unzip .tool-cache/.dl/coreutils.zip .tool-cache/.dl && shx cp .tool-cache/.dl/coreutils-0.0.23-x86_64-pc-windows-gnu/coreutils.exe .tool-cache/coreutils.exe\"",
+		"postinstall:tools:upx": "shx mkdir -p .tool-cache/.dl && exec-if-updated --target .tool-cache/upx.exe --source package.json \"curl -#L https://github.com/upx/upx/releases/download/v3.96/upx-3.96-win64.zip > .tool-cache/.dl/upx.zip && cross-unzip .tool-cache/.dl/upx.zip .tool-cache/.dl && shx cp .tool-cache/.dl/upx-3.96-win64/upx.exe .tool-cache/upx.exe\"",
 		"## npm-version scripts ##": "",
 		"preversion": "run-s --silent _:version:spell:changelog_update && cross-env npm_config_test_dist=true npm run test",
 		"version": "run-s --silent _:version:update:changelog && run-s lint:spell && run-s --silent update:dist && git add CHANGELOG.mkd dist"
@@ -199,6 +203,7 @@
 		"command-exists": "^1.2.9",
 		"cross-env": "^7.0.3",
 		"cross-spawn": "^7.0.3",
+		"cross-zip-cli": "^1.0.0",
 		"cspell": "^4.2.7",
 		"editorconfig-checker": "^3.3.0",
 		"eol-converter-cli": "^1.0.8",
