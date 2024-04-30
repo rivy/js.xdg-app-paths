@@ -40,7 +40,8 @@ interface XDGAppPaths {
 	(options?: Options | string): XDGAppPaths;
 
 	/** Create an `XDGAppPaths` object (`new` is optional). */
-	// biome-ignore lint/suspicious/noMisleadingInstantiator : ## eslint-disable-next-line @typescript-eslint/no-misused-new
+	// biome-ignore lint/suspicious/noMisleadingInstantiator
+	// eslint-disable-next-line @typescript-eslint/no-misused-new
 	new (options?: Options | string): XDGAppPaths;
 
 	/* eslint-disable functional/no-method-signature */

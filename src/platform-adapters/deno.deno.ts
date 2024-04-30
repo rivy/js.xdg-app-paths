@@ -19,8 +19,10 @@ const deno = Deno;
 
 // Deno general permission(s) at time of import
 // * Deno.Permissions (stabilized in v1.8.0)
+// @ts-ignore
 const queryEnv = await deno?.permissions?.query({ name: 'env' });
 const allowEnv = (queryEnv?.state ?? 'granted') === 'granted';
+// @ts-ignore
 const queryRead = await deno?.permissions?.query({ name: 'read' });
 const allowRead = (queryRead?.state ?? 'granted') === 'granted';
 
