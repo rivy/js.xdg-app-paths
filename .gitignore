@@ -1,57 +1,63 @@
 # git ignore config file
-# v2023-11-21 [rivy]
-# spell-checker:ignore () yarnrc (jargon) globstar (names) dlang (people) Roy Ivy III * rivy
+# v2024-04-30 [rivy]
+# spell-checker:ignore () yarnrc (jargon) globstar (names) deno dlang (people) Roy Ivy III * rivy
 
 # NOTE: Git GLOBSTAR syntax [see `git help gitignore`]
 # * ref: [.gitignore] http://git-scm.com/docs/gitignore @@ http://archive.is/Rk6rO
 # * ref: [Generate a 'gitignore'](https://gitignore.io) ; eg, <https://gitignore.io/api/node>
 
 # build/dist artifacts
-build
-[._@#$]build
-dist
-target
+/build
+/[._@#$]build
+/dist
+/target
 # note: `git add --force dist && git commit -m 'change: add updated dist artifacts'` will still add any desired distribution artifacts
 # note: `git status --ignored -- build dist target` will still show changes (for release testing)
+# * project cache directories
+/.*-cache
+/zig-cache
 
 # coverage data
-coverage
-[._@#$]coverage
-.nyc_output
+/coverage
+/[._@#$]coverage
+/.nyc_output
 
 # D (dlang)
 # * dub
-.dub
-# note: 'dub.selections.json' is a generated file, useful to applications (for reproducible builds) but not generally for libraries; use `git add --froce ...` if needed
-dub.selections.json
+/.dub
+# note: 'dub.selections.json' is a generated file, useful to applications (for reproducible builds) but not generally for libraries; use `git add --force ...` if needed
+/dub.selections.json
+
+# Deno
+/deno.lock
 
 # JS/TS
 # * ignore JS import/package-related files
-node_modules
-package-lock.json
-yarn.lock
+/node_modules
+/package-lock.json
+/yarn.lock
 # * allow packaging of lock files into '.deps-lock'
-!.deps-lock/package-lock.json
-!.deps-lock/yarn.lock
+!/.deps-lock/package-lock.json
+!/.deps-lock/yarn.lock
 # * ignore `yarn`-related files (allows use of "modern" v2+ `yarn`)
 # - ref: <https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored> @@ <https://archive.is/Sc1Ab>
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+/.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+!/.yarn/versions
 # * use `.yarnrc.yml` for `yarn` config
-.yarnrc
+/.yarnrc
 
 # VSCode
 # * ignore local-only VSCode artifacts
 # - logs/settings
-.vscode/c_cpp_properties.json
-.vscode/makefile.extension.output
+/.vscode/c_cpp_properties.json
+/.vscode/makefile.extension.output
 # - precompiled headers for IntelliSense ## spell-checker:ignore ipch
-.vscode/ipch/
+/.vscode/ipch/
 
 ## local-start
 ## local-end
