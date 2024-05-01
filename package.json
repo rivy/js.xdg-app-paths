@@ -176,10 +176,19 @@
 		"_:version:update:changelog": "run-s --silent _:exists:git-changelog && node -e \"v=require('./package.json').version; result=require('child_process').spawnSync('git changelog --next-tag-now --next-tag v'+v,{shell:true,encoding:'utf-8'}); if (result.status != 0) {console.error('ERR! '+result.stderr); process.exit(1);} else {m='fs';require(m).writeFileSync('CHANGELOG.mkd',result.stdout);};\" || shx echo \"[version] WARN CHANGELOG not updated\" 1>&2",
 		"## npm lifecycle scripts ##": "",
 		"prepublishOnly": "run-s clean update && cross-env npm_config_test_dist=true npm run test && run-s --silent update _:vcs-strictly-clean-err",
-		"postinstall": "run-s postinstall:tools:codecov postinstall:tools:coreutils postinstall:tools:upx",
-		"postinstall:tools:codecov": "shx mkdir -p .tool-cache && exec-if-updated --target .tool-cache/codecov-cli.exe --source package.json \"curl -#L https://github.com/codecov/codecov-cli/releases/download/v0.5.2/codecovcli_windows.exe > .tool-cache/codecov-cli.exe\"",
-		"postinstall:tools:coreutils": "shx mkdir -p .tool-cache/.dl && exec-if-updated --target .tool-cache/coreutils.exe --source package.json \"curl -#L https://github.com/uutils/coreutils/releases/download/0.0.23/coreutils-0.0.23-x86_64-pc-windows-gnu.zip > .tool-cache/.dl/coreutils.zip && cross-unzip .tool-cache/.dl/coreutils.zip .tool-cache/.dl && shx cp .tool-cache/.dl/coreutils-0.0.23-x86_64-pc-windows-gnu/coreutils.exe .tool-cache/coreutils.exe\"",
-		"postinstall:tools:upx": "shx mkdir -p .tool-cache/.dl && exec-if-updated --target .tool-cache/upx.exe --source package.json \"curl -#L https://github.com/upx/upx/releases/download/v3.96/upx-3.96-win64.zip > .tool-cache/.dl/upx.zip && cross-unzip .tool-cache/.dl/upx.zip .tool-cache/.dl && shx cp .tool-cache/.dl/upx-3.96-win64/upx.exe .tool-cache/upx.exe\"",
+		"postinstall": "run-p --silent postinstall:tools:codecov postinstall:tools:coreutils postinstall:tools:curl postinstall:tools:upx",
+		"postinstall:tools:codecov": "run-p --silent postinstall:tools:codecov:nix postinstall:tools:codecov:win",
+		"postinstall:tools:coreutils": "run-p --silent postinstall:tools:coreutils:nix postinstall:tools:coreutils:win",
+		"postinstall:tools:curl": "run-p --silent postinstall:tools:curl:nix postinstall:tools:curl:win",
+		"postinstall:tools:upx": "run-p --silent postinstall:tools:upx:nix postinstall:tools:upx:win",
+		"postinstall:tools:codecov:nix": "exec-if-updated --target .tool-cache/codecov --source package.json \"npx download --out .tool-cache --filename codecov https://cli.codecov.io/v0.5.2/linux/codecov \"",
+		"postinstall:tools:codecov:win": "exec-if-updated --target .tool-cache/codecov.exe --source package.json \"npx download --out .tool-cache --filename codecov.exe https://github.com/codecov/codecov-cli/releases/download/v0.5.2/codecovcli_windows.exe \"",
+		"postinstall:tools:coreutils:nix": "exec-if-updated --target .tool-cache/coreutils --source package.json \"npx download --extract --strip 1 --out .tool-cache/.dl/coreutils.nix https://github.com/uutils/coreutils/releases/download/0.0.26/coreutils-0.0.26-i686-unknown-linux-musl.tar.gz && shx cp .tool-cache/.dl/coreutils.nix/coreutils .tool-cache/ \"",
+		"postinstall:tools:coreutils:win": "exec-if-updated --target .tool-cache/coreutils.exe --source package.json \"npx download --extract --strip 1 --out .tool-cache/.dl/coreutils.win https://github.com/uutils/coreutils/releases/download/0.0.23/coreutils-0.0.23-x86_64-pc-windows-gnu.zip && shx cp .tool-cache/.dl/coreutils.win/coreutils.exe .tool-cache/ \"",
+		"postinstall:tools:curl:nix": "exec-if-updated --target .tool-cache/curl --source package.json \"npx download --out .tool-cache --filename curl https://github.com/moparisthebest/static-curl/releases/download/v8.7.1/curl-amd64 \"",
+		"postinstall:tools:curl:win": "exec-if-updated --target .tool-cache/curl.exe --source package.json \"npx download --extract --strip 1 --out .tool-cache/.dl/curl.win https://curl.se/windows/dl-8.7.1_7/curl-8.7.1_7-win64-mingw.zip && shx cp .tool-cache/.dl/curl.win/bin/curl.exe .tool-cache/ \"",
+		"postinstall:tools:upx:nix": "exec-if-updated --target .tool-cache/upx --source package.json \"npx download --out .tool-cache/.dl https://github.com/upx/upx/releases/download/v4.2.3/upx-4.2.3-amd64_linux.tar.xz && decompress .tool-cache/.dl/upx-4.2.3-amd64_linux.tar.xz --out-dir .tool-cache/.dl --plugin=tarxz && shx mv .tool-cache/.dl/upx-4.2.3-amd64_linux .tool-cache/.dl/upx.nix && shx cp .tool-cache/.dl/upx.nix/upx .tool-cache/ \"",
+		"postinstall:tools:upx:win": "exec-if-updated --target .tool-cache/upx.exe --source package.json \"npx download --extract --strip 1 --out .tool-cache/.dl/upx.win https://github.com/upx/upx/releases/download/v4.2.3/upx-4.2.3-win64.zip && shx cp .tool-cache/.dl/upx.win/upx.exe .tool-cache/ \"",
 		"## npm-version scripts ##": "",
 		"preversion": "run-s --silent _:version:spell:changelog_update && cross-env npm_config_test_dist=true npm run test",
 		"version": "run-s --silent _:version:update:changelog && run-s lint:spell && run-s --silent update:dist && git add CHANGELOG.mkd dist"
@@ -204,6 +213,9 @@
 		"cross-spawn": "^7.0.3",
 		"cross-zip-cli": "^1.0.0",
 		"cspell": "^4.2.7",
+		"decompress-cli": "^2.0.0",
+		"decompress-tarxz": "^3.0.0",
+		"download-cli": "^1.1.1",
 		"editorconfig-checker": "^3.3.0",
 		"eol-converter-cli": "^1.0.8",
 		"eslint": "^7",
@@ -242,9 +254,10 @@
 		"typescript": "~4.2.0",
 		"unified": "^9.2.0"
 	},
-	"optionalDependencies": {},
 	"ava": {
-		"files": ["!**/*.test-d.ts"],
+		"files": [
+			"!**/*.test-d.ts"
+		],
 		"timeout": "60s",
 		"typescript": {
 			"rewritePaths": {
@@ -264,7 +277,10 @@
 			"**/*.test.*",
 			"**/*.spec.*"
 		],
-		"reporter": ["html", "text"],
+		"reporter": [
+			"html",
+			"text"
+		],
 		"lines": "100",
 		"branches": "96",
 		"statements": "100"
