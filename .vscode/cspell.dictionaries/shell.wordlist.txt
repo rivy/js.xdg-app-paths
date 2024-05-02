@@ -1,3 +1,5 @@
+# 2024-05-01
+
 # * POSIX
 TMPDIR
 csh
@@ -57,6 +59,7 @@ patsubst
 chokidar
 corepack
 fsevents
+npm
 preversion
 
 # * `prettier`
@@ -73,6 +76,7 @@ grep
 markdownlint
 mkdir
 rimraf
+pnpm
 rollup
 sed
 stty
