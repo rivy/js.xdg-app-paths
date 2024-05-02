@@ -52,6 +52,7 @@ module.exports = {
 		],
 		'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
 		'eslint-comments/no-unused-disable': 'warn',
+		'functional/no-loop-statement': 'off',
 		'import/order': ['error', { 'newlines-between': 'always', alphabetize: { order: 'asc' } }],
 		'no-console': ['warn'], // ref: https://eslint.org/docs/rules/no-console
 		'no-restricted-syntax': [
