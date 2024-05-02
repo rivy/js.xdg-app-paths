@@ -37,13 +37,15 @@ function isObject(obj) {
 }
 
 function flattenToValues(obj) {
-	const values = [];
-	if (isObject(obj) || Array.isArray(obj)) {
-		for (const key of Object.keys(obj)) {
-			// eslint-disable-next-line security/detect-object-injection
-			values.push(...flattenToValues(obj[key]));
+	const values = (() => {
+		if (isObject(obj) || Array.isArray(obj)) {
+			return Object.keys(obj).reduce((values_, key) => {
+				// eslint-disable-next-line security/detect-object-injection
+				return values_.concat(flattenToValues(obj[key]));
+			}, []);
 		}
-	} else values.push(obj);
+		return [obj];
+	})();
 	return values;
 }
 
@@ -65,13 +67,14 @@ if (!process.env.npm_config_test_dist) {
 			t.is(typeof mCJS, typeof mESM);
 			t.is(Object.keys(mCJS).length, packageAPI.length);
 			t.is(Object.keys(mCJS).length, Object.keys(mESM).length);
-			for (const key of packageAPI) {
+			// biome-ignore lint/complexity/noForEach: use `forEach()` for simple clarity and to highlight non-functional nature (side-effects)
+			packageAPI.forEach((key) => {
 				/* eslint-disable security/detect-object-injection */
 				t.is(typeof mCJS[key], 'function');
 				t.is(typeof mCJS[key], typeof mESM[key]);
 				t.deepEqual(mCJS[key](), mESM[key]());
 				/* eslint-enable security/detect-object-injection */
-			}
+			});
 		});
 	}
 
@@ -111,15 +114,16 @@ if (!process.env.npm_config_test_dist) {
 		const exports_ = pkg.exports;
 		const paths = flattenToValues(exports_);
 		t.log({ exportsPaths: paths });
-		for (const p of paths) {
+		const allExist = paths.reduce((allExist_, p) => {
 			const path_ = path.resolve(__dirname, packagePath, '..', p);
 			// eslint-disable-next-line security/detect-non-literal-fs-filename
 			const exists = fs.existsSync(path_);
 			if (!exists) {
 				t.log({ path_, exists });
 			}
-			t.true(exists);
-		}
+			return allExist_ && exists;
+		}, true);
+		t.true(allExist);
 	});
 
 	test("package 'exports' sub-paths support older tools", (t) => {
@@ -129,38 +133,41 @@ if (!process.env.npm_config_test_dist) {
 		const subPaths = Object.keys(exports_);
 		t.log({ subPaths });
 		// test for sub-path file/directory existence
-		for (const p of subPaths) {
-			const path_ = path.resolve(__dirname, packagePath, '..', p);
-			// eslint-disable-next-line security/detect-non-literal-fs-filename
-			const exists = fs.existsSync(path_);
-			if (!exists) {
-				t.log({ exists, path_ });
-			}
-			t.true(exists);
-		}
-		const files = pkg.files;
-		// test that sub-path file/directory is included in 'files'
-		for (const p of subPaths) {
-			const included = p === '.' || files.includes(p.replace(/^.\//, ''));
-			if (!included) {
-				t.log({ included, p, files });
-			}
-			t.true(included);
-		}
-	});
-
-	test("package 'files' all exist", (t) => {
-		const files_ = pkg.files;
-		t.log({ files: files_ });
-		for (const p of files_) {
+		const allExist = subPaths.reduce((allExist_, p) => {
 			const path_ = path.resolve(__dirname, packagePath, '..', p);
 			// eslint-disable-next-line security/detect-non-literal-fs-filename
 			const exists = fs.existsSync(path_);
 			if (!exists) {
 				t.log({ path_, exists });
 			}
-			t.true(exists);
-		}
+			return allExist_ && exists;
+		}, true);
+		t.true(allExist);
+		const files = pkg.files;
+		// test that sub-path file/directory is included in 'files'
+		const allIncluded = subPaths.reduce((allIncluded_, p) => {
+			const included = p === '.' || files.includes(p.replace(/^.\//, ''));
+			if (!included) {
+				t.log({ included, p, files });
+			}
+			return allIncluded_ && included;
+		}, true);
+		t.true(allIncluded);
+	});
+
+	test("package 'files' all exist", (t) => {
+		const files = pkg.files;
+		t.log({ files });
+		const allExist = files.reduce((allExist_, p) => {
+			const path_ = path.resolve(__dirname, packagePath, '..', p);
+			// eslint-disable-next-line security/detect-non-literal-fs-filename
+			const exists = fs.existsSync(path_);
+			if (!exists) {
+				t.log({ path_, exists });
+			}
+			return allExist_ && exists;
+		}, true);
+		t.true(allExist);
 	});
 
 	test("package 'audit' has no warnings", (t) => {
