@@ -3,7 +3,7 @@
 	"#ref": "<https://github.com/editorconfig-checker/editorconfig-checker#configuration>",
 	"#version": "v2023-02-05 [rivy]",
 	"#x-spell": "/* spell-checker:ignore (people) Roy Ivy III * rivy */",
-	"Exclude": ["([._@#$]?build|[._@#$]?coverage|dist|target|vendor|[.]yarn)/.*"],
+	"Exclude": ["([._@#$]?build|[._@#$]?coverage|dist|target|vendor|[.]yarn)/.*|*-cache"],
 	"SpacesAfterTabs": true,
 	"Disable": { "MaxLineLength": true }
 }

@@ -28,6 +28,7 @@ filter:
     - 'src/types/'
     - 'test/'
     - 'vendor/'
+    - '*-cache/'
     - '*.spec.js'
     - '*.spec.ts'
     - '*.test.js'

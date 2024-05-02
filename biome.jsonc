@@ -1,7 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.2.2/schema.json",
 	"formatter": {
-		"ignore": [".vscode", "node_modules", "vendor"],
+		"ignore": [".vscode", "node_modules", "vendor", "*-cache"],
 		"indentStyle": "tab",
 		"indentWidth": 2,
 		"lineWidth": 100

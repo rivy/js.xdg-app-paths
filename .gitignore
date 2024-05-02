@@ -14,8 +14,7 @@
 # note: `git add --force dist && git commit -m 'change: add updated dist artifacts'` will still add any desired distribution artifacts
 # note: `git status --ignored -- build dist target` will still show changes (for release testing)
 # * project cache directories
-/.*-cache
-/zig-cache
+/*-cache
 
 # coverage data
 /coverage

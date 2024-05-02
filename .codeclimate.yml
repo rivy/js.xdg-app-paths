@@ -44,6 +44,7 @@ plugins:
       - 'eg/'
       - 'dist/'
       - 'vendor/'
+      - '*-cache/'
   editorconfig:
     enabled: true
   # ref: https://docs.codeclimate.com/docs/eslint

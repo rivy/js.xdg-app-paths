@@ -23,6 +23,7 @@ module.exports = {
 		'dist',
 		'node_modules',
 		'vendor',
+		'*-cache',
 	],
 	parser: '@typescript-eslint/parser',
 	// avoid `parserOptions` ~ [2020-10-29]/rivy ~ use is causing issues for eslint evaluation of files outside of `src` (see https://github.com/typescript-eslint/typescript-eslint/issues/1723)

@@ -20,3 +20,4 @@ exclude_paths:
   - 'CHANGELOG.mkd'
   - 'dist/**'
   - 'vendor/**'
+  - '*-cache/**'
