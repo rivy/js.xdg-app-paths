@@ -26,7 +26,7 @@ const haveDeno = commandExists.sync('deno');
 const denoVersion =
 	/* `-T` (interpret as TypeScript; available v1.0+); used for older `deno` versions (< v1.16.2) which cache eval compilation incorrectly; ref: <https://github.com/denoland/deno/issues/9733> */
 	((
-		spawn.sync('deno', ['eval', '-T', '"console.log(Deno.version.deno)"'], {
+		spawn.sync(['deno', ...['eval', '-T', '"console.log(Deno.version.deno)"']].join(' '), {
 			encoding: 'utf-8',
 			shell: true,
 		}).stdout || ''
@@ -91,7 +91,7 @@ if (!process.env.npm_config_test_dist) {
 			const args = ['run', '--no-prompt', denoModulePath];
 			const options = { shell: true, encoding: 'utf-8' };
 
-			const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+			const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
 
 			if (!(error === null && status === 0)) {
 				t.log({ denoModulePath, error, status, stdout, stderr });
@@ -121,7 +121,7 @@ test('correctly derive script name (JavaScript)', (t) => {
 
 				t.log({ script });
 
-				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+				const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
 
 				t.log({ error, status, stdout, stderr });
 
@@ -155,7 +155,7 @@ test('correctly derive script name (TypeScript)', (t) => {
 
 				t.log({ script });
 
-				const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+				const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
 
 				t.log({ error, status, stdout, stderr });
 
@@ -195,7 +195,10 @@ if (!process.env.npm_config_test_dist) {
 					const args = ['run', '--allow-all', script];
 					const options = { shell: true, encoding: 'utf-8' };
 
-					const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+					const { error, status, stdout, stderr } = spawn.sync(
+						[command, ...args].join(' '),
+						options,
+					);
 
 					if (error === null && status === 0) {
 						t.log(
@@ -230,7 +233,10 @@ if (!process.env.npm_config_test_dist) {
 					const args = [script];
 					const options = { shell: true, encoding: 'utf-8' };
 
-					const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+					const { error, status, stdout, stderr } = spawn.sync(
+						[command, ...args].join(' '),
+						options,
+					);
 
 					if (error === null && status === 0) {
 						t.log(
@@ -269,7 +275,10 @@ if (!process.env.npm_config_test_dist) {
 					const args = ['node_modules/ts-node/dist/bin.js', script];
 					const options = { shell: true, encoding: 'utf8' };
 
-					const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+					const { error, status, stdout, stderr } = spawn.sync(
+						[command, ...args].join(' '),
+						options,
+					);
 
 					const basename = path.basename(file);
 					const extension = path.extname(file);

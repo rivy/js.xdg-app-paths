@@ -692,7 +692,7 @@ test('correctly derive anonymous (CJS)', (t) => {
 
 	t.log({ script });
 
-	const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+	const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
 
 	t.log({ error, status, stdout, stderr });
 
@@ -716,7 +716,7 @@ if (settledSupportForESMs) {
 
 		t.log({ script });
 
-		const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+		const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
 
 		t.log({ error, status, stdout, stderr });
 
@@ -739,7 +739,7 @@ if (settledSupportForESMs) {
 
 		t.log({ script });
 
-		const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+		const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
 
 		t.log({ error, status, stdout, stderr });
 
@@ -762,7 +762,7 @@ if (settledSupportForESMs) {
 
 		t.log({ script });
 
-		const { error, status, stdout, stderr } = spawn.sync(command, args, options);
+		const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
 
 		t.log({ error, status, stdout, stderr });
 
