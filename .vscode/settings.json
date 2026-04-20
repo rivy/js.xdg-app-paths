@@ -15,6 +15,7 @@
 		// "editor.defaultFormatter": "dprint.dprint"
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
+	"cSpell.import": [ "./.vscode/cSpell.json" ],
 	"deno.enable": false,
 	"editor.formatOnSave": true,
 	"files.exclude": {
