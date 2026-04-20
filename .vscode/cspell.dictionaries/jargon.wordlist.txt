@@ -50,6 +50,7 @@ primality
 pseudoprime
 pseudoprimes
 readonly
+realclean
 regen
 reparse
 seedable
@@ -79,4 +80,6 @@ deps
 dev
 eval
 maint
+pkg
+pkgs
 procs

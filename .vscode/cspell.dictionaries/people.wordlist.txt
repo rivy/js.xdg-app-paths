@@ -1,6 +1,6 @@
-Dimitri Benin * BendingBender
-Oden * ops991923
-Roy Ivy III * rivy
-Selwyn * siilwyn
-Simon Kjellberg * simon.kjellberg
-Sindre Sorhus * SindreSorhus
+BendingBender # Dimitri Benin
+ops991923 # Oden
+rivy # Roy Ivy III
+siilwyn # Selwyn
+simon.kjellberg # Simon Kjellberg
+SindreSorhus # Sindre Sorhus

@@ -36,6 +36,7 @@ lzma
 # * names
 BusyBox
 Codacy
+Coreutils
 Cygwin
 Deno
 Dprint
@@ -60,5 +61,6 @@ SELinux
 SkyPack
 Solaris
 SysV
+UUtils
 Xenix
 Yargs
