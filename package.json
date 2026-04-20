@@ -40,7 +40,6 @@
 		}
 	},
 	"keywords": [
-		"appdir",
 		"application",
 		"cache",
 		"common",
@@ -196,7 +195,7 @@
 		"ava": "^3.15.0",
 		"codecov": "^3.5.0",
 		"command-exists": "^1.2.9",
-		"cross-env": "^7.0.3",
+		"cross-env": "file:vendor/pkgs/cross-env-7.1.0.tgz",
 		"cross-spawn": "^7.0.3",
 		"cspell": "^4.2.7",
 		"editorconfig-checker": "^3.3.0",
