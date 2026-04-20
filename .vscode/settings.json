@@ -28,11 +28,6 @@
 		".history": true,
 		".nyc_output": true
 	},
-	"indentRainbow.ignoreLinePatterns": [
-		"/[\t]+[ ]/g" // TAB indentaion with space alignment
-		// "/[ \t]* [*]/g",
-		// "/[ \t]+[/]{2}/g"
-	],
 	"todo-tree.filtering.excludeGlobs": [
 		"build",
 		"dist",
