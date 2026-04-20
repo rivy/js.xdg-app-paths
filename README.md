@@ -401,6 +401,10 @@ This module was forked from [sindresorhus/env-paths](https://github.com/sindreso
 >
 > - [`bmp`](https://deno.land/x/bmp@v0.0.6) (v0.0.6+) ... synchronizes version strings within the project
 > - [`git-changelog`](https://github.com/rivy-go/git-changelog) (v1.1+) ... enables changelog automation
+>
+> ##### WinOS
+>
+> - [`env`](https://github.com/uutils/coreutils) ... provides native `env` for WinOS
 
 ### Quick build/test
 
@@ -447,7 +451,7 @@ yarn --immutable --immutable-cache --check-cache
 #### Project development scripts
 
 ```shell
-# npm run help
+#  npm run help
 ...
 Usage: `npm run TARGET` or `npx run-s TARGET [TARGET..]`
 
@@ -477,7 +481,7 @@ retest              clean and (re-)test project
 reset:hard          remove *all* generated files and reinstall dependencies
 show:deps           show package dependencies
 test                test package
-test:code           test package code (use `--test-code=...` to pass options to testing harness)
+test:code           test package code (use `env test_harness=...` to pass args/options to testing harness)
 test:types          test for type declaration errors (using `tsd`)
 update              update/prepare for distribution [alias: 'dist']
 update:changelog    update CHANGELOG (using `git changelog ...`)
