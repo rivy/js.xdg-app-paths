@@ -48,8 +48,8 @@ function flattenToValues(obj) {
 	return values;
 }
 
-if (!process.env.npm_config_test_dist) {
-	test.skip('skipped (enable with `npm test --test-dist`)', () => void 0);
+if (!process.env.npm_config_test_dist && !process.env.test_dist) {
+	test.skip('skipped (enable with `env test_dist=t npm test`)', () => void 0);
 } else {
 	const testID$CJStoESM = 'CJS/ESM equivalence';
 	if (vNodeJSMajor < 12) {

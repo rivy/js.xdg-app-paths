@@ -74,8 +74,9 @@ test('api', (t) => {
 });
 
 // ensure *no-panic* static load for Deno
-if (!process.env.npm_config_test_dist) {
-	test.skip('module load test (Deno)...skipped (enable with `npm test --test-dist`)', () => void 0);
+if (!process.env.npm_config_test_dist && !process.env.test_dist) {
+	test.skip('module load test (Deno)...skipped (enable with `env test_dist=t npm test`)', () =>
+		void 0);
 } else {
 	const minDenoVersion = '1.19.0';
 	if (!haveDeno) {
@@ -166,9 +167,10 @@ test('correctly derive script name (TypeScript)', (t) => {
 		});
 });
 
-// test examples when using `--test-dist` (ie, with version changes or prior to distribution)
-if (!process.env.npm_config_test_dist) {
-	test.skip('examples are executable...skipped (enable with `npm test --test-dist`)', () => void 0);
+// test examples when using `env test_dist=t` (ie, with version changes or prior to distribution)
+if (!process.env.npm_config_test_dist && !process.env.test_dist) {
+	test.skip('examples are executable...skipped (enable with `env test_dist=t npm test`)', () =>
+		void 0);
 } else {
 	const minDenoVersion = '1.8.0';
 	if (!haveDeno) {
