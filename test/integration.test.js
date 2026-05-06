@@ -25,14 +25,31 @@ const pkg = require(packagePath);
 const haveDeno = commandExists.sync('deno');
 const denoVersion =
 	/* `-T` (interpret as TypeScript; available v1.0+); used for older `deno` versions (< v1.16.2) which cache eval compilation incorrectly; ref: <https://github.com/denoland/deno/issues/9733> */
+	/* ... but `-T` and `--ts` are deprecated with warnings in v1.31.0+ and *removed* for v2.0.0+ */
+	/* ... and though `env test_dist=1 test_harness=-v npx ava test\integration.js` works, `npm verify sees '' as spawn output => v0.0.0 for Deno */
 	((
-		spawn.sync(['deno', ...['eval', '--ext=ts', '"console.log(Deno.version.deno)"']].join(' '), {
+		spawn.sync(['deno', ...['eval', '"console.log(Deno.version.deno)"']].join(' '), {
 			encoding: 'utf-8',
 			shell: true,
 		}).stdout || ''
 	).match(/(?<=^|\s)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */) || [
 		'0.0.0',
 	])[0];
+// console.log({
+// 	haveDeno,
+// 	denoVersion,
+// 	out: spawn.sync(['deno', ...['eval', '"console.log(Deno.version.deno)"']].join(' '), {
+// 		encoding: 'utf-8',
+// 		shell: true,
+// 	}).stdout,
+// });
+const denoVersionSpawn = spawn.sync(
+	['deno', ...['eval', '"console.log(\'Deno.version.deno\')"']].join(' '),
+	{
+		encoding: 'utf-8',
+		shell: true,
+	},
+);
 
 function versionCompare(a, b) {
 	return a.localeCompare(b, /* locales */ void 0, { numeric: true });
@@ -82,7 +99,7 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 	if (!haveDeno) {
 		test.skip('module load tests (Deno)...skipped (`deno` not found)', () => void 0);
 	} else if (versionCompare(denoVersion, minDenoVersion) < 0) {
-		test.skip(`module load tests (Deno)...skipped (using Deno v${denoVersion} [v${minDenoVersion}+ needed for use of \`--no-prompt\`])`, () =>
+		test.skip(`module load tests (Deno)...skipped (using Deno v${denoVersion} ('${denoVersionSpawn}') [v${minDenoVersion}+ needed for use of \`--no-prompt\`])`, () =>
 			void 0);
 	} else {
 		test('module loads without panic (no permissions and `--no-prompt`; Deno)', (t) => {
