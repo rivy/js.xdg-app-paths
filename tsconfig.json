@@ -2,9 +2,10 @@
 	"compilerOptions": {
 		"incremental": false,
 		"target": "ES5",
+		// "ignoreDeprecations": "6.0", // maint: [2026-04-20; rivy] will need updating for TS-v7.0+
 		"outDir": "build/cjs",
 		// "rootDir": "src", // interferes with `tsd`; see <https://github.com/SamVerschueren/tsd/issues/80> ; disabling builds exactly the same files/structure except placing *.tsbuildinfo files into the respective subdirectories
-		"moduleResolution": "node",
+		"moduleResolution": "node", // not needed ~ see [TS ~ module resolution](https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution)[`@@`](https://archive.is/43WYE)[`@@`](https://web.archive.org/web/20260329193155/https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution)
 		"module": "CommonJS",
 		"newLine": "lf",
 		"declaration": true /* Enables automatic generation of type declarations */,

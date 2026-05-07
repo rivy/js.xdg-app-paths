@@ -21,6 +21,12 @@ export const adapter: Platform.Adapter = {
 				// HACK: `process._eval` is undocumented; used here (again, for ESM) as evidence of `node -e ...` differentiating between immediate eval vs file-bound scripts
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(typeof (process as any)._eval === 'undefined' ? process.argv[1] : void 0);
+			console.warn('platform-adapter/node/mainFilename()', {
+				// require: require,
+				requireMain,
+				requireMainFilename,
+				filename,
+			});
 			return filename;
 		},
 		pkgMainFilename: () => {

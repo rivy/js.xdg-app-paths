@@ -10,6 +10,8 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
+const { spawnSync: spawnS } = require('child_process');
+
 const test = require('ava');
 const commandExists = require('command-exists');
 const spawn = require('cross-spawn');
@@ -28,18 +30,50 @@ const denoVersion =
 	/* ... but `-T` and `--ts` are deprecated with warnings in v1.31.0+ and *removed* for v2.0.0+ */
 	/* ... and though `env test_dist=1 test_harness=-v npx ava test\integration.js` works, `npm verify sees '' as spawn output => v0.0.0 for Deno */
 	((
-		spawn.sync(['deno', ...['eval', '"console.log(Deno.version.deno)"']].join(' '), {
-			encoding: 'utf-8',
-			shell: true,
-		}).stdout || ''
+		spawn.sync(
+			[
+				'deno',
+				...['eval', '--no-lock', '--no-npm', '--no-remote', '"console.log(Deno.version.deno)"'],
+			].join(' '),
+			{
+				encoding: 'utf-8',
+				shell: true,
+			},
+		).stdout || ''
 	).match(/(?<=^|\s)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */) || [
 		'0.0.0',
 	])[0];
+// const denoEnv = Object.assign({}, process.env);
+// denoEnv.NODE_OPTIONS = undefined;
+// // process.env.NODE_OPTIONS = '';
 // console.log({
+// 	NODE_OPTIONS: process.env.NODE_OPTIONS,
+// 	NODE_OPTIONS_mod: denoEnv.NODE_OPTIONS,
+// 	_mod: denoEnv.HOME,
 // 	haveDeno,
 // 	denoVersion,
-// 	out: spawn.sync(['deno', ...['eval', '"console.log(Deno.version.deno)"']].join(' '), {
+// 	out_shell_true: spawn.sync(
+// 		'sh',
+// 		['-c', 'deno', ...['eval', '"console.log(Deno.version.deno)"']].join(' '),
+// 		{
+// 			encoding: 'utf-8',
+// 			// env: { ...process.env, NODE_OPTIONS: '' },
+// 			shell: true,
+// 		},
+// 	).stdout,
+// 	out_shell_false: spawn.sync('deno', ['eval', 'console.log(Deno.version.deno)'], {
 // 		encoding: 'utf-8',
+// 		// env: { ...process.env, NODE_OPTIONS: ' --MODDED_NODE_OPTIONS ' },
+// 		// shell: false,
+// 	}).stdout,
+// 	ss_shell_true: spawnS('deno', ['eval', '"console.log(process.env.NODE_OPTIONS)"'], {
+// 		encoding: 'utf-8',
+// 		env: { ...process.env, NODE_OPTIONS: ' --require node-preload.js' },
+// 		shell: true,
+// 	}).stdout,
+// 	xss_shell_true: spawnS('node', ['-e', '"console.log(process.env.HOME)"'], {
+// 		encoding: 'utf-8',
+// 		env: { ...process.env, HOME: 'MODDED_HOME' },
 // 		shell: true,
 // 	}).stdout,
 // });
