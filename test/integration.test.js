@@ -10,11 +10,13 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-const { spawnSync: spawnS } = require('child_process');
+// const { spawnSync: spawnS } = require('child_process');
 
 const test = require('ava');
 const commandExists = require('command-exists');
 const spawn = require('cross-spawn');
+
+const isWinOS = /^win/i.test(process.platform);
 
 const modulePath = '../build/lab/src/mod.cjs.js'; // ? change to package.main?
 const packagePath = '../package.json';
@@ -29,20 +31,17 @@ const denoVersion =
 	/* `-T` (interpret as TypeScript; available v1.0+); used for older `deno` versions (< v1.16.2) which cache eval compilation incorrectly; ref: <https://github.com/denoland/deno/issues/9733> */
 	/* ... but `-T` and `--ts` are deprecated with warnings in v1.31.0+ and *removed* for v2.0.0+ */
 	/* ... and though `env test_dist=1 test_harness=-v npx ava test\integration.js` works, `npm verify sees '' as spawn output => v0.0.0 for Deno */
+	// deno-v2.6.7+ interprets NODE_OPTIONS and can fail to execute any eval code if that variable is set to something that Deno can't understand or execute (ie, by a process which wraps spawn(), like `nyc`)
+	// ... for `nyc` (which uses `spawn-wrap`), the environment is modified to include `NODE_OPTIONS` right before the spawn via a monkey-patch and so can't be overridden by supplying an environment ourselves
+	// .. so, we will instead fall back onto the `deno --version` output, which is more robust and won't fail if `NODE_OPTIONS` is set to something that Deno can't handle
 	((
-		spawn.sync(
-			[
-				'deno',
-				...['eval', '--no-lock', '--no-npm', '--no-remote', '"console.log(Deno.version.deno)"'],
-			].join(' '),
-			{
-				encoding: 'utf-8',
-				shell: true,
-			},
-		).stdout || ''
-	).match(/(?<=^|\s)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */) || [
-		'0.0.0',
-	])[0];
+		spawn.sync(['deno', ...['--version']].join(' '), {
+			encoding: 'utf-8',
+			shell: true,
+		}).stdout || ''
+	).match(
+		/(?<=^\s*|^\s*deno\s+)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */,
+	) || ['0.0.0'])[0];
 // const denoEnv = Object.assign({}, process.env);
 // denoEnv.NODE_OPTIONS = undefined;
 // // process.env.NODE_OPTIONS = '';
@@ -139,8 +138,13 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 		test('module loads without panic (no permissions and `--no-prompt`; Deno)', (t) => {
 			const denoModulePath = pkg.exports['.'].deno;
 
-			const command = 'deno';
-			const args = ['run', '--no-prompt', denoModulePath];
+			// const command = 'deno';
+			// const args = ['run', '--no-config', '--no-lock', '--no-prompt', `"${denoModulePath}"`];
+
+			const command = isWinOS
+				? `cmd /c "(set NODE_OPTIONS=) & deno run --no-config --no-lock --no-prompt ^"${denoModulePath}^""`
+				: `NODE_OPTIONS= deno run --no-config --no-lock --no-prompt "${denoModulePath}"`;
+			const args = [];
 			const options = { shell: true, encoding: 'utf-8' };
 
 			const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
@@ -243,9 +247,14 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 					return extensionRxs.find((re) => path.basename(file).match(re));
 				})
 				.forEach((file) => {
-					const command = 'deno';
+					// const command = 'deno';
+					// const script = path.join(egDirPath, file);
+					// const args = ['run', '--allow-all', script];
 					const script = path.join(egDirPath, file);
-					const args = ['run', '--allow-all', script];
+					const command = isWinOS
+						? `cmd /c "(set NODE_OPTIONS=) & deno run --no-config --no-lock --allow-all ^"${script}^""`
+						: `NODE_OPTIONS= deno run --no-config --no-lock --allow-all "${script}"`;
+					const args = [];
 					const options = { shell: true, encoding: 'utf-8' };
 
 					const { error, status, stdout, stderr } = spawn.sync(
