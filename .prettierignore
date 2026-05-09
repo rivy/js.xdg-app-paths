@@ -1,10 +1,10 @@
 # Prettier "ignore" list
-# v2023-02-05 [rivy]
+# v2026-05-10 [rivy]
 # * note: glob patterns support use of `?`, `*`, `**`, and `[...]`, but *not* `{...}`
 
-# spell-checker:ignore (people) Roy Ivy III * rivy
+# spell-checker:ignore (people) Roy Ivy III * rivy (agents) Claude Codex KiloCode OpenCode
 
-# * build/coverage/dev artifacts
+# * build/coverage/dev artifacts and caches
 [._@#$]build
 [._@#$]coverage
 .nyc_output
@@ -14,17 +14,29 @@ CHANGELOG
 CHANGELOG.*
 dist
 target
+#
+.cache
+.*-cache
+zig-cache
 
 # * format-sensitive files
 .changelog/*.tpl
 .changelog/*.tpl.*
 
-# * third-party code
+# * third-party code/settings
 **/node_modules
-*-cache
-**/*-lock.json
 .history
-.vscode
-.yarn
-package.json
 vendor
+## agent settings
+.agents
+.claude
+.codex
+.kilocode
+.opencode
+## IDE settings
+.vscode
+## tool settings
+package.json
+package-lock.json
+.trunk
+.yarn
