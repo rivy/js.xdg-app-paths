@@ -42,6 +42,7 @@ const denoVersion =
 	).match(
 		/(?<=^\s*|^\s*deno\s+)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */,
 	) || ['0.0.0'])[0];
+// ToDO: cleanup debug code
 // const denoEnv = Object.assign({}, process.env);
 // denoEnv.NODE_OPTIONS = undefined;
 // // process.env.NODE_OPTIONS = '';
@@ -76,13 +77,13 @@ const denoVersion =
 // 		shell: true,
 // 	}).stdout,
 // });
-const denoVersionSpawn = spawn.sync(
-	['deno', ...['eval', '"console.log(\'Deno.version.deno\')"']].join(' '),
-	{
-		encoding: 'utf-8',
-		shell: true,
-	},
-);
+// const denoVersionSpawn = spawn.sync(
+// 	['deno', ...['eval', '"console.log(\'Deno.version.deno\')"']].join(' '),
+// 	{
+// 		encoding: 'utf-8',
+// 		shell: true,
+// 	},
+// );
 
 function versionCompare(a, b) {
 	return a.localeCompare(b, /* locales */ void 0, { numeric: true });
@@ -132,18 +133,15 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 	if (!haveDeno) {
 		test.skip('module load tests (Deno)...skipped (`deno` not found)', () => void 0);
 	} else if (versionCompare(denoVersion, minDenoVersion) < 0) {
-		test.skip(`module load tests (Deno)...skipped (using Deno v${denoVersion} ('${denoVersionSpawn}') [v${minDenoVersion}+ needed for use of \`--no-prompt\`])`, () =>
+		test.skip(`module load tests (Deno)...skipped (using Deno v${denoVersion} [v${minDenoVersion}+ needed for use of \`--no-prompt\`])`, () =>
 			void 0);
 	} else {
 		test('module loads without panic (no permissions and `--no-prompt`; Deno)', (t) => {
 			const denoModulePath = pkg.exports['.'].deno;
 
-			// const command = 'deno';
-			// const args = ['run', '--no-config', '--no-lock', '--no-prompt', `"${denoModulePath}"`];
-
 			const command = isWinOS
 				? `cmd /c "(set NODE_OPTIONS=) & deno run --no-config --no-lock --no-prompt ^"${denoModulePath}^""`
-				: `NODE_OPTIONS= deno run --no-config --no-lock --no-prompt "${denoModulePath}"`;
+				: `NODE_OPTIONS= deno run --no-config --no-lock --no-prompt '${denoModulePath}'`;
 			const args = [];
 			const options = { shell: true, encoding: 'utf-8' };
 
@@ -247,13 +245,10 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 					return extensionRxs.find((re) => path.basename(file).match(re));
 				})
 				.forEach((file) => {
-					// const command = 'deno';
-					// const script = path.join(egDirPath, file);
-					// const args = ['run', '--allow-all', script];
 					const script = path.join(egDirPath, file);
 					const command = isWinOS
 						? `cmd /c "(set NODE_OPTIONS=) & deno run --no-config --no-lock --allow-all ^"${script}^""`
-						: `NODE_OPTIONS= deno run --no-config --no-lock --allow-all "${script}"`;
+						: `NODE_OPTIONS= deno run --no-config --no-lock --allow-all '${script}'`;
 					const args = [];
 					const options = { shell: true, encoding: 'utf-8' };
 
