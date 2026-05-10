@@ -27,10 +27,10 @@ test('CJS <=> ESM', (t) => {
 	t.is(Object.keys(mCJS).length, api.length);
 	t.is(Object.keys(mCJS).length, Object.keys(mESM).length);
 	api.forEach((key) => {
-		/* eslint-disable @typescript-eslint/no-explicit-any , security/detect-object-injection */
+		/* eslint-disable security/detect-object-injection */
 		t.is(typeof mCJS[key], 'function');
-		t.is(typeof mCJS[key], typeof (mESM as any)[key]);
-		t.deepEqual(mCJS[key](), (mESM as any)[key]());
-		/* eslint-enable @typescript-eslint/no-explicit-any , security/detect-object-injection */
+		t.is(typeof mCJS[key], typeof (mESM as unknown as { readonly [key: string]: unknown })[key]);
+		t.deepEqual(mCJS[key](), (mESM as typeof mCJS)[key]());
+		/* eslint-enable security/detect-object-injection */
 	});
 });
