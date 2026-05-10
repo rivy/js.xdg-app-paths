@@ -25,6 +25,9 @@
 		"includes": ["./**", "!.vscode", "!node_modules", "!vendor"],
 		"rules": {
 			"recommended": true,
+			"complexity": {
+				"noForEach": "on"
+			},
 			"style": {
 				"useNodejsImportProtocol": "off" /* "node:..." imports would o/w force Deno-v1.16.0+ */
 			}
