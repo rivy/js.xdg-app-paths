@@ -23,16 +23,14 @@ const mod = require(modulePath);
 const pkg = require(packagePath);
 
 const haveDeno = commandExists.sync('deno');
-const denoVersion =
-	/* `-T` (interpret as TypeScript; available v1.0+); used for older `deno` versions (< v1.16.2) which cache eval compilation incorrectly; ref: <https://github.com/denoland/deno/issues/9733> */
-	((
-		spawn.sync(['deno', ...['eval', '--ext=ts', '"console.log(Deno.version.deno)"']].join(' '), {
-			encoding: 'utf-8',
-			shell: true,
-		}).stdout || ''
-	).match(/(?<=^|\s)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */) || [
-		'0.0.0',
-	])[0];
+const denoVersion = ((
+	spawn.sync(['deno', ...['--version']].join(' '), {
+		encoding: 'utf-8',
+		shell: true,
+	}).stdout || ''
+).match(
+	/(?<=^\s*|^\s*deno\s+)\d+(?:[.]\d+)*/ /* eslint-disable-line security/detect-unsafe-regex */,
+) || ['0.0.0'])[0];
 
 function versionCompare(a, b) {
 	return a.localeCompare(b, /* locales */ void 0, { numeric: true });
