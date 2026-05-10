@@ -4,21 +4,20 @@
 // --allow-env (transitive from 'xdg-app-paths')
 // --allow-read
 
-/* eslint-disable @typescript-eslint/ban-ts-comment , @typescript-eslint/no-explicit-any , functional/immutable-data , import/order , no-console , security-node/detect-crlf , security/detect-object-injection */
+/* eslint-disable @typescript-eslint/no-explicit-any , functional/immutable-data , import/order , no-console , security-node/detect-crlf , security/detect-object-injection */
 
-// @ts-ignore // deno-type URL import
+// @ts-expect-error // deno-TS ~ URL imports allowed
 import * as path from 'https://deno.land/std@0.150.0/path/mod.ts';
 
 /// <reference path='../vendor/types/deno.d.ts'/>
 
-// @ts-ignore // Deno alias to suppress other false-positive TS warnings
+// @ts-expect-error // Deno alias to suppress other false-positive TS warnings
 const deno = Deno;
 
 const inspect = deno.inspect;
 
-// @ts-ignore // deno-type URL import
+// @ts-expect-error // deno-TS ~ URL imports allowed
 import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.1.0/src/mod.deno.ts';
-// @ts-ignore // deno-type import
 import type { DirOptions, XDGAppPaths } from '../src/mod.deno.ts';
 
 function objectEntries(obj: any) {
@@ -49,6 +48,7 @@ console.log(objectEntries(xdgAppPaths));
 console.log('appPaths.log(false):', (xdgAppPaths as XDGAppPathsWithLog).log(false));
 console.log('appPaths.log(true):', (xdgAppPaths as XDGAppPathsWithLog).log(true));
 
+// @ts-expect-error // deno-TS ~ top-level `await` is allowed
 const queryEnv = await Deno?.permissions?.query({ name: 'env' });
 if (queryEnv?.state !== 'granted') {
 	console.warn('ERROR: environment permissions are required (re-run with `--allow-env`)');
@@ -77,4 +77,4 @@ p = xdgAppPaths({ name: 'fluffy', isolated: false });
 console.log('p:', inspect(p));
 console.log(objectEntries(p));
 
-/* eslint-enable @typescript-eslint/ban-ts-comment , @typescript-eslint/no-explicit-any , functional/immutable-data , import/order , no-console , security-node/detect-crlf , security/detect-object-injection */
+/* eslint-enable @typescript-eslint/no-explicit-any , functional/immutable-data , import/order , no-console , security-node/detect-crlf , security/detect-object-injection */
