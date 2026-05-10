@@ -3,7 +3,7 @@
 /* eslint-env es6, node */
 // 'use strict'; // # modules are strict by default
 
-import { Platform } from '../platform-adapters/_base.js';
+import type { Platform } from '../platform-adapters/_base.js';
 
 // XDG references
 // # ref: <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html> @@ <https://archive.is/aAhtw>
