@@ -1,0 +1,73 @@
+diff --git a/node_modules/decompress-cli/cli.js b/node_modules/decompress-cli/cli.js
+index ecb3c0a..dadf1c0 100644
+--- a/node_modules/decompress-cli/cli.js
++++ b/node_modules/decompress-cli/cli.js
+@@ -33,36 +33,44 @@ const cli = meow(`
+ 	}
+ });
+ 
+-const requirePlugins = plugins => plugins.map(x => {
++const requirePlugins = async plugins => Promise.all(plugins.map(async x => {
++	const name = `decompress-${x}`;
++	let mod;
+ 	try {
+-		return require(`decompress-${x}`)();
+-	} catch (err) {
+-		console.error(stripIndent(`
+-			Unknown plugin: ${x}
++		mod = require(name);
++	} catch {
++		try {
++			mod = await import(name);
++		} catch {
++			console.error(stripIndent(`
++				Unknown plugin: ${x}
+ 
+-			Did you forgot to install the plugin?
+-			You can install it with:
++				Did you forgot to install the plugin?
++				You can install it with:
+ 
+-			  $ npm install -g decompress-${x}
+-		`).trim());
+-		process.exit(1);
++				  $ npm install -g ${name}
++			`).trim());
++			process.exit(1);
++		}
+ 	}
+-});
++	const fn = mod && typeof mod.default === 'function' ? mod.default : mod;
++	return fn();
++}));
+ 
+-const run = (input, opts) => {
++const run = async (input, opts) => {
+ 	opts = Object.assign({}, opts);
+ 
+ 	const dest = opts.outDir;
+ 	const plugins = arrify(opts.plugin);
+ 
+ 	if (plugins.length) {
+-		opts.plugins = requirePlugins(plugins);
++		opts.plugins = await requirePlugins(plugins);
+ 	}
+ 
+ 	delete opts.outDir;
+ 	delete opts.plugin;
+ 
+-	decompress(input, dest, opts);
++	return decompress(input, dest, opts);
+ };
+ 
+ if (!cli.input.length && process.stdin.isTTY) {
+@@ -76,7 +84,7 @@ if (!cli.flags.outDir) {
+ }
+ 
+ if (cli.input.length) {
+-	run(cli.input[0], cli.flags);
++	run(cli.input[0], cli.flags).catch(err => { console.error(err); process.exit(1); });
+ } else {
+-	getStdin.buffer().then(buf => run(buf, cli.flags));
++	getStdin.buffer().then(buf => run(buf, cli.flags).catch(err => { console.error(err); process.exit(1); }));
+ }
