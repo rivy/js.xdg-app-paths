@@ -214,7 +214,7 @@
 		"cross-zip-cli": "^1.0.0",
 		"cspell": "^4.2.7",
 		"decompress-cli": "^2.0.0",
-		"decompress-tarxz": "^3.0.0",
+		"decompress-tarxz": "npm:@hola.org/decompress-tarxz@4.0.0",
 		"download-cli": "^1.1.1",
 		"editorconfig-checker": "^3.3.0",
 		"eol-converter-cli": "^1.0.8",
