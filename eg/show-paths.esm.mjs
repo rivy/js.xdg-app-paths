@@ -1,7 +1,7 @@
 // deno-fmt-ignore-file ## prefer customized `prettier` formatting
 // # spell-checker:ignore APPNAME
 /* eslint-env es6, node */
-'use strict';
+// 'use strict'; // # modules are strict by default
 
 import path from 'path';
 import { inspect } from 'util';
