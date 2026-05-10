@@ -49,10 +49,10 @@ console.log('appPaths.log(false):', (xdgAppPaths as XDGAppPathsWithLog).log(fals
 console.log('appPaths.log(true):', (xdgAppPaths as XDGAppPathsWithLog).log(true));
 
 // @ts-expect-error // deno-TS ~ top-level `await` allowed
-const queryEnv = await Deno?.permissions?.query({ name: 'env' });
+const queryEnv = await deno?.permissions?.query({ name: 'env' });
 if (queryEnv?.state !== 'granted') {
 	console.warn('ERROR: environment permissions are required (re-run with `--allow-env`)');
-	Deno.exit(1);
+	deno.exit(1);
 }
 
 deno.env.delete('XDG_CONFIG_HOME');
