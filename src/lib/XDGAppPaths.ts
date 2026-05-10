@@ -176,6 +176,7 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 					.map((s) => path.join(s, finalPathSegment(dirOptions))) as readonly string[];
 			};
 
+			// biome-ignore lint/correctness/noConstructorReturn: return class as a callable Function object
 			return XDGAppPaths as XDGAppPaths;
 		}
 	}
