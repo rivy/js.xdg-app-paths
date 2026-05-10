@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import xdg from 'xdg-portable';
 
-import { Platform } from './_base.js';
+import type { Platform } from './_base.js';
 
 export const adapter: Platform.Adapter = {
 	atImportPermissions: { env: true, read: true },

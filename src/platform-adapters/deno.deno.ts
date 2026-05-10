@@ -11,7 +11,7 @@ import xdg from 'https://deno.land/x/xdg@v10.5.0/src/mod.deno.ts';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
 // @ts-ignore // deno-type import
-import { Platform } from './_base.ts';
+import type { Platform } from './_base.ts';
 
 // create a local reference to refer to `Deno` (for better linting without need for multiple `// @ts-ignore` directives)
 // @ts-ignore // Deno alias to suppress other false-positive TS warnings
