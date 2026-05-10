@@ -112,7 +112,7 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 			const options = (isObject(options_) ? options_ : { name: options_ }) as Options;
 
 			const suffix = options.suffix ?? '';
-			const isolated_ = options.isolated ?? true;
+			const isolated = options.isolated ?? true;
 
 			// derive a suitable application name
 			const namePriorityList: ReadonlyArray<string | null | undefined> = [
@@ -129,13 +129,13 @@ function Adapt(adapter_: Platform.Adapter): { readonly XDGAppPaths: XDGAppPaths 
 				return name;
 			};
 			XDGAppPaths.$isolated = function $isolated() {
-				return isolated_;
+				return isolated;
 			};
 
 			function isIsolated(dirOptions?: DirOptions | boolean): boolean {
-				dirOptions = dirOptions ?? { isolated: isolated_ };
-				const isolated = isBoolean(dirOptions) ? dirOptions : dirOptions.isolated ?? isolated_;
-				return isolated;
+				const dirOptions_ = dirOptions ?? { isolated: isolated };
+				const isolated_ = isBoolean(dirOptions_) ? dirOptions_ : dirOptions_.isolated ?? isolated;
+				return isolated_;
 			}
 
 			function finalPathSegment(dirOptions?: DirOptions | boolean): string {
