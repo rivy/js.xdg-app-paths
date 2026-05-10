@@ -1,0 +1,48 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+	"formatter": {
+		"includes": ["./**", "!.vscode", "!node_modules", "!vendor"],
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 100
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"jsxQuoteStyle": "single",
+			"semicolons": "always",
+			"trailingCommas": "all"
+		}
+	},
+	"json": {
+		"parser": {
+			"allowComments": true,
+			"allowTrailingCommas": true
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"includes": ["./**", "!.vscode", "!node_modules", "!vendor"],
+		"rules": {
+			"recommended": true,
+			"style": {
+				"useNodejsImportProtocol": "off" /* "node:..." imports would o/w force Deno-v1.16.0+ */
+			}
+		}
+	},
+	// "organizeImports": {
+	// 	"enabled": false
+	// },
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"vcs": {
+		"clientKind": "git",
+		"enabled": true,
+		"useIgnoreFile": true
+	}
+}
