@@ -14,6 +14,8 @@ const test = require('ava');
 const commandExists = require('command-exists');
 const spawn = require('cross-spawn');
 
+const isWinOS = /^win/i.test(process.platform);
+
 const modulePath = '../build/lab/src/mod.cjs.js'; // ? change to package.main?
 const packagePath = '../package.json';
 
@@ -86,8 +88,10 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 		test('module loads without panic (no permissions and `--no-prompt`; Deno)', (t) => {
 			const denoModulePath = pkg.exports['.'].deno;
 
-			const command = 'deno';
-			const args = ['run', '--no-prompt', denoModulePath];
+			const command = isWinOS
+				? `cmd /c "(set NODE_OPTIONS=) & deno run --no-config --no-lock --no-prompt ^"${denoModulePath}^""`
+				: `NODE_OPTIONS= deno run --no-config --no-lock --no-prompt '${denoModulePath}'`;
+			const args = [];
 			const options = { shell: true, encoding: 'utf-8' };
 
 			const { error, status, stdout, stderr } = spawn.sync([command, ...args].join(' '), options);
@@ -190,9 +194,11 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 					return extensionRxs.find((re) => path.basename(file).match(re));
 				})
 				.forEach((file) => {
-					const command = 'deno';
 					const script = path.join(egDirPath, file);
-					const args = ['run', '--allow-all', script];
+					const command = isWinOS
+						? `cmd /c "(set NODE_OPTIONS=) & deno run --no-config --no-lock --allow-all ^"${script}^""`
+						: `NODE_OPTIONS= deno run --no-config --no-lock --allow-all '${script}'`;
+					const args = [];
 					const options = { shell: true, encoding: 'utf-8' };
 
 					const { error, status, stdout, stderr } = spawn.sync(
