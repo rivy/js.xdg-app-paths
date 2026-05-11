@@ -1,5 +1,5 @@
 # git ignore config file
-# v2026-04-19 [rivy]
+# v2026-05-11 [rivy]
 # spell-checker:ignore () npmignore yarnrc (jargon) globstar (names) deno dlang (people) Roy Ivy III * rivy
 
 # NOTE: Git GLOBSTAR syntax [see `git help gitignore`]
@@ -38,13 +38,12 @@
 deno.lock
 node_modules
 package-lock.json
+pnpm-lock.yaml
 yarn.lock
 # * allow packaging of lock files into '.deps-lock'
-!/.deps-lock/package-lock.json
-!/.deps-lock/yarn.lock
+!/.deps-lock/*
 # * ignore `yarn`-related files (allows use of "modern" v2+ `yarn`)
 # - ref: <https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored> @@ <https://archive.is/Sc1Ab>
-.pnp.*
 /.yarn/*
 !/.yarn/patches
 !/.yarn/plugins
