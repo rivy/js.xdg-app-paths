@@ -1,8 +1,8 @@
 # Prettier "ignore" list
-# v2026-05-10 [rivy]
+# v2026-05-11 [rivy]
 # * note: glob patterns support use of `?`, `*`, `**`, and `[...]`, but *not* `{...}`
 
-# spell-checker:ignore (people) Roy Ivy III * rivy (agents) Claude Codex KiloCode OpenCode
+# spell-checker:ignore (people) Roy Ivy III * rivy (agents) Claude Codex KiloCode OpenCode (tools) pnpm pnpmfile
 
 # * build/coverage/dev artifacts and caches
 [._@#$]build
@@ -36,7 +36,11 @@ vendor
 ## IDE settings
 .vscode
 ## tool settings
+.pnpmfile.cjs
+.pnpmfile.mjs
+*-lock.json
+*-lock.yaml
 package.json
-package-lock.json
+pnpm-*.yaml
 .trunk
 .yarn
