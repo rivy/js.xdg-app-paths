@@ -1,3 +1,5 @@
+# 2026-05-11
+
 # * POSIX
 TMPDIR
 csh
@@ -14,12 +16,13 @@ zsh
 # * Windows
 APPDATA
 COMSPEC
+CONIN
+CONOUT
 HKCU
 HKLM
 HOMEDRIVE
 HOMEPATH
 LOCALAPPDATA
-PATHEXT
 PATHEXT
 SYSTEMROOT
 USERDOMAIN
@@ -57,7 +60,12 @@ patsubst
 chokidar
 corepack
 fsevents
+npm
 preversion
+
+# * `pnpm`
+pnpm
+pnpmfile
 
 # * `prettier`
 prettierignore
@@ -73,6 +81,7 @@ grep
 markdownlint
 mkdir
 rimraf
+pnpm
 rollup
 sed
 stty
