@@ -169,8 +169,10 @@ if (!process.env.npm_config_test_dist && !process.env.test_dist) {
 		t.log({ version: pkg.version, exec: process.env.npm_execpath });
 		const exec = (() => {
 			// npm => `npm audit --omit=dev`
+			// pnpm => `pnpm audit --prod`
 			// yarn => `yarn audit --groups dependencies`
 			const runner = new String(process.env.npm_execpath);
+			if (runner.match(/pnpm[^\\/]*[.][cm]?js$/)) return 'pnpm audit --prod';
 			if (runner.match(/yarn[^\\/]*[.][cm]?js$/)) return 'yarn audit --groups dependencies';
 			return 'npm audit --omit=dev';
 		})();
