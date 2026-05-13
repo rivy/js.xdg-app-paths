@@ -100,6 +100,8 @@ import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.t
 //or (via CDN, [ie, JSDelivr with GitHub version/version-range, commit, 'latest' support])...
 //import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@v8.3.0/src/mod.deno.ts';
 //import xdgAppPaths from 'https://cdn.jsdelivr.net/gh/rivy/js.xdg-app-paths@COMMIT_SHA/src/mod.deno.ts';
+//or (via 'npm:...')
+//import xdgAppPaths from 'npm:xdg-app-paths';
 const configDirs = xdgAppPaths.configDirs();
 //...
 ```
@@ -118,14 +120,10 @@ const xdgAppPaths = require('xdg-app-paths/cjs')(options);
 
 // ESM/TypeScript
 import xdgAppPaths from 'xdg-app-paths';
-// or ...
-import XDGAppPaths from 'xdg-app-paths';
 const xdgAppPaths = XDGAppPaths(options);
 
 // Deno
 import xdgAppPaths from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.ts';
-// or ...
-import XDGAppPaths from 'https://deno.land/x/xdg_app_paths@v8.3.0/src/mod.deno.ts';
 const xdgAppPaths = XDGAppPaths(options);
 ```
 
