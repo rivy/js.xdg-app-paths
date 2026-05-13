@@ -15,6 +15,7 @@
 		"cjs",
 		"dist/cjs",
 		"dist/types",
+		"src",
 		"CHANGELOG.mkd",
 		"LICENSE",
 		"README.md",
